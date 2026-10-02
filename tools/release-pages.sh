@@ -5,8 +5,8 @@ set -e
 cd "$(dirname "$0")/.."
 python3 tools/build-dist.py
 STAGE=$(mktemp -d /private/tmp/inkwave-pages.XXXXXX)
-# Pages serves everything in the folder: leave out the Vercel link files
-rsync -a --exclude '.vercel' --exclude 'vercel.json' dist/ "$STAGE/"
+# Pages 直接托管整个文件夹，原样同步即可
+rsync -a dist/ "$STAGE/"
 # fresh modules on every visit (revalidate; unchanged files come back as cheap 304s)
 printf '/*\n  Cache-Control: public, max-age=0, must-revalidate\n' > "$STAGE/_headers"
 # run from the staging folder so no repo-level wrangler config gets picked up

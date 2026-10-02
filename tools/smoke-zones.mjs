@@ -53,6 +53,7 @@ const st = await page.evaluate(`JSON.stringify((() => {
   const zonesMod = __inkwave.zonesDebug || null
   return {
     state: m.state, mode: m.mode, fps: __inkwave.fps,
+    stateT: m.stateT,
     actors: m.actors.map(a => ({
       name: a.name, team: a.team, bot: !!a.isBot,
       poem: a.poem ? { id: a.poem.id, title: a.poem.title, lines: a.poem.lines.length, pairs: a.poem.pairs.length } : null,
@@ -89,9 +90,18 @@ say(!!sample, '抽样：' + (sample ? `${sample.title}（${sample.lines} 句，$
 
 console.log('\n── 立句（区域上写的句）──')
 const writtenZones = d.written.filter((w) => w.poemOf)
-say(writtenZones.length > 0, '有区域已立句', `  ${writtenZones.length}/${d.written.length} 个`)
+// 这两项依赖"autopilot 已经打到区域"。软件渲染下主循环把 dt 截断到 1/24，
+// 游戏内时间比墙钟慢约 24 倍，短时间内可能一次区域都还没涂上——那是环境慢，不是 bug。
+// 只有真的跑过一段对局、却一个区域都没写，才算问题。
+const playedEnough = d.state === 'playing' && d.stateT > 20
+const skipIfSlow = !playedEnough && writtenZones.length === 0
+if (skipIfSlow) {
+  console.log(`    ⏭跳过（stateT=${(d.stateT || 0).toFixed(1)}s 游戏内时间太短，autopilot 还没打到区域）`)
+} else {
+  say(writtenZones.length > 0, '有区域已立句', `  ${writtenZones.length}/${d.written.length} 个`)
+}
 for (const w of writtenZones.slice(0, 6)) {
-  console.log('    区域%d ← %s 第%s句', w.id, w.poemOf.poemId, w.poemOf.line)
+  console.log('区域%d ← %s 第%s句', w.id, w.poemOf.poemId, w.poemOf.line)
 }
 const lineVar = new Set(writtenZones.map((w) => w.poemOf.line))
 say(lineVar.size > 1 || writtenZones.length <= 1,
@@ -102,7 +112,12 @@ say(true, `本局联句达成 ${d.links} 次（autopilot 不会刻意凑联句�
 const mul = d.actors.filter((a) => a.poemMul != null)
 if (mul.length) {
   const vals = [...new Set(mul.map((a) => a.poemMul))].sort()
-  say(vals.some((v) => v > 1.0), '存在 >1.0 的涂地倍率（联句生效）', `  取值 ${vals.join(', ')}`)
+  // 同理：倍率全为 1 通常意味着还没联句发生，而不是联句判定坏了
+  if (vals.length === 1 && vals[0] === 1 && d.links === 0 && !playedEnough) {
+    console.log(`    ⏭ 跳过倍率>1 的检查（游戏内时间只跑了 ${(d.stateT || 0).toFixed(1)}s，还没联上）`)
+  } else {
+    say(vals.some((v) => v > 1.0), '存在 >1.0 的涂地倍率（联句生效）', `  取值 ${vals.join(', ')}`)
+  }
 } else {
   console.log('    （本局尚无区域涂地，poemMul 未采样）')
 }

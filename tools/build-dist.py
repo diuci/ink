@@ -11,7 +11,7 @@ except Exception:
     pass
 
 root = 'vendor/three/jsm'
-keep = {'.vercel', 'vercel.json', '.nojekyll', '.git'}
+keep = {'.nojekyll', '_headers', '.git'}
 
 
 def read(p):
