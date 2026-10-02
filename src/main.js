@@ -32,6 +32,7 @@ import { ZoneMarks } from './fx/zoneMarks.js';
 import { BOSS_MODE } from './boss/bossMode.js';
 import { POEMS, poemsOfGrade, poemById } from './game/poems/poems.js';
 import { VoiceAnswer } from './game/poems/quiz.js';
+import { QuizVerse3D } from './ui/quizVerse3d.js';   // 丢词大作战：接诗题的 3D 句阵
 
 const params = new URLSearchParams(location.search);
 // dev-only: ?devstage lets an online-only stage (config onlineOnly — Cargo Terminal) boot as the backdrop and be walked
@@ -125,6 +126,7 @@ class Game {
     } catch (e) { console.error('[inkwave] texture library failed — procedural fallback', e); this.texlib = null; }
     await this._buildWorld(map);
     this.zoneMarks = new ZoneMarks(scene);   // Zone Control ground markings: build / clear themselves on 'match:state'
+    this.verse3d = new QuizVerse3D(scene);  // 丢词大作战：接诗题的 3D 句阵（挂相机前方，取代 HUD 方板）
     await progress(0.4, '正在注满港湾…');
     const B = G.level.bounds;
     G.env = new envMod.Environment(G.renderer, scene, { bounds: B, theme: this.theme, shadowSize: q.shadowSize, footprint: this._footprint(G.level) });
@@ -512,6 +514,44 @@ class Game {
     }
   }
 
+  // 丢词大作战：接诗题的 3D 句阵。每帧把 match.quiz 的状态翻译成"从天而降的三维诗句"，
+  // 并用准星做悬停高亮。
+  //
+  // 为什么只用键盘答题：游戏是 pointer-lock 的，input.js 里 mousedown/mousemove 也只在
+  // 锁定时才生效，所以"鼠标指哪一点"这件事根本不存在。更重要的是左键是喷墨的主武器——为
+  // 答题劫持它会毁掉涂地射击的核心手感。所以答案就是 1/2/3，准星负责告诉玩家"现在指到
+  // 的是哪一句"（中间那层天然压在准星上，不挪鼠标就是 2 号）。
+  _updateQuizVerse(dt) {
+    const V = this.verse3d;
+    if (!V || !G.camera) return;
+    const q = this.match?.quiz;
+    const st = q ? q.state() : null;
+    // 只有真在对局里才亮出来；大厅/演示/地图视角都收掉
+    const showable = !!st && !!this.match && !this.match.attract && !this.match.practice &&
+      this.match.state === 'playing' && !this.match.paused && (this.rig.mapK ?? 0) < 0.35;
+    if (!showable) {
+      // 消散动画（resolve 之后那一拍）是答对的高光时刻，必须让它播完——
+      // 所以'leave' 阶段既不收起、也要继续 update（否则动画会卡住不动）。
+      if (V.active && V.phase === 'leave') {
+        if (!V.shown) V.setShown(true);
+        V.update(dt, G.camera, {});
+        return;
+      }
+      if (V.active) {
+        // 暂停 / 开地图：只是暂时不想看见（别挡战术图、别在暂停时闪字），
+        // 所以走「软收起」——保留题目与进度，回来时原样接着显示。
+        V.setShown(false);
+      }
+      return;
+    }
+    const sig = st.ask + '|' + st.options.map((o) => o.text).join('|');
+    // 换题才重画；同一题收起过就只是重新挂上
+    if (V._sig !== sig) { V._sig = sig; V.show(st); }
+    else if (!V.shown) V.setShown(true);
+    V.syncHover(G.camera);
+    V.update(dt, G.camera, { timeLeft: st.left, timeLimit: st.limit });
+  }
+
   // 语音答题：题目出现时开始听，答完/超时停止。识别结果做模糊匹配（见 quiz.answerByText）
   _voiceSync(on) {
     if (!on) { this.voice?.stop?.(); this._voiceOn = false; return; }
@@ -541,8 +581,8 @@ class Game {
     if (ok) {
       // 屏幕中央先炸一句「好句！」（这是答对的高光时刻），随后跟上是谁接上了哪一句
       this.hud?.banner?.('special', '好句！');
-      // 屏幕上方的诗句「砰」地炸开，字四散消失——只在地面留下痕迹
-      this.hud?._burstQuiz?.();
+      // 3D 句阵：正确的那句向上炸开飞散，其余两句原地淡出——只在地面留下痕迹
+      this.verse3d?.resolve(q.correct);
       // 全队可见：谁接上了哪一句（这是"表演感"的关键）
       this.hud?.feed?.({ text: `好句！${name} 接上「${q.options[q.correct].text}」 全队大招 +`, color: G.teamHex[team ?? 0], kind: 'ally' });
       G.audio?.play('special_ready', { volume: 0.85 });
@@ -562,8 +602,10 @@ class Game {
         this.hud?.hitMarker?.('kill');
       }
       this._quizCallout = { name, text: q.options[q.correct].text, t: G.time, team: team ?? 0 };
-    } else if (res) {
-      this.hud?.banner?.('custom', `接错了 · 是「${q.options[q.correct].text}」`);
+    } else {
+      // 答错 / 超时：没有高光，就把句阵直接收掉（resolve 让正确项闪一下，给个"正确答案"的交代）
+      this.verse3d?.resolve(-1);
+      if (res) this.hud?.banner?.('custom', `接错了 · 是「${q.options[q.correct].text}」`);
     }
   }
 
@@ -1289,6 +1331,7 @@ class Game {
     // paint → atlas, shader uniforms
     G.paint.flush(dt);
     this._updatePoemDecals(dt);   // 丢词大作战：地面诗句贴花（同步各区域当前句 + 淡出）
+    this._updateQuizVerse(dt);  // 丢词大作战：接诗题的 3D 句阵（出题/降落/准星悬停/消散）
     this.levelMat.userData.uniforms.uTime.value = G.time;
     // see-through window toward the local player
     {

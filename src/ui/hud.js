@@ -302,8 +302,7 @@ export class HUD {
     this.jnote = h('div', { class: 'iw-jnote' });
 
     this.promptEl = h('div', { class: 'iw-prompt is-out' });
-    // 丢词大作战：接诗题板（屏幕下缘，不遮挡战斗视野）+ 我负责的诗
-    this.quizEl = h('div', { class: 'iw-quiz is-out' });
+    // 丢词大作战：接诗题改由 3D 句阵呈现（quizVerse3d.js），HUD 只留"我负责的诗"
     this.myPoemEl = h('div', { class: 'iw-mypoem is-out' });
     this.quizCallEl = h('div', { class: 'iw-qcall is-out' });
     this.fpsEl = h('div', { class: 'iw-fps' });
@@ -315,7 +314,7 @@ export class HUD {
     this.zcalls = h('div', { class: 'iw-zcalls' });
 
     el.append(this.vig, this.canvas, this.dmLayer, this.markerLayer, this.cheerLayer, this.ddLayer, this.top, this.sp, this.subBadge, this.turfEl, this.feedEl, this.xh,
-      this.kcards, this.callouts, this.zcalls, this.quizEl, this.myPoemEl, this.quizCallEl, this.promptEl, this.mapDim, this.map, this.fpsEl, this.countLayer, this.bannerLayer, this.splatLayer, this.jnote, this.poisonVig, this.statusEl);
+      this.kcards, this.callouts, this.zcalls, this.myPoemEl, this.quizCallEl, this.promptEl, this.mapDim, this.map, this.fpsEl, this.countLayer, this.bannerLayer, this.splatLayer, this.jnote, this.poisonVig, this.statusEl);
     this.root.appendChild(el);
 
     // judge + splatted + lineup live outside the hideable HUD so they survive setVisible(false)
@@ -381,7 +380,7 @@ export class HUD {
     this._updDeaths(f.deaths);
     this._updSplatJump(f.jumpQueue);
     this._updPrompt(this.boss.on ? this.boss.prompt(f.prompt) : f.prompt);
-    this._updQuiz(f.quiz, f.quizVoice);   // 丢词大作战：接诗题板（含语音指示）
+    this._updQuiz(f.quiz, f.quizVoice);   // 丢词大作战：接诗题在场状态（题面由 3D 句阵渲染）
     this._updMyPoem(f.myPoem);      // 丢词大作战：我负责的诗
     this._updQuizCallout(f.quizCallout);   // 丢词大作战：答对时全队可见的「好句！」
     this._updFps(f.fps, dt);
@@ -1952,62 +1951,11 @@ export class HUD {
     this.promptEl.animate([{ transform: 'translateX(-50%) translateY(12px) scale(.85)', opacity: 0 }, { transform: 'translateX(-50%) translateY(0) scale(1)', opacity: 1 }], { duration: 380, easing: 'cubic-bezier(.34,1.56,.64,1)' });
   }
 
-  // 丢词大作战：接诗题板 + 我负责的诗。题板放下缘，不遮挡战斗视野；倒计时条随时间收缩。
+  // 丢词大作战：接诗题现在由 src/ui/quizVerse3d.js 以「从天而降的三维诗句」呈现，
+  // HUD 不再画方板，这里只记录"题是否在场"和"语音是否在听"，供 3D 层查询。
   _updQuiz(q, voice) {
-    const L = this._L;
-    if (!q) {
-      if (L.quiz !== null) { L.quiz = null; this.quizEl.classList.add('is-out'); this.quizEl.innerHTML = ''; }
-      return;
-    }
-    const sig = q.ask + '|' + q.options.map((o) => o.text).join('|') + '|' + (voice ? 'v' : '');
-    if (L.quizSig !== sig) {
-      L.quizSig = sig;
-      // 上句逐字掉落：每个字一个 span，用 --i 错开动画延迟，做出"咚咚咚咚咚掉下来"的效果
-      const chars = [...q.ask].map((ch, i) =>
-        `<span class="iw-quiz__ch" style="--i:${i}">${esc(ch)}</span>`).join('');
-      const opts = q.options.map((o) => `<span class="iw-quiz__opt"><b>${o.i + 1}</b>${esc(o.text)}</span>`).join('');
-      // 语音开启时显示"正在听"的呼吸点，让玩家知道可以念出来
-      const mic = voice ? '<span class="iw-quiz__mic"><i></i><i></i><i></i></span>' : '';
-      this.quizEl.innerHTML =
-        `<div class="iw-quiz__ask"><small>接下句</small><span class="iw-quiz__line">${chars}</span>${mic}</div>` +
-        `<div class="iw-quiz__opts">${opts}</div>` +
-        `<div class="iw-quiz__bar"><i style="transform:scaleX(1)"></i></div>`;
-      this.quizEl.classList.remove('is-out', 'is-solved');
-      this.quizEl.animate([{ transform: 'translateX(-50%) translateY(18px)', opacity: 0 }, { transform: 'translateX(-50%) translateY(0)', opacity: 1 }],
-        { duration: 320, easing: 'cubic-bezier(.34,1.56,.64,1)' });
-    }
-    const bar = this.quizEl.querySelector('.iw-quiz__bar > i');
-    if (bar) bar.style.transform = `scaleX(${Math.max(0, Math.min(1, q.left / q.limit)).toFixed(3)})`;
-  }
-
-  // 答对的那一刻：屏幕上方的诗句「砰」地炸开，字四散消失，只在地面留下痕迹
-  _burstQuiz() {
-    const el = this.quizEl;
-    const line = el && el.querySelector('.iw-quiz__line');
-    if (!line || el.classList.contains('is-solved')) return;
-    el.classList.add('is-solved');
-    // 每个字朝不同方向飞散 + 放大淡出（--a 是角度、--d 是距离）
-    [...line.querySelectorAll('.iw-quiz__ch')].forEach((ch, i) => {
-      const a = (i / Math.max(1, line.children.length)) * 360 + (Math.random() * 40 - 20);
-      ch.style.setProperty('--a', `${a}deg`);
-      ch.style.setProperty('--d', `${90 + Math.random() * 130}px`);
-      ch.style.setProperty('--r', `${(Math.random() * 2 - 1) * 90}deg`);
-      ch.classList.add('is-burst');
-    });
-    // 炸开的墨点
-    const splat = document.createElement('div');
-    splat.className = 'iw-quiz__splat';
-    splat.innerHTML = splatSVG({ seed: (Math.random() * 99) | 0, cls: 'iw-fself', r: 70, arms: 12, drops: 10 });
-    el.appendChild(splat);
-    // 停顿一拍再收起来，给玩家看清"炸了"
-    setTimeout(() => { if (this.quizEl === el) el.classList.add('is-out'); }, 620);
-    setTimeout(() => {
-      if (this.quizEl === el && el.classList.contains('is-solved')) {
-        el.classList.remove('is-solved'); el.innerHTML = '';
-        // 清掉签名，这样下一题一定会重新逐字掉落
-        this._L.quizSig = null;
-      }
-    }, 1000);
+    this.quizOn = !!q;
+    this.quizVoice = !!(q && voice);
   }
 
   // 常驻显示"我这一句"，让玩家随时知道自己在写什么
