@@ -146,6 +146,19 @@ export class NetMatch {
   recBoss(e) { if (this.isHost && G.netm === this) this._rec(e); }
   // Zone Control: the host's rules decisions + count snapshots (zones.js netEvent), on the same timeline as its paint
   recZone(e) { if (this.isHost && G.netm === this) this._rec(['z', e]); }
+
+  // 接诗答题：题目**不**统一——团队游戏里各答各的更有意思，但结果必须全队一致：
+  // 「谁接上了」「全队大招 +」「诗句刻进地面」都得每一端看到同一份。
+  //
+  // 做法与 zones 同构：答题者把结果报给 host，host 记进同一条时间轴再广播回去，
+  // 各端按同一份数据重放（match.applyQuizResult）。地面刻字之所以能这么干，
+  // 是因为 paint._claimRegion 按 cellHash 确定性取格子——同一片区域、同一队，
+  // 各端选到的是同一批格子，墨迹不会走样。
+  sendQuizResult(p) {
+    if (this.isHost || !p) return;
+    this.s.tr?.sendTo(this.s.hostId, { k: 'kq', p });
+  }
+  recQuiz(p) { if (this.isHost && G.netm === this) this._rec(['k', p]); }
   // a guest's hit on the boss (or a crablet): shooter-authoritative, applied by the host that runs it
   sendBossHit(attacker, d, weak, w, crab = -1) {
     if (this.isHost || attacker.nid === undefined) return;
@@ -217,6 +230,8 @@ export class NetMatch {
       case 'res': if (from === this.s.hostId) this._result(d); break;
       case 'end': if (from === this.s.hostId) G.game?.netMatchEnd?.(); break;
       case 'own': if (from === this.s.hostId) this._ownership(d.map); break;
+      // 客机把接诗结果报给 host，由 host 记进时间轴再广播（见 sendQuizResult）
+      case 'kq': if (this.isHost) this.recQuiz(d.p); break;
     }
   }
 
@@ -493,6 +508,7 @@ export class NetMatch {
       }
       case 'bm': this.match?.boss?.onMove(e[2]); break;
       case 'z': this.match?.zones?.netEvent(e[2]); break;
+      case 'k': this.match?.netQuizEvent?.(e[2]); break;
       case 'bc': { const b = this.match?.boss; if (b && !b.sim) b._crabBurst(e[2], e[3], e[4], e[5], !!e[6]); break; }
     }
   }
