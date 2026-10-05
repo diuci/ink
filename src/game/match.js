@@ -13,6 +13,10 @@ import { BossMode, BOSS_MODE } from '../boss/bossMode.js';
 
 const _v = new THREE.Vector3(), _up = new THREE.Vector3(0, 1, 0);
 
+// 接诗结果的全局递增序号。联机时靠它去重：host 广播出去的那条自己也会收到，
+// 本地已经先播过一次，applyQuizResult 见到重复 id 就直接跳过。
+const QuizSeq = { seq: 0 };
+
 export class Match {
   constructor(opts) {
     this.opts = opts;          // { duration, difficulty, attract, practice, playerName, weapon, CharacterClass, input, rig, mode }
@@ -106,23 +110,78 @@ export class Match {
     if (this.mode === 'boss') { this.bossMode = new BossMode(this); this.boss = this.bossMode.boss; }
   }
 
-  // 接诗判定结果：答对了给全队奖励，并把这两句刻到答题者脚下的地上
+  // 接诗判定结果。
+  //
+  // 离线：就地结算。
+  // 联机：**不上报就等于没发生过**。原来这里是纯本地结算，于是队友那边：
+  //   · 看不到「XX 接上了」，也拿不到那波全队大招能量
+  //   · 看不到脚下被刻出来的诗句
+  // 现在改成把结果报给 host，host 记进与 zones 同一条时间轴再广播，各端重放同一份。
+  // 题目仍然各答各的（团队游戏没必要全队同题），只有**结果**需要一致。
   onQuizResult(q, res) {
-    const ok = !!res?.ok;
     const who = res?.actor || this.local;
-    if (ok && who) {
-      // 全队大招能量补给（答对的那一下要有仪式感）
+    if (!who) return;
+    const p = {
+      id: ++QuizSeq.seq,
+      ok: !!res?.ok,
+      who: who.name,
+      whoId: who.nid ?? who.slot,
+      team: who.team,
+      ask: q.askText,
+      opts: (q.options || []).map((o) => o.text),
+      correct: q.correct,
+    };
+    const nm = G.netm;
+    if (nm) {
+      if (nm.isHost) { nm.recQuiz(p); this.applyQuizResult(p, who); }
+      else nm.sendQuizResult(p);
+      return;
+    }
+    this.applyQuizResult(p, who);
+  }
+
+  // 各端重放同一份接诗结果（netmatch 的 'k' 事件）。靠 p.id 去重：
+  // host 自己也会收到自己广播出去的那条，本地已经先播过一次。
+  netQuizEvent(p) {
+    if (!p) return;
+    this.applyQuizResult(p, this._actorById(p.whoId));
+  }
+
+  // 按 id 找 actor。**找不到就返回 null**，不要回退到 local——
+  // 回退会把远端玩家的连句数与补墨记到自己头上。团队增益用的是 p.team，
+  // 不依赖这个 actor，所以查不到也不影响队友拿到奖励。
+  _actorById(id) {
+    if (id == null) return this.local;
+    return this.actors.find((a) => a.nid === id || a.slot === id) || null;
+  }
+
+  // 真正结算一次接诗结果：全队大招能量 + 补墨 + 抛出 poem:quiz 交给表现层。
+  applyQuizResult(p, who) {
+    if (this._quizSeen && this._quizSeen.has(p.id)) return;
+    (this._quizSeen || (this._quizSeen = new Set())).add(p.id);
+    if (this._quizSeen.size > 64) {
+      // 只留最近的一批，避免长局无限增长
+      const it = this._quizSeen.values();
+      for (let i = 0; i < 32; i++) this._quizSeen.delete(it.next().value);
+    }
+    who = who || this._actorById(p.whoId);
+    const q = { askText: p.ask, options: (p.opts || []).map((t) => ({ text: t })), correct: p.correct };
+    const res = { ok: p.ok, actor: who };
+    if (p.ok) {
+      // 全队大招能量补给（答对的那一下要有仪式感）。
+      // 用 p.team 而不是 who.team：这台机器上可能根本查不到那个 actor，
+      // 但队友该拿的能量不能因为查不到人就没了。
       for (const a of this.actors) {
-        if (a.team !== who.team || !a.alive) continue;
+        if (a.team !== p.team || !a.alive) continue;
         if (!a.specialActive) a.special = Math.min(a.specialCost(), a.special + a.specialCost() * QUIZ.rewardSpecial);
         a.ink = PLAYER.inkMax;
       }
-      who.stats.links = (who.stats.links || 0) + 1;
-    } else if (res && who) {
+      if (who) who.stats.links = (who.stats.links || 0) + 1;
+    } else if (who) {
       who.ink = Math.min(PLAYER.inkMax, who.ink + PLAYER.inkMax * QUIZ.wrongInk);
     }
     // 带 actorId：观战端与重名场景下靠名字反查 actor 会出错
-    emit('poem:quiz', { q, res, ok, who: who?.name, whoId: who?.nid ?? who?.slot, team: who?.team });
+    emit('poem:quiz', { q, res, ok: p.ok, who: p.who, whoId: p.whoId, team: p.team });
   }
 
   // 在答题者脚下刻出这两句诗（zone 模式：刻在他所在的区域）
@@ -146,7 +205,9 @@ export class Match {
     z.poemStamp = z.poemStamp || [];
     z.poemStamp.push({ team, text, t: this.time });
     if (z.poemStamp.length > 4) z.poemStamp.shift();
-    return G.paint.stampText(z.region, text, team === 0 ? 0 : 1, { gain: 1 });
+    // claim: QUIZ.zoneClaim —— 答对只把区域的一部分判给本队（默认 0.6），
+    // 不再一步越过 zones 的 80% 占领线白拿整块区域。平衡说明见 poems/quiz.js。
+    return G.paint.stampText(z.region, text, team === 0 ? 0 : 1, { gain: 1, claim: QUIZ.zoneClaim });
   }
 
   // 丢词大作战：给每个队员分一句诗（同队不撞诗），并把它记到该队的"立句"上。

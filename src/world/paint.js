@@ -32,6 +32,17 @@ const MAX_QUADS = 6000;
 const RIP_N = 24;
 const _rel = new THREE.Vector3();
 
+// 稳定的 32 位散列：同一个序号永远得到同一个 [0,1)。
+// 用于「按比例挑其中一部分格子」——既能散落在整个区域里（像喷上去的一片墨），
+// 又完全可复现（联机各端挑到的是同一批格子）。
+const cellHash = (i) => {
+  let h = (i + 0x9e3779b9) >>> 0;
+  h = Math.imul(h ^ (h >>> 16), 0x85ebca6b) >>> 0;
+  h = Math.imul(h ^ (h >>> 13), 0xc2b2ae35) >>> 0;
+  h = (h ^ (h >>> 16)) >>> 0;
+  return h / 4294967296;
+};
+
 const K = { shot: 0, line: 1, blast: 2, bomb: 3, trail: 4, drop: 5, roll: 6, speck: 7 };
 const K_SHOT = 0, K_LINE = 1, K_BLAST = 2, K_BOMB = 3, K_TRAIL = 4, K_DROP = 5, K_ROLL = 6, K_SPECK = 7;
 // quad half-extent in footprint radii (satellites / spatter reach) and the extra reach below wall splats (drips)
@@ -961,19 +972,40 @@ export class PaintSystem {
     this._textMat.uniforms.uTeam.value = team === 1 ? 1 : 0;
     this._textMat.uniforms.uGain.value = opts.gain ?? 1;
     // CPU 侧同步：把区域内的格子判给这队（这样对手涂回来会正常抢走，= "踩掉诗句"）
-    this._claimRegion(region, team);
+    //
+    // opts.claim 是「判给这队的格子比例」。默认 1 = 整块区域都判给这队，
+    // 而 zones 的占领线是 80% 覆盖——所以 claim=1 会让一次刻字直接越过占领线、
+    // 一步拿下整个区域（这正是接诗平衡出问题的原因）。
+    // 接诗走 0.6（见 poems/quiz.js 的 QUIZ.zoneClaim）：奖励仍然很重，但剩下的还得靠玩家自己涂。
+    this._claimRegion(region, team, opts.claim ?? 1);
     // 立刻画进图集（一次），随后清掉网格，避免每帧重绘
     this._stampNow = true;
     return true;
   }
 
   // 把区域内的可涂格子判给某队（刻字的 CPU 侧同步）。只改归属，不改涂地计数比例之外的东西。
-  _claimRegion(region, team) {
+  //
+  // fraction < 1 时只判其中一部分：按 cellHash 排序取前 N 个。这样挑出来的格子
+  // 散落在整个区域里（看着像喷上去的一片墨，而不是从某一边整齐铺过来），
+  // 同时完全确定——同一个 region 每次都挑到同一批格子，联机各端不会各挑各的。
+  _claimRegion(region, team, fraction = 1) {
     const faces = this.paintFaces, cells = region.cells;
     if (!faces || !cells) return;
     const want = team === 0 ? 1 : 2;
-    for (let n = 0; n < cells.length; n++) {
-      const k = cells[n];
+    const frac = Math.max(0, Math.min(1, Number(fraction) || 0));
+    let todo = cells;
+    if (frac < 1) {
+      const target = Math.max(1, Math.round(cells.length * frac));
+      if (target < cells.length) {
+        const picked = new Array(cells.length);
+        for (let i = 0; i < cells.length; i++) picked[i] = [cellHash(i), cells[i]];
+        picked.sort((x, y) => x[0] - y[0]);
+        todo = new Array(target);
+        for (let i = 0; i < target; i++) todo[i] = picked[i][1];
+      }
+    }
+    for (let n = 0; n < todo.length; n++) {
+      const k = todo[n];
       if (this.dead && this.dead[k]) continue;
       const cur = this.grid[k];
       if (cur === want) continue;
