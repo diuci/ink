@@ -1089,6 +1089,42 @@ export class PaintSystem {
     return out;
   }
 
+  // 以某点为中心、半径 radius 围出一圈可涂格子，包成 region。
+  //
+  // 为什么需要它：zones 模式的区域由 zones-data.js 预先切好，刻字有地方落笔；
+  // 但涂地战和 Boss 战脚下没有区域，接诗答对总得把诗句刻在地上——那就现场围一圈。
+  // 格子遍历与 regionStats 同一套（按 block → face → 网格坐标反查）。
+  //
+  // 每次返回**新对象**是故意的：_floodPrep 按 region 对象缓存那圈四边形，
+  // 而四边形是按格子包围盒算的，复用同一个对象会拿到上一个位置的 stale 几何。
+  // 一局顶多十来次，dispose() 时会一并清掉。
+  discRegion(x, y, z, radius) {
+    const cells = [];
+    const ids = this.level.queryBlocks(x - radius, z - radius, x + radius, z + radius, this._dq || (this._dq = []));
+    for (const bid of ids) {
+      const b = this.level.blocks[bid];
+      for (let fi = 0; fi < 6; fi++) {
+        const fid = b.faces[fi];
+        if (fid < 0) continue;
+        const f = this.level.faces[fid];
+        if (!f.turf || !f.atlas) continue;                 // 只有能涂的面才算
+        if (Math.abs(f.origin.y - y) > 2.5) continue;      // 同一层楼面，别爬到墙上去了
+        _rel.set(x, y, z).sub(f.origin);
+        const lu = _rel.dot(f.u), lv = _rel.dot(f.v);
+        const i0 = Math.max(0, Math.floor((lu - radius) / f.cu)), i1 = Math.min(f.nu - 1, Math.floor((lu + radius) / f.cu));
+        const j0 = Math.max(0, Math.floor((lv - radius) / f.cv)), j1 = Math.min(f.nv - 1, Math.floor((lv + radius) / f.cv));
+        for (let j = j0; j <= j1; j++) for (let i = i0; i <= i1; i++) {
+          const du = (i + 0.5) * f.cu - lu, dv = (j + 0.5) * f.cv - lv;
+          if (du * du + dv * dv > radius * radius) continue;
+          const k = f.grid + j * f.nu + i;
+          if (this.dead[k]) continue;
+          cells.push(k);
+        }
+      }
+    }
+    return { cells, polys: null, y0: y - 3, y1: y + 3, center: [x, y, z], reach: radius };
+  }
+
   dispose() {
     this.rt.dispose(); this.geo.dispose(); this.mat.dispose(); this.dryMesh.geometry.dispose(); this.dryMesh.material.dispose();
     for (const p of this._floodPrep.values()) p.geo.dispose();

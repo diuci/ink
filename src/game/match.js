@@ -102,11 +102,15 @@ export class Match {
     if (this.mode === 'zones') {
       this.zones = new ZoneControl(this);
       this.unsubs.push(on('turf', (e) => this._zoneTurf(e)));
-      this._assignTeamPoems();
-      // 丢词大作战：接诗玩法（区域控制模式下才出题）
-      this.quiz = new PoemQuiz(this);
-      this.quizEnabled = this.opts.quiz !== false;   // 设置里的"接诗答题"开关
     }
+    // 丢词大作战：接诗玩法——**三种模式都出题**。
+    // 原来只挂在 zones 上（刻字得找一片区域落笔），但这游戏就叫《丢词大作战》，
+    // 涂地战和 Boss 战不出现诗，说不过去。
+    // 非 zones 模式脚下没有区域，刻字改为在答题者脚下现场围一圈格子
+    // （paint.discRegion），见 stampPoemAt。
+    this._assignTeamPoems();
+    this.quiz = new PoemQuiz(this);
+    this.quizEnabled = this.opts.quiz !== false;   // 设置里的"接诗答题"开关
     if (this.mode === 'boss') { this.bossMode = new BossMode(this); this.boss = this.bossMode.boss; }
   }
 
@@ -192,34 +196,48 @@ export class Match {
   // 答题不该抹掉玩家已写的诗。刻字走 paint.stampText 这条独立通道，
   // 刻在地面上，与贴花互不干扰。
   stampPoemAt(actor, text, team) {
+    if (!actor || !G.paint?.stampText) return false;
     const Z = this.zones;
-    if (!Z || !actor) return false;
-    // 找他所在的区域；不在区域里就刻在最近的区域
-    const z = Z.zones.find((zz) => inZone(zz.def, actor.pos)) ||
-      Z.zones.reduce((best, zz) => {
-        const d = Math.hypot(zz.center[0] - actor.pos.x, zz.center[2] - actor.pos.z);
-        return !best || d < best.d ? { zz, d } : best;
-      }, null)?.zz;
-    if (!z || !G.paint?.stampText) return false;
-    // 刻字记录（只留最近 4 条，避免无限增长）
-    z.poemStamp = z.poemStamp || [];
-    z.poemStamp.push({ team, text, t: this.time });
-    if (z.poemStamp.length > 4) z.poemStamp.shift();
-    // claim: QUIZ.zoneClaim —— 答对只把区域的一部分判给本队（默认 0.6），
-    // 不再一步越过 zones 的 80% 占领线白拿整块区域。平衡说明见 poems/quiz.js。
-    return G.paint.stampText(z.region, text, team === 0 ? 0 : 1, { gain: 1, claim: QUIZ.zoneClaim });
+    let region, claim;
+    if (Z) {
+      // 区域控制：刻在他所在（或最近）的那个区域里
+      const z = Z.zones.find((zz) => inZone(zz.def, actor.pos)) ||
+        Z.zones.reduce((best, zz) => {
+          const d = Math.hypot(zz.center[0] - actor.pos.x, zz.center[2] - actor.pos.z);
+          return !best || d < best.d ? { zz, d } : best;
+        }, null)?.zz;
+      if (!z) return false;
+      // 刻字记录（只留最近 4 条，避免无限增长）
+      z.poemStamp = z.poemStamp || [];
+      z.poemStamp.push({ team, text, t: this.time });
+      if (z.poemStamp.length > 4) z.poemStamp.shift();
+      region = z.region;
+      // claim: 答对只把区域的一部分判给本队，不再一步越过 zones 的 80% 占领线白拿整块
+      claim = QUIZ.zoneClaim;
+    } else {
+      // 涂地战 / Boss 战：脚下没有区域，在原地围一圈格子当落笔处。
+      // 这里判的比例比 zones 低（QUIZ.openClaim）——涂地战按面积计分，
+      // 白送的地会直接变成分数。平衡说明见 poems/quiz.js。
+      const p = actor.pos;
+      region = G.paint.discRegion?.(p.x, p.y, p.z, QUIZ.stampRadius);
+      if (!region || !region.cells.length) return false;
+      claim = QUIZ.openClaim;
+    }
+    return G.paint.stampText(region, text, team === 0 ? 0 : 1, { gain: 1, claim });
   }
 
   // 丢词大作战：给每个队员分一句诗（同队不撞诗），并把它记到该队的"立句"上。
   // 玩家的选择由选诗界面写入 actor.poem；没有选择时按武器给默认诗。
   _assignTeamPoems() {
-    if (!this.zones) return;
     const grade = this.opts.grade || 1;
+    // 每个队员分一句诗——这一步与模式无关，涂地战/Boss 战也要有（HUD 的「我的诗」靠它）
     for (const team of [0, 1]) {
       const members = this.actors.filter((a) => a.team === team);
       const picks = assignPoems(members.map((a) => a.weaponId), grade);
       members.forEach((a, i) => { if (!a.poem) a.poem = picks[i]; });
     }
+    // 下面这层「区域立句」只有 zones 才有
+    if (!this.zones) return;
     // 区域立句：一个区域默认由"该队第一个踏上它的队员"立句，这里先给出初始句，避免开局无句可占。
     //
     // 立句的**行号**决定联句能否成立，所以要按区域顺序推进：区域 i 拿该诗的第 i 句
