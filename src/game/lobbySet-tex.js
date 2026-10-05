@@ -89,8 +89,10 @@ function drawDecals(g) {
   at('poster1', (w, h) => poster(g, w, h, 1, rnd));
   at('poster2', (w, h) => poster(g, w, h, 2, rnd));
   at('stencil', (w, h) => { g.fillStyle = PW; g.font = titan(110); g.textBaseline = 'middle'; g.fillText('装卸码头', 18, h / 2 + 6); stencilBreaks(g, w, h, rnd); });
-  at('tag0', (w, h) => tag(g, w, h, 'Rook', PB, rnd));
-  at('tag1', (w, h) => tag(g, w, h, 'squidz', PA, rnd));
+  // 涂鸦签名：这个文件其余涂鸦早就汉化了（装卸码头 / 2 号泊位 / 禁止停车），
+  // 只有这两个签名还留着英文网名。墨鸦 / 墨鱼仔——跟整套「墨」的主题也对得上。
+  at('tag0', (w, h) => tag(g, w, h, '墨鸦', PB, rnd));
+  at('tag1', (w, h) => tag(g, w, h, '墨鱼仔', PA, rnd));
   at('arrow', (w, h) => { g.fillStyle = PW; g.font = titan(96); g.textBaseline = 'middle'; g.fillText('2 号泊位', 20, h / 2 + 4); g.beginPath(); g.moveTo(380, 50); g.lineTo(470, h / 2); g.lineTo(380, h - 50); g.lineTo(380, h / 2 + 18); g.lineTo(330, h / 2 + 18); g.lineTo(330, h / 2 - 18); g.lineTo(380, h / 2 - 18); g.closePath(); g.fill(); stencilBreaks(g, w, h, rnd); });
   at('nopark', (w, h) => { g.fillStyle = mixP(0.9, 0, 0.9); g.font = titan(88); g.textBaseline = 'middle'; g.fillText('禁止停车', 16, h / 2 + 4); stencilBreaks(g, w, h, rnd); });
   at('throwup', (w, h) => throwup(g, w, h, rnd));

@@ -508,7 +508,7 @@ export function makeKit(D, H) {
         B.push(0, 0, f * 0.026, f > 0 ? 0 : PI);
         B.box('paint', K.gold, W - 0.06, Hh - 0.06, 0.004, 0, 0, 0, { r: 0.01 });
         B.box('gloss', o.board ?? K.iron, W - 0.1, Hh - 0.1, 0.006, 0, 0, 0.002, { r: 0.01 });
-        letters(B, o.text ?? 'INN', { h: Math.min(0.24, (W - 0.2) / textW(o.text ?? 'INN')), x: 0, y: -0.1, z: 0.006, c: K.gold, flat: true, wt: 0.2 });
+        letters(B, o.text ?? '客栈', { h: Math.min(0.24, (W - 0.2) / textW(o.text ?? '客栈')), x: 0, y: -0.1, z: 0.006, c: K.gold, flat: true, wt: 0.2 });
         B.pop();
       }
     }
@@ -527,9 +527,9 @@ export function makeKit(D, H) {
   // vintage bill poster (faces +Z, centred at x, y, z; w × h): paper, a coloured field, a headline, an emblem and
   // rows of small print as bars. kinds: circus, opera, tram, soap, herring, market, regatta, cocoa
   const BILLS = {
-    circus: ['#b8483e', '#f1e3c4', 'CIRCUS', 'star'], opera: ['#23304a', '#d9b25a', 'OPERA', 'ring'], tram: ['#3f6b55', '#efe6d2', 'TRAMS', 'bar'],
-    soap: ['#e0b04a', '#7a3a4c', 'SOAP', 'ring'], herring: ['#3f5f86', '#efe6d2', 'HERRING', 'fish'], market: ['#efe6d2', '#b8483e', 'MARKET', 'star'],
-    regatta: ['#f1e3c4', '#23304a', 'REGATTA', 'bar'], cocoa: ['#6a3f2a', '#f1e3c4', 'COCOA', 'ring'],
+    circus: ['#b8483e', '#f1e3c4', '马戏团', 'star'], opera: ['#23304a', '#d9b25a', '歌剧院', 'ring'], tram: ['#3f6b55', '#efe6d2', '电车', 'bar'],
+    soap: ['#e0b04a', '#7a3a4c', '香皂铺', 'ring'], herring: ['#3f5f86', '#efe6d2', '鲱鱼铺', 'fish'], market: ['#efe6d2', '#b8483e', '市集', 'star'],
+    regatta: ['#f1e3c4', '#23304a', '赛舟会', 'bar'], cocoa: ['#6a3f2a', '#f1e3c4', '可可屋', 'ring'],
   };
   function bill(B, x, y, z, w, h, kind = 'circus', o = {}) {
     const [bg, fg, word, em] = BILLS[kind] ?? BILLS.circus;

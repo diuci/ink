@@ -395,7 +395,7 @@ export function register(D, H) {
         for (const sx of [-1, 1]) beam(B, 'paint', cd, [sx * (G - 0.4), 12.2, z], [sx * (G - 6), YP, z], 0.5, 0.5);
         // big CARGO lettering on the tie beams, facing the bases
         B.push(0, YP, z + sz * 0.51, sz > 0 ? 0 : PI);
-        letters(B, 'CARGO', { h: 0.7, x: -10, y: 0.15, z: 0.0, c: K.blueDk, flat: true, wt: 0.2, track: 0.16 });
+        letters(B, '货运', { h: 0.7, x: -10, y: 0.15, z: 0.0, c: K.blueDk, flat: true, wt: 0.2, track: 0.16 });
         letters(B, o.num ?? 'K7', { h: 0.7, x: 12, y: 0.15, z: 0.0, c: K.blueDk, flat: true, wt: 0.2 });
         B.pop();
       }
@@ -422,7 +422,7 @@ export function register(D, H) {
         handrail(B, [X0 + 0.1, YG, z + sz * 0.55], [X0 + 0.1, YG, z + sz * 1.45], 1.0, c);
         // CARGO on the girder's outer face (visible from both bases)
         B.push(-6, YG, z + sz * 0.505, sz > 0 ? 0 : PI);
-        letters(B, 'CARGO', { h: 1.05, x: sz > 0 ? -2 : 2, y: 0.38, z: 0.0, c: K.white, flat: true, wt: 0.19, track: 0.18 });
+        letters(B, '货运', { h: 1.05, x: sz > 0 ? -2 : 2, y: 0.38, z: 0.0, c: K.white, flat: true, wt: 0.19, track: 0.18 });
         B.pop();
       }
       // cross bracing between the girders (bottom chords every 6 m, top ties at the portals), along the boom too
@@ -453,7 +453,7 @@ export function register(D, H) {
       for (const sz of [-1, 1]) {
         B.push(MX, YG + GH, sz * 3.71, sz > 0 ? 0 : PI);
         for (let k = 0; k < 7; k++) pbox(B, NS('paint'), K.offwhite, 0.05, 3.4, 0.03, -4.2 + k * 1.4, 1.9, 0.01);
-        letters(B, 'CARGO', { h: 1.2, x: 0, y: 1.3, z: 0.02, c: K.blue, flat: true, wt: 0.2, track: 0.14 });
+        letters(B, '货运', { h: 1.2, x: 0, y: 1.3, z: 0.02, c: K.blue, flat: true, wt: 0.2, track: 0.14 });
         for (const lx of [-3.9, 3.9]) pbox(B, NS('paint'), K.greyDk, 0.9, 0.7, 0.04, lx, 2.9, 0.02);
         B.pop();
       }
@@ -722,7 +722,7 @@ export function register(D, H) {
         }
         pbox(B, 'paint', '#c8573f', 1.0, 2.1, 0.06, 2.6, 1.05, 0.03);
         pbox(B, NS('metal'), K.galv, 0.7, 0.05, 0.06, 2.6, 1.0, 0.08);
-        B.push(2.6, 2.25, 0.02); letters(B, 'EXIT', { h: 0.12, x: 0, y: -0.06, z: 0, c: K.white, flat: true, wt: 0.24, mat: 'glow', glow: 1.0 }); B.pop();
+        B.push(2.6, 2.25, 0.02); letters(B, '出口', { h: 0.12, x: 0, y: -0.06, z: 0, c: K.white, flat: true, wt: 0.24, mat: 'glow', glow: 1.0 }); B.pop();
         pbox(B, NS('glow'), '#3fbf6a', 0.5, 0.18, 0.02, 2.6, 2.19, 0.01, { glow: 0.9 });
         B.cyl('paint', '#b9c1c8', 0.05, HB - 0.2, -3.8, (HB - 0.2) / 2, 0.08, { seg: 8 });
         B.box('paint', '#e9ecee', 1.0, 0.7, 0.4, -1.0, 0.45, 0.2, { r: 0.04 });
@@ -740,8 +740,8 @@ export function register(D, H) {
       }
       // ---- CARGO TERMINAL channel letters on the parapets (face z = D0 + 0.6 − 0.6, parapets from x ±3.4 to ±9)
       B.push(0, HB + 0.2, D0 + 0.001);
-      letters(B, 'CARGO', { h: 0.46, x: -6.2, y: 0.12, z: 0, c: K.blueDk, dep: 0.06, wt: 0.2, track: 0.14, lit: 0.9, litC: '#dfe9ff' });
-      letters(B, 'TERMINAL', { h: 0.46, x: 6.2, y: 0.12, z: 0, c: K.blueDk, dep: 0.06, wt: 0.2, track: 0.14, lit: 0.9, litC: '#dfe9ff' });
+      letters(B, '货运', { h: 0.46, x: -6.2, y: 0.12, z: 0, c: K.blueDk, dep: 0.06, wt: 0.2, track: 0.14, lit: 0.9, litC: '#dfe9ff' });
+      letters(B, '航站楼', { h: 0.46, x: 6.2, y: 0.12, z: 0, c: K.blueDk, dep: 0.06, wt: 0.2, track: 0.14, lit: 0.9, litC: '#dfe9ff' });
       B.pop();
       // ================= behind the wall: two-storey office (z −0.6 … −11), roof kit, control tower
       const BZ0 = -0.6, BZ1 = -11, OH = 8.2;
@@ -757,7 +757,7 @@ export function register(D, H) {
       pbox(B, 'paint', trim, 26, 0.14, 0.12, 0, 5.52, BZ0 + 0.06);
       pbox(B, 'paint', trim, 26, 0.14, 0.12, 0, 7.1, BZ0 + 0.06);
       B.push(0, 7.45, BZ0 + 0.02);
-      letters(B, 'TERMINAL OPERATIONS', { h: 0.5, x: 0, y: 0, z: 0, c: K.blueDk, dep: 0.05, wt: 0.2, track: 0.14 });
+      letters(B, '码头作业区', { h: 0.5, x: 0, y: 0, z: 0, c: K.blueDk, dep: 0.05, wt: 0.2, track: 0.14 });
       B.pop();
       // roof kit: AC units, vent stacks, a satellite dish
       for (const [ax, az] of [[5, -4], [8, -7], [-2, -8]]) { B.box('paint', '#e6e8ea', 1.8, 1.0, 1.2, ax, OH + 0.75, az, { r: 0.05 }); B.cyl(NS('paint'), '#3a3f45', 0.4, 0.04, ax, OH + 1.26, az, { seg: 14 }); }
@@ -837,7 +837,7 @@ export function register(D, H) {
       for (const sz of [-1, 1]) {
         B.push(0, YT - 0.6, sz * (L / 2 + 0.02), sz > 0 ? 0 : PI);
         B.box('paint', K.white, 1.4, 0.6, 0.05, 0, 0, 0, { r: 0.03 });
-        letters(B, 'REEFER ' + (o.name ?? 'R2'), { h: 0.2, x: 0, y: -0.1, z: 0.03, c: bd, flat: true, wt: 0.22 });
+        letters(B, '冷藏箱 ' + (o.name ?? 'R2'), { h: 0.2, x: 0, y: -0.1, z: 0.03, c: bd, flat: true, wt: 0.22 });
         B.pop();
       }
     },
@@ -864,7 +864,7 @@ export function register(D, H) {
         for (const sx of [-1, 1]) { B.push(sx * (len / 2 - 0.13), h * 0.5, 0.034); hazard(B, 0.22, h - 0.25, 0, 0, 0, { pitch: 0.22 }); B.pop(); }
         B.pop();
       };
-      side(w, d, 0, o.num ? 'NO. ' + o.num : null); side(w, d, PI, o.num ? 'NO. ' + o.num : null);
+      side(w, d, 0, o.num ? '编号 ' + o.num : null); side(w, d, PI, o.num ? '编号 ' + o.num : null);
       side(d, w, HP, null); side(d, w, -HP, null);
       // corner pad-eyes + flush socket plates on top
       for (const sx of [-1, 1]) for (const sz of [-1, 1]) {
@@ -923,8 +923,8 @@ export function register(D, H) {
       for (const sz of [-1, 1]) {
         B.push(0, YC + 0.18, cc + sz * (cd / 2 + 0.01), sz > 0 ? 0 : PI);
         pbox(B, 'paint', bd, cw, 0.5, 0.04, 0, 0.25, 0);
-        letters(B, 'GATE 4', { h: 0.34, x: -4.6, y: 0.08, z: 0.03, c: K.white, flat: true, wt: 0.2, track: 0.16, mat: 'glow', glow: 0.9 });
-        letters(B, 'CARGO TERMINAL', { h: 0.2, x: 3.4, y: 0.15, z: 0.03, c: '#cfd9e6', flat: true, wt: 0.22, track: 0.14 });
+        letters(B, '4 号闸口', { h: 0.34, x: -4.6, y: 0.08, z: 0.03, c: K.white, flat: true, wt: 0.2, track: 0.16, mat: 'glow', glow: 0.9 });
+        letters(B, '货运码头', { h: 0.2, x: 3.4, y: 0.15, z: 0.03, c: '#cfd9e6', flat: true, wt: 0.22, track: 0.14 });
         B.pop();
       }
       for (let x = -6; x <= 6; x += 3) pbox(B, NS('glow'), K.lampCool, 1.2, 0.02, 0.3, x, YC + 0.17, cc, { glow: 3.0 });
@@ -1029,7 +1029,7 @@ export function register(D, H) {
       B.push(0.7, py, pz, 0, -ang);
       B.box('paint', c, 0.9, 0.9, Lb, 0, 0, Lb / 2, { r: 0.06 });
       B.box('paint', dk, 0.7, 0.7, 3.0, 0, 0, Lb + 1.3, { r: 0.05 });
-      B.push(0, -0.1, Lb / 3); letters(B, 'CARGO', { h: 0.34, x: 0, y: 0, z: 0, c: K.ink, flat: true, wt: 0.22 }); B.pop();
+      B.push(0, -0.1, Lb / 3); letters(B, '货运', { h: 0.34, x: 0, y: 0, z: 0, c: K.ink, flat: true, wt: 0.22 }); B.pop();
       B.pop();
       // lift cylinder
       rodT(B, 'metal', K.galv, [0.7, 1.9, 0.2], [0.7, py + Math.sin(ang) * 4.2, pz + Math.cos(ang) * 4.2], 0.16, 8);
@@ -1218,7 +1218,7 @@ export function register(D, H) {
         for (const cz of [-1.6, 1.6]) {
           B.box('paint', '#c49a68', 2.0, 1.3, 2.6, 0, FH + 0.65, cz, { r: 0.03 });
           for (const bz of [-1.1, 0, 1.1]) pbox(B, NS('paint'), '#a57a4b', 2.04, 1.34, 0.12, 0, FH + 0.65, cz + bz);
-          B.push(0, FH + 0.9, cz + 1.31); letters(B, 'THIS WAY UP', { h: 0.09, x: 0, y: 0, z: 0, c: K.ink, flat: true, wt: 0.24 }); B.pop();
+          B.push(0, FH + 0.9, cz + 1.31); letters(B, '此面朝上', { h: 0.09, x: 0, y: 0, z: 0, c: K.ink, flat: true, wt: 0.24 }); B.pop();
           for (const bz of [-0.6, 0.6]) {
             B.tube(NS('paint'), '#d9a33a', [P3(-1.18, FH, cz + bz), P3(-1.02, FH + 1.32, cz + bz), P3(1.02, FH + 1.32, cz + bz), P3(1.18, FH, cz + bz)], 0.018, { radial: 4 });
           }
@@ -1259,19 +1259,19 @@ export function register(D, H) {
         const hc = v === 2 ? '#3d8a5a' : K.blueDk;
         pbox(B, NS('paint'), hc, W - 0.06, 0.28, 0.004, 0, Hs / 2 - 0.17, 0);
         if (v === 0) {
-          letters(B, 'HARD HAT AREA', { h: 0.1, x: 0, y: Hs / 2 - 0.22, z: 0.004, c: K.white, flat: true, wt: 0.24 });
+          letters(B, '必须戴安全帽', { h: 0.1, x: 0, y: Hs / 2 - 0.22, z: 0.004, c: K.white, flat: true, wt: 0.24 });
           for (let k = 0; k < 3; k++) { B.cyl(NS('paint'), '#2f6db0', 0.15, 0.004, -0.5 + k * 0.5, -0.05, 0.003, { rx: HP, seg: 14 }); pbox(B, NS('paint'), K.white, 0.14, 0.1, 0.006, -0.5 + k * 0.5, -0.03, 0.006); }
-          letters(B, 'HI-VIS · BOOTS · HELMET', { h: 0.055, x: 0, y: -0.38, z: 0.004, c: K.ink, flat: true, wt: 0.24 });
+          letters(B, '荧光衣 · 劳保鞋 · 安全帽', { h: 0.055, x: 0, y: -0.38, z: 0.004, c: K.ink, flat: true, wt: 0.24 });
         } else if (v === 1) {
-          letters(B, 'BERTH 4', { h: 0.12, x: 0, y: Hs / 2 - 0.23, z: 0.004, c: K.white, flat: true, wt: 0.22 });
+          letters(B, '4 号泊位', { h: 0.12, x: 0, y: Hs / 2 - 0.23, z: 0.004, c: K.white, flat: true, wt: 0.22 });
           B.cyl(NS('paint'), K.red, 0.26, 0.004, -0.4, -0.12, 0.003, { rx: HP, seg: 18 });
           B.cyl(NS('paint'), K.white, 0.2, 0.004, -0.4, -0.12, 0.005, { rx: HP, seg: 18 });
           letters(B, '20', { h: 0.16, x: -0.4, y: -0.2, z: 0.008, c: K.ink, flat: true, wt: 0.24 });
           letters(B, 'KM/H', { h: 0.08, x: 0.3, y: -0.05, z: 0.004, c: K.ink, flat: true, wt: 0.24 });
-          letters(B, 'GIVE WAY TO', { h: 0.06, x: 0.3, y: -0.2, z: 0.004, c: K.ink, flat: true, wt: 0.24 });
-          letters(B, 'STRADDLES', { h: 0.06, x: 0.3, y: -0.31, z: 0.004, c: K.ink, flat: true, wt: 0.24 });
+          letters(B, '减速让行', { h: 0.06, x: 0.3, y: -0.2, z: 0.004, c: K.ink, flat: true, wt: 0.24 });
+          letters(B, '跨运区', { h: 0.06, x: 0.3, y: -0.31, z: 0.004, c: K.ink, flat: true, wt: 0.24 });
         } else {
-          letters(B, 'MUSTER POINT', { h: 0.1, x: 0, y: Hs / 2 - 0.22, z: 0.004, c: K.white, flat: true, wt: 0.24 });
+          letters(B, '集合点', { h: 0.1, x: 0, y: Hs / 2 - 0.22, z: 0.004, c: K.white, flat: true, wt: 0.24 });
           pbox(B, NS('paint'), '#3d8a5a', 0.5, 0.5, 0.004, 0, -0.12, 0.003);
           for (let k = 0; k < 4; k++) { const a = (k / 4) * TAU + PI / 4; B.push(Math.cos(a) * 0.14, -0.12 + Math.sin(a) * 0.14, 0.006, 0, 0, a + PI); pbox(B, NS('paint'), K.white, 0.1, 0.04, 0.003, 0, 0, 0); B.pop(); }
           B.sph(NS('paint'), K.white, 0.05, 0, -0.12, 0.006, { ws: 8, hs: 4, half: true, rx: HP });
@@ -1324,7 +1324,7 @@ export function register(D, H) {
       for (const sx of [-0.45, 0.45]) B.blink('#ffa030', sx, 2.05, 0.1, { size: 0.06, rate: 1.3, phase: sx * 3, lo: 0.3, hi: 5 });
       for (const sx of [-1, 1]) {
         pbox(B, NS('paint'), K.hazY, 0.02, 0.1, L - 0.4, sx * (W / 2 + 0.005), 0.9, 0);
-        B.push(sx * (W / 2 + 0.01), 1.2, 0.5, sx * HP); letters(B, 'CARGO', { h: 0.12, x: 0, y: 0, z: 0, c: K.blueDk, flat: true, wt: 0.22 }); B.pop();
+        B.push(sx * (W / 2 + 0.01), 1.2, 0.5, sx * HP); letters(B, '货运', { h: 0.12, x: 0, y: 0, z: 0, c: K.blueDk, flat: true, wt: 0.22 }); B.pop();
         for (const tz of [1.6, -1.6]) tyre(B, sx * 0.82, 0.38, tz, 0.38, 0.25);
       }
       // bed: side walls, toolbox, cones
@@ -1459,7 +1459,7 @@ export function register(D, H) {
       B.push(run, rise + 0.9, -0.65); B.tor('paint', '#e9836c', 0.3, 0.06, 0, 0, 0, { rs: 6, ts: 16 }); B.pop();
       // chain + CREW ONLY plate across the foot (closed to players), rail colliders along both rope rails
       B.tube(NS('paint'), K.hazY, [P3(0.05, 1.0, -W / 2), P3(0.05, 0.78, 0), P3(0.05, 1.0, W / 2)], 0.02, { radial: 4 });
-      B.push(0.07, 0.72, 0, HP); pbox(B, NS('paint'), K.white, 0.36, 0.2, 0.01, 0, 0, 0); letters(B, 'CREW ONLY', { h: 0.05, x: 0, y: -0.025, z: 0.006, c: K.red, flat: true, wt: 0.24 }); B.pop();
+      B.push(0.07, 0.72, 0, HP); pbox(B, NS('paint'), K.white, 0.36, 0.2, 0.01, 0, 0, 0); letters(B, '仅限船员', { h: 0.05, x: 0, y: -0.025, z: 0.006, c: K.red, flat: true, wt: 0.24 }); B.pop();
       B.col(-0.02, 0, -W / 2 - 0.05, 0.12, 1.2, W / 2 + 0.05, { rail: true });
       for (let k = 0; k < 3; k++) { const t0 = k / 3, t1 = (k + 1) / 3; for (const sz of [-1, 1]) B.col(t0 * run, 0, sz * W / 2 - 0.06, t1 * run, 0.2 + t1 * rise + 1.05, sz * W / 2 + 0.06, { rail: true }); }
     },
@@ -1482,7 +1482,7 @@ export function register(D, H) {
         for (let k = 0; k < 5; k++) pbox(B, NS('paint'), shade(g, 0.6), 0.8, 0.04, 0.02, 0, 1.75 + k * 0.08, 0.025);
         pbox(B, NS('paint'), K.hazY, 0.3, 0.26, 0.01, -0.62, 1.55, 0.025);
         pbox(B, NS('paint'), K.white, 0.5, 0.18, 0.01, 0.62, 1.55, 0.025);
-        if (f > 0) letters(B, 'SHORE POWER', { h: 0.11, x: 0, y: 2.0, z: 0.03, c: K.white, flat: true, wt: 0.22 });
+        if (f > 0) letters(B, '岸电', { h: 0.11, x: 0, y: 2.0, z: 0.03, c: K.white, flat: true, wt: 0.22 });
         B.pop();
       }
       B.box('paint', K.charcoal, 0.4, 0.3, 0.6, W2 / 2 + 0.2, 0.15, 0, { r: 0.05 });

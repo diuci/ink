@@ -44,37 +44,37 @@ const tw = (u, v, y = 0) => { const [x, z] = T(u, v); return [x, y, z]; };
 const HOUSES = [
   // back corners either side of the spawn terrace (BL +X ochre render, BR −X brick)
   house(9, 24, -44, -36, 8.6, { style: 'render', trim: '#efe6d3', shut: '#4f7a5a', quoins: true, quoinC: '#e0d2b4' }, {
-    n: { shops: [{ x0: -6.9, x1: -1.1, name: 'IRONMONGER', fascia: FAS.green, rolled: '#3f7a5a', door: 'r', goods: 'tins', sign: 'key' }, { x0: 0.6, x1: 6.9, name: 'TEA ROOMS', fascia: FAS.wine, awn: AWN.plum, door: 'l', goods: 'cups' }], balc: [1, 4] },
+    n: { shops: [{ x0: -6.9, x1: -1.1, name: '五金店', fascia: FAS.green, rolled: '#3f7a5a', door: 'r', goods: 'tins', sign: 'key' }, { x0: 0.6, x1: 6.9, name: '茶室', fascia: FAS.wine, awn: AWN.plum, door: 'l', goods: 'cups' }], balc: [1, 4] },
     e: { gwin: [-2.5, 0, 2.5] },
     w: { french: true, noGround: true },
   }, { kind: 'hip', c: '#b0634a', pitch: 0.55, chimneys: [[-4, -1.5, 3], [4.5, 1.8, 2]] }),
   house(-24, -9, -44, -36, 9.2, { style: 'brick', trim: '#e4d7bd', archC: '#8e5641' }, {
-    n: { shops: [{ x0: -6.9, x1: -0.6, name: 'SMOKEHOUSE', fascia: FAS.black, awn: AWN.red, door: 'r', goods: 'fish', sign: 'fish' }, { x0: 0.6, x1: 6.9, name: 'CHANDLER', fascia: FAS.navy, rolled: '#3f5f86', door: 'l', goods: 'tins' }], cornice: 'dentil' },
+    n: { shops: [{ x0: -6.9, x1: -0.6, name: '熏鱼房', fascia: FAS.black, awn: AWN.red, door: 'r', goods: 'fish', sign: 'fish' }, { x0: 0.6, x1: 6.9, name: '杂货铺', fascia: FAS.navy, rolled: '#3f5f86', door: 'l', goods: 'tins' }], cornice: 'dentil' },
     w: { gwin: [-2.5, 0, 2.5] },
     e: { french: true, noGround: true },
   }, { kind: 'gable', c: '#5b646e', pitch: 0.6, wall: '#b8765c', chimneys: [[-5, 0, 3], [5, 0, 3]], dormers: [[-2.5, 1], [2.5, 1]] }),
   // right block (−X): R2 (square to Market Street, the gallery on its east face) and R1, turned to the tramway
   house(-15, -6, -28, -23, 8.0, { style: 'ashlar', trim: '#efe6d3' }, {
-    s: { shops: [{ x0: -4.2, x1: 4.2, name: 'BUTCHER', fascia: FAS.wine, awn: AWN.red, door: 'c', goods: 'tins' }], balc: 'first', plaque: [-3.4, 3.05, 'EXCHANGE SQUARE'] },
-    e: { shops: [{ x0: -2.3, x1: 2.3, name: 'CHEESE', fascia: FAS.brown, door: 'l', top: 2.22, goods: 'tins' }], french: true },
-    w: { shops: [{ x0: -2.3, x1: 2.3, name: 'FISH', fascia: FAS.navy, awn: AWN.blue, door: 'r', goods: 'fish', sign: 'fish' }], floors: [] },
+    s: { shops: [{ x0: -4.2, x1: 4.2, name: '肉铺', fascia: FAS.wine, awn: AWN.red, door: 'c', goods: 'tins' }], balc: 'first', plaque: [-3.4, 3.05, '交易所广场'] },
+    e: { shops: [{ x0: -2.3, x1: 2.3, name: '奶酪', fascia: FAS.brown, door: 'l', top: 2.22, goods: 'tins' }], french: true },
+    w: { shops: [{ x0: -2.3, x1: 2.3, name: '鱼铺', fascia: FAS.navy, awn: AWN.blue, door: 'r', goods: 'fish', sign: 'fish' }], floors: [] },
     n: { gwin: [-3.6] },
   }, { kind: 'hip', c: '#5b646e', pitch: 0.58, chimneys: [[-2.5, 0.6, 2]] }),
   { type: 'crossmarket_house', pos: tw(-16.4, -6.6), rotY: RT, w: 7, d: 5.2, h: 7.6, style: { style: 'render', trim: '#f1ebdf', shut: '#5d7f9c', boxes: true }, faces: {
-    n: { shops: [{ x0: -3.1, x1: 3.1, name: 'FLORIST', fascia: FAS.green, awn: AWN.green, door: 'l', goods: 'flowers', sign: 'flower' }], plaque: [3.0, 3.05, 'TRAM STREET'] },
-    e: { shops: [{ x0: -2.1, x1: 2.1, name: 'BOOKS', fascia: FAS.navy, rolled: '#3f5f86', door: 'c', goods: 'books' }] },
-    w: { shops: [{ x0: -2.1, x1: 2.1, name: 'OYSTERS', fascia: FAS.teal, awn: AWN.teal, door: 'c', goods: 'fish' }] },
+    n: { shops: [{ x0: -3.1, x1: 3.1, name: '花店', fascia: FAS.green, awn: AWN.green, door: 'l', goods: 'flowers', sign: 'flower' }], plaque: [3.0, 3.05, '电车街'] },
+    e: { shops: [{ x0: -2.1, x1: 2.1, name: '书店', fascia: FAS.navy, rolled: '#3f5f86', door: 'c', goods: 'books' }] },
+    w: { shops: [{ x0: -2.1, x1: 2.1, name: '生蚝', fascia: FAS.teal, awn: AWN.teal, door: 'c', goods: 'fish' }] },
     s: { door: [-1.8, 1.0], gwin: [1.6] },
   }, roof: { kind: 'gable', c: '#b0634a', pitch: 0.55, wall: '#a9bcc4', chimneys: [[2.2, 0, 2]] } },
   // left block (+X): the tall row on Market Street (bakery · passage · café) and the shops under the roof terrace
   house(6, 10.5, -28, -12, 8.4, { style: 'render', trim: '#efe6d3', shut: '#4f7a5a', boxes: true }, {
-    w: { shops: [{ x0: -7.8, x1: -1.4, name: 'BAKERY', fascia: FAS.brown, awn: AWN.ochre, door: 'r', goods: 'bread', sign: 'pretzel' }, { x0: 2.4, x1: 7.8, name: 'CAFE', fascia: FAS.black, awn: AWN.green, door: 'l', goods: 'cups', sign: 'cup' }], uskip: [], balc: [1, 4] },
-    n: { shops: [{ x0: -2.1, x1: 2.1, name: 'CAFE', fascia: FAS.black, awn: AWN.green, door: 'c' }], floors: [] },
-    s: { gwin: [0], floors: [], plaque: [1.2, 2.9, 'MARKET STREET'] },
+    w: { shops: [{ x0: -7.8, x1: -1.4, name: '面包房', fascia: FAS.brown, awn: AWN.ochre, door: 'r', goods: 'bread', sign: 'pretzel' }, { x0: 2.4, x1: 7.8, name: '咖啡馆', fascia: FAS.black, awn: AWN.green, door: 'l', goods: 'cups', sign: 'cup' }], uskip: [], balc: [1, 4] },
+    n: { shops: [{ x0: -2.1, x1: 2.1, name: '咖啡馆', fascia: FAS.black, awn: AWN.green, door: 'c' }], floors: [] },
+    s: { gwin: [0], floors: [], plaque: [1.2, 2.9, '市场街'] },
     e: { french: true, noGround: true },
   }, { kind: 'gable', ry: Math.PI / 2, c: '#5b646e', pitch: 0.62, wall: '#e8dfcc', chimneys: [[-4, 0, 3], [4, 0, 2]], dormers: [[-5, 1], [0, 1], [5, 1], [-3, -1], [3, -1]] }),
   house(10.5, 15, -28, -21, FL, { style: 'ashlar', trim: '#efe6d3', cornice: 'none', pipe: false, noBand: true }, {
-    e: { shops: [{ x0: -3.2, x1: 3.2, name: 'WINES', fascia: FAS.wine, rolled: '#7a3a4c', door: 'r', goods: 'wine' }] },
+    e: { shops: [{ x0: -3.2, x1: 3.2, name: '酒庄', fascia: FAS.wine, rolled: '#7a3a4c', door: 'r', goods: 'wine' }] },
   }),
   house(10.5, 15, -18, -16, FL, { style: 'ashlar', trim: '#efe6d3', cornice: 'none', pipe: false, noBand: true }, {
     e: { door: [0, 1.0] },
@@ -83,11 +83,11 @@ const HOUSES = [
   house(-24, -19.4, -36, -20, 8.2, { style: 'ashlar', trim: '#efe6d3', shut: '#8a948f' }, {
     e: { floors: [3.1, 5.8], plinth: false, pipe: false, bays: 6, balc: [1, 4], noBand: true },
     w: { floors: [3.1, 5.8], plinth: false, bays: 5 },
-    n: { floors: [3.1, 5.8], plinth: false, plaque: [0, 3.0, 'FISH LANE'] },
+    n: { floors: [3.1, 5.8], plinth: false, plaque: [0, 3.0, '鱼巷'] },
   }, { kind: 'gable', ry: Math.PI / 2, c: '#b0634a', pitch: 0.58, wall: '#e8dfcc', chimneys: [[-5, 0, 2], [4, 0, 3]] }),
   // the arcade's back wall: the fish market's shopfronts inside the arcade
   house(-24, -23.2, -36, -20, 2.8, { style: 'ashlar', cornice: 'none', plinth: false, pipe: false, noBand: true }, {
-    e: { shops: [{ x0: -7.2, x1: -1.4, name: 'FRESH FISH', fascia: FAS.navy, door: 'c', goods: 'fish' }, { x0: 1.2, x1: 7.2, name: 'OYSTER BAR', fascia: FAS.teal, door: 'l', goods: 'wine' }] },
+    e: { shops: [{ x0: -7.2, x1: -1.4, name: '鲜鱼', fascia: FAS.navy, door: 'c', goods: 'fish' }, { x0: 1.2, x1: 7.2, name: '牡蛎吧', fascia: FAS.teal, door: 'l', goods: 'wine' }] },
   }),
 ];
 const STREET = [
@@ -186,8 +186,8 @@ const STREET = [
   { type: 'crossmarket_crates', pos: [16.4, 0, -13.0], rotY: 0.1, kind: 'fruit', variant: 1 },
   { type: 'crossmarket_bench', pos: [23.2, 1.2, -21.6], rotY: P / 2 },
   { type: 'crossmarket_bench', pos: [23.2, 1.2, -11.6], rotY: P / 2 },
-  { type: 'crossmarket_stall', pos: [22.55, 1.2, -26.4], rotY: -P / 2, w: 2.4, d: 1.1, kind: 'fish', name: 'CATCH OF THE DAY' },
-  { type: 'crossmarket_stall', pos: [22.55, 1.2, -15.6], rotY: -P / 2, w: 2.4, d: 1.1, kind: 'fish', name: 'OYSTERS' },
+  { type: 'crossmarket_stall', pos: [22.55, 1.2, -26.4], rotY: -P / 2, w: 2.4, d: 1.1, kind: 'fish', name: '今日鲜货' },
+  { type: 'crossmarket_stall', pos: [22.55, 1.2, -15.6], rotY: -P / 2, w: 2.4, d: 1.1, kind: 'fish', name: '生蚝' },
   { type: 'crossmarket_lamp', pos: [23.4, 1.2, -18.0] },
   { type: 'crossmarket_lamp', pos: [23.4, 1.2, -28.5] },
   { type: 'crossmarket_lamp', pos: [23.4, 1.2, -7.5] },
@@ -204,13 +204,13 @@ const STREET = [
   { type: 'bunting', pos: [15.05, 0, -25.8], rotY: 0, length: 8.3, height: 4.3, posts: false },
   { type: 'bunting', pos: [15.05, 0, -13.6], rotY: 0, length: 8.3, height: 4.3, posts: false },
   // ---- street clutter: post boxes, fingerposts, bins, sacks, casks, lobster pots, tubs, A-boards
-  { type: 'crossmarket_fingerpost', pos: [-10.8, 0, -29.0], rotY: 0, arms: [[90, 'MARKET HALL'], [0, 'FISH LANE'], [-90, 'CORN EXCHANGE']] },
-  { type: 'crossmarket_fingerpost', pos: [20.2, FL - 1.4, -9.0], rotY: 0, arms: [[90, 'TRAMS'], [-90, 'THE PARADE'], [180, 'HARBOUR']] },
+  { type: 'crossmarket_fingerpost', pos: [-10.8, 0, -29.0], rotY: 0, arms: [[90, '市场大厅'], [0, '鱼巷'], [-90, '谷物交易所']] },
+  { type: 'crossmarket_fingerpost', pos: [20.2, FL - 1.4, -9.0], rotY: 0, arms: [[90, '电车'], [-90, '长堤'], [180, '港口']] },
   { type: 'crossmarket_postbox', pos: [9.7, 0, -35.3] },
   { type: 'crossmarket_postbox', pos: [8.0, 0, -11.35] },
   { type: 'crossmarket_bin', pos: [-7.1, 0, -33.2] },
-  { type: 'crossmarket_aboard', pos: [-10.6, 0, -34.9], rotY: 0.2, text: 'KIPPERS' },
-  { type: 'crossmarket_aboard', pos: [4.45, 0.15, -16.4], rotY: -P / 2 + 0.3, text: 'CAFE' },
+  { type: 'crossmarket_aboard', pos: [-10.6, 0, -34.9], rotY: 0.2, text: '腌鲱鱼' },
+  { type: 'crossmarket_aboard', pos: [4.45, 0.15, -16.4], rotY: -P / 2 + 0.3, text: '咖啡馆' },
   { type: 'crossmarket_tubs', pos: [-14.2, 0, -35.55], rotY: 0, count: 2, spacing: 1.2, color: '#5b2230' },
   { type: 'crossmarket_tubs', pos: [15.35, 0, -17.6], rotY: P / 2, count: 1, variant: 1 },
   { type: 'crossmarket_pots', pos: [-22.6, 0.15, -25.6], rotY: P / 2, variant: 0 },

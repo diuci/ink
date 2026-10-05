@@ -27,8 +27,8 @@ export function registerTram(D, H, KIT) {
       for (const [yy, hh, ww2] of [[0.34, 0.02, w - 0.1], [1.02, 0.02, w - 0.1]]) pbox(B, NS('paint'), GOLD, ww2, hh, 0.004, c, yy, 0.004);
       for (const sx of [-1, 1]) pbox(B, NS('paint'), GOLD, 0.02, 0.7, 0.004, c + sx * (w / 2 - 0.05), 0.68, 0.004);
     }
-    letters(B, 'CROSSROADS', { h: 0.2, x: (-L / 2 - 0.9) / 2 + 0.1, y: 0.58, z: 0.006, c: GOLD, flat: true, wt: 0.2, track: 0.14 });
-    letters(B, 'TRAMWAYS', { h: 0.2, x: (L / 2 + 0.9) / 2 - 0.1, y: 0.58, z: 0.006, c: GOLD, flat: true, wt: 0.2, track: 0.14 });
+    letters(B, '十字街', { h: 0.2, x: (-L / 2 - 0.9) / 2 + 0.1, y: 0.58, z: 0.006, c: GOLD, flat: true, wt: 0.2, track: 0.14 });
+    letters(B, '电车', { h: 0.2, x: (L / 2 + 0.9) / 2 - 0.1, y: 0.58, z: 0.006, c: GOLD, flat: true, wt: 0.2, track: 0.14 });
     B.cyl('paint', GOLD, 0.3, 0.012, 0, 0.68, 0.006, { rx: HP, seg: 18 });
     B.cyl(NS('paint'), RED, 0.25, 0.006, 0, 0.68, 0.012, { rx: HP, seg: 18 });
     letters(B, '3', { h: 0.28, x: 0, y: 0.54, z: 0.016, c: CREAM, flat: true, wt: 0.24 });
@@ -65,7 +65,7 @@ export function registerTram(D, H, KIT) {
     B.box('paint', K.black, 0.1, 0.34, 1.5, dx * 0.9, 2.74, 0, { r: 0.02 });
     B.push(dx * 0.9 + 0.055, 2.74, 0, HP);
     pbox(B, NS('glow'), '#fff2d8', 1.38, 0.26, 0.004, 0, 0, 0, { glow: 1.3 });
-    letters(B, 'MARKET HALL', { h: 0.12, x: 0.16, y: -0.06, z: 0.004, c: '#1d1f22', flat: true, wt: 0.2, track: 0.06 });
+    letters(B, '市场大厅', { h: 0.12, x: 0.16, y: -0.06, z: 0.004, c: '#1d1f22', flat: true, wt: 0.2, track: 0.06 });
     B.cyl(NS('paint'), RED, 0.11, 0.01, -0.58, 0, 0.004, { rx: HP, seg: 12 }); letters(B, '3', { h: 0.14, x: -0.58, y: -0.07, z: 0.012, c: '#fff2d8', flat: true, wt: 0.24 });
     B.pop();
     // headlamp, lifeguard, coupler, step
@@ -171,9 +171,9 @@ export function registerTram(D, H, KIT) {
       const fx = L / 2 + 0.6;
       B.cyl('metal', c, 0.05, 2.9, fx, 1.45, 0.3, { seg: 8 });
       B.box('gloss', RED, 0.62, 0.62, 0.04, fx, 2.6, 0.3, { r: 0.02, ry: HP });
-      for (const f of [1, -1]) { B.push(fx + f * 0.022, 2.6, 0.3, f > 0 ? HP : -HP); B.cyl(NS('paint'), '#f2eee6', 0.24, 0.004, 0, 0, 0.001, { rx: HP, seg: 16 }); letters(B, '3', { h: 0.26, x: 0, y: -0.13, z: 0.004, c: RED, flat: true, wt: 0.22 }); letters(B, 'TRAM STOP', { h: 0.06, x: 0, y: 0.18, z: 0.004, c: '#1d1f22', flat: true, wt: 0.24 }); B.pop(); }
+      for (const f of [1, -1]) { B.push(fx + f * 0.022, 2.6, 0.3, f > 0 ? HP : -HP); B.cyl(NS('paint'), '#f2eee6', 0.24, 0.004, 0, 0, 0.001, { rx: HP, seg: 16 }); letters(B, '3', { h: 0.26, x: 0, y: -0.13, z: 0.004, c: RED, flat: true, wt: 0.22 }); letters(B, '电车站', { h: 0.06, x: 0, y: 0.18, z: 0.004, c: '#1d1f22', flat: true, wt: 0.24 }); B.pop(); }
       B.box('paint', '#f2eee6', 0.05, 0.2, 0.8, fx, 2.12, 0.3, { r: 0.01 });
-      for (const f of [1, -1]) { B.push(fx + f * 0.028, 2.12, 0.3, f > 0 ? HP : -HP); letters(B, 'MARKET HALL', { h: 0.08, x: 0, y: -0.04, z: 0.002, c: '#23304a', flat: true, wt: 0.22, track: 0.08 }); B.pop(); }
+      for (const f of [1, -1]) { B.push(fx + f * 0.028, 2.12, 0.3, f > 0 ? HP : -HP); letters(B, '市场大厅', { h: 0.08, x: 0, y: -0.04, z: 0.002, c: '#23304a', flat: true, wt: 0.22, track: 0.08 }); B.pop(); }
       B.col(-L / 2 - 0.06, 0, -0.06, L / 2 + 0.06, Hh, 0.06, { rail: true });   // glazed iron screen: see-through → rail
       B.col(-L / 2 + 0.3, 0, 0.1, L / 2 - 0.3, 0.49, 0.5);
       colBox(B, fx, 0, 0.3, 0.14, 2.9, 0.14, true);
@@ -239,7 +239,7 @@ export function registerTram(D, H, KIT) {
       // ticket window ledge + board
       B.box('wood', K.woodDk, 0.8, 0.05, 0.25, 0, 1.08, Dd / 2 + 0.12, { r: 0.01 });
       B.box('gloss', GREENDK, 1.2, 0.26, 0.04, 0, Hh - 0.2, Dd / 2 + 0.12, { r: 0.015 });
-      letters(B, 'TICKETS', { h: 0.13, x: 0, y: Hh - 0.265, z: Dd / 2 + 0.142, c: GOLD, flat: true, wt: 0.2, track: 0.14 });
+      letters(B, '售票处', { h: 0.13, x: 0, y: Hh - 0.265, z: Dd / 2 + 0.142, c: GOLD, flat: true, wt: 0.2, track: 0.14 });
       KIT.bill(B, 0, 1.4, -Dd / 2 - 0.012, 0.5, 0.7, 'tram');
       B.blob(2.2, 1.9);
       B.col(-W / 2 - 0.05, 0, -Dd / 2 - 0.05, W / 2 + 0.05, Hh, Dd / 2 + 0.05, { roof: true });

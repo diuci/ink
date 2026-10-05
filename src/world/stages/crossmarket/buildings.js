@@ -173,7 +173,7 @@ export function registerCivic(D, H, KIT) {
       // the sign on the canopy fascia (street side) + hanging baskets + lamps
       B.push(east + 0.2, CAN - 0.02, 0, HP);
       B.box('gloss', IRDK, 5.0, 0.42, 0.06, 0, 0.36, 0.0, { r: 0.02 });
-      letters(B, 'ARCADE GALLERY', { h: 0.22, x: 0, y: 0.25, z: 0.035, c: GOLD, dep: 0.02, wt: 0.18, track: 0.14, lit: 1.1, litC: '#ffe2a8' });
+      letters(B, '拱廊画廊', { h: 0.22, x: 0, y: 0.25, z: 0.035, c: GOLD, dep: 0.02, wt: 0.18, track: 0.14, lit: 1.1, litC: '#ffe2a8' });
       B.pop();
       for (const z of colZ.slice(0, -1).map((a, i) => (a + colZ[i + 1]) / 2).filter((_, i) => i % 2 === 0 || L > 18)) {
         const bx = east - 0.3, by = CAN - 1.0;
@@ -239,7 +239,7 @@ export function registerCivic(D, H, KIT) {
       // entablature: architrave, frieze with CORN EXCHANGE, cornice; balustraded parapet with urns
       B.box('paint', trim, W + 0.8, 0.26, 0.3, 0, E1 + 0.13, 0.15, { r: 0.03 });
       B.box('paint', wall, W + 0.6, 0.72, 0.18, 0, E1 + 0.62, 0.09, { r: 0.02 });
-      letters(B, 'CORN EXCHANGE', { h: 0.46, x: 0, y: E1 + 0.39, z: 0.18, c: K.goldDk, dep: 0.04, wt: 0.16, track: 0.2, lit: 0.9, litC: '#ffe2a8' });
+      letters(B, '谷物交易所', { h: 0.46, x: 0, y: E1 + 0.39, z: 0.18, c: K.goldDk, dep: 0.04, wt: 0.16, track: 0.2, lit: 0.9, litC: '#ffe2a8' });
       B.box('paint', trim, W + 1.0, 0.22, 0.46, 0, E1 + 1.08, 0.2, { r: 0.04 });
       for (let x = -W / 2 - 0.3; x < W / 2 + 0.4; x += 0.3) pbox(B, NS('paint'), trim, 0.12, 0.12, 0.12, x, E1 + 0.92, 0.36);
       // parapet balustrade either side of the pediment
@@ -316,7 +316,7 @@ export function registerCivic(D, H, KIT) {
         for (let k = 1; k < 6; k++) pbox(B, NS('metal'), K.iron, 0.025, 1.9, 0.03, x - aw / 2 + (k * aw) / 6, 1.1, 0.02);
         for (const y of [0.5, 1.2]) pbox(B, NS('metal'), K.iron, aw, 0.03, 0.03, x, y, 0.02);
       }
-      if (o.plaque) { B.box('metal', '#6f6040', 0.7, 0.45, 0.03, o.plaque, 1.5, 0.015, { r: 0.02 }); letters(B, 'EST 1861', { h: 0.08, x: o.plaque, y: 1.46, z: 0.032, c: '#e8d8a8', flat: true, wt: 0.22 }); }
+      if (o.plaque) { B.box('metal', '#6f6040', 0.7, 0.45, 0.03, o.plaque, 1.5, 0.015, { r: 0.02 }); letters(B, '始建 1861', { h: 0.08, x: o.plaque, y: 1.46, z: 0.032, c: '#e8d8a8', flat: true, wt: 0.22 }); }
     },
   };
 
@@ -360,7 +360,7 @@ export function registerCivic(D, H, KIT) {
       pbox(B, NS('metal'), K.iron, 0.2, 0.18, (n - 1) * pitch, -dep / 2 + 0.2, top - 0.12, 0);
       // frieze letters over the arches (street face)
       B.push(0.41, 0, 0, HP);
-      letters(B, 'FISH MARKET', { h: 0.28, x: 0, y: top + 0.12, z: 0, c: K.goldDk, flat: true, wt: 0.18, track: 0.24 });
+      letters(B, '鱼市', { h: 0.28, x: 0, y: top + 0.12, z: 0, c: K.goldDk, flat: true, wt: 0.18, track: 0.24 });
       B.pop();
     },
   };
@@ -387,8 +387,8 @@ export function registerCivic(D, H, KIT) {
         B.lathe(NS('glow'), K.lit, [[0.001, -0.12], [0.09, -0.1], [0.11, 0.06], [0.001, 0.06]], 0, hh - 0.52, -0.25, { seg: 6, glow: 1.9 });
         B.pop();
       };
-      portal(0, 0, h, 'MARKET PASSAGE');
-      portal(-dep, PI, h2, 'MARKET PASSAGE');
+      portal(0, 0, h, '市场通道');
+      portal(-dep, PI, h2, '市场通道');
       // walls: posters, a side door into the bakery, a bench, a lantern mid-way
       for (const sx of [-1, 1]) {
         B.push(sx * w / 2, 0, 0, -sx * HP);

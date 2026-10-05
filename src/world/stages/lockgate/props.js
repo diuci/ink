@@ -471,7 +471,7 @@ export function register(D, H) {
         pbox(B, NS('paint'), '#1d2622', 0.06, 0.5, 5.3, -0.92, LOCK.low + 0.1, 0);
         // lock number on the beam-end post plates
         B.push(LOCK.heelX - 0.2, 0.62, -LOCK.half, -HP);
-        boardSign(B, 'LOCK 2', 0, 0, { h: 0.08, board: K.white, c: K.black, bd: 0.012, pad: 0.04 });
+        boardSign(B, '2 号闸', 0, 0, { h: 0.08, board: K.white, c: K.black, bd: 0.012, pad: 0.04 });
         B.pop();
       } else {
         // brick cill the upper leaves stand on, with the leak cascading over it into the dry chamber
@@ -657,8 +657,8 @@ export function register(D, H) {
         // bridge plate on the parapet over the crown: black oval, white raised letters
         B.push(sx * (F + 0.01), 3.72, 0, sx * HP);
         B.add('gloss', tpl('plate', () => latheGeo([[0, 0.04], [0.3, 0.04], [0.32, 0.02], [0.32, 0], [0, 0]], 20)), K.black, 0, 0, 0, { rx: HP, sx: 1.5, sz: 0.85, s: 1 });
-        letters(B, 'BRIDGE 2', { h: 0.1, x: 0, y: 0.02, z: 0.045, c: K.white, flat: true, wt: 0.2 });
-        letters(B, 'LOCKGATE', { h: 0.065, x: 0, y: -0.14, z: 0.045, c: K.white, flat: true, wt: 0.22, track: 0.2 });
+        letters(B, '2 号桥', { h: 0.1, x: 0, y: 0.02, z: 0.045, c: K.white, flat: true, wt: 0.2 });
+        letters(B, '闸门', { h: 0.065, x: 0, y: -0.14, z: 0.045, c: K.white, flat: true, wt: 0.22, track: 0.2 });
         B.pop();
       }
       // saddleback copings on the four parapet runs (collide), end piers with lamps
@@ -831,12 +831,12 @@ export function register(D, H) {
         const cxs = sx * 7.35;
         B.box('paint', K.green, 10.4, 1.55, 0.03, cxs, 14.85, 0.015, { r: 0.01 });
         pbox(B, NS('paint'), K.cream, 10.1, 0.05, 0.005, cxs, 15.5, 0.032); pbox(B, NS('paint'), K.cream, 10.1, 0.05, 0.005, cxs, 14.2, 0.032);
-        letters(B, sx < 0 ? 'LOCKGATE' : 'WHARF', { h: 0.95, x: cxs + 0.05, y: 14.33, z: 0.031, c: K.blackLt, flat: true, wt: 0.21, track: 0.16 });
-        letters(B, sx < 0 ? 'LOCKGATE' : 'WHARF', { h: 0.95, x: cxs, y: 14.38, z: 0.034, c: K.cream, flat: true, wt: 0.21, track: 0.16 });
+        letters(B, sx < 0 ? '闸门' : '码头', { h: 0.95, x: cxs + 0.05, y: 14.33, z: 0.031, c: K.blackLt, flat: true, wt: 0.21, track: 0.16 });
+        letters(B, sx < 0 ? '闸门' : '码头', { h: 0.95, x: cxs, y: 14.38, z: 0.034, c: K.cream, flat: true, wt: 0.21, track: 0.16 });
       }
       for (const sx of [-1, 1]) {
         B.box('paint', K.green, 11.2, 0.62, 0.03, sx * 19.5, 7.28, 0.015, { r: 0.01 });
-        letters(B, sx < 0 ? 'BONDED STORES' : 'CARRIERS & WHARFINGERS', { h: 0.34, x: sx * 19.5, y: 7.11, z: 0.034, c: K.cream, flat: true, wt: 0.2, track: 0.1 });
+        letters(B, sx < 0 ? '保税仓库' : '承运人与码头工', { h: 0.34, x: sx * 19.5, y: 7.11, z: 0.034, c: K.cream, flat: true, wt: 0.2, track: 0.1 });
       }
       // ---- roofs + chimneys
       slateRoof(B, -13.2, 13.2, DZ - 0.1, 0.05, CE + 0.05, 3.2, { ov: 0.35, noGable: true });
@@ -886,7 +886,7 @@ export function register(D, H) {
       }
       // stage doorway plaque + lamps on the wall at stage level
       B.push(0, 3.6, 0);
-      boardSign(B, 'No 1 WAREHOUSE', 0, 0.6, { h: 0.2, board: K.green, c: K.cream, border: K.cream, bd: 0.03 });
+      boardSign(B, '一号货栈', 0, 0.6, { h: 0.2, board: K.green, c: K.cream, border: K.cream, bd: 0.03 });
       B.pop();
       // ground storey of the wings beyond the playable wall (out of play): brick + arches + windows
       for (const [a, b2] of o.fill || []) {
@@ -929,7 +929,7 @@ export function register(D, H) {
       slateRoof(B, -W / 2 - 0.2, W / 2 + 0.2, DZ - 0.1, 0.05, EA, 3.4, { wall: br, ov: 0.3 });
       chimney(B, 7, EA + 1.4, DZ / 2 - 2, 1.0, 0.8, 3.0, 2, 'paint');
       B.box('paint', K.green, 9.6, 0.9, 0.03, 0, 5.5, 0.015, { r: 0.01 });
-      letters(B, 'ANCHOR MILLS', { h: 0.52, x: 0, y: 5.23, z: 0.034, c: K.cream, flat: true, wt: 0.21, track: 0.16 });
+      letters(B, '铁锚磨坊', { h: 0.52, x: 0, y: 5.23, z: 0.034, c: K.cream, flat: true, wt: 0.21, track: 0.16 });
       B.box('paint', K.timber, 2.4, 3.0, 1.0, 0, 15.9, 0.5, { r: 0.04 });
       for (let y = 14.6; y < 17.3; y += 0.2) pbox(B, NS('paint'), shade(K.timber, 0.75), 2.42, 0.025, 1.02, 0, y, 0.5);
       pbox(B, NS('paint'), '#141517', 1.4, 1.9, 0.02, 0, 15.5, 1.01);
@@ -999,7 +999,7 @@ export function register(D, H) {
         B.push((x0 + x1) / 2, 0, z1, 0);
         for (const x of [-2.6, 2.6]) archWin(B, x, 1.3, 1.1, 1.4, { ns: true });
         B.box(NS('paint'), K.green, 4.6, 0.55, 0.03, 0, 3.5, 0.015, { r: 0.01 });
-        letters(B, 'COOPERAGE', { h: 0.3, x: 0, y: 3.35, z: 0.034, c: K.cream, flat: true, wt: 0.21, track: 0.14 });
+        letters(B, '制桶铺', { h: 0.3, x: 0, y: 3.35, z: 0.034, c: K.cream, flat: true, wt: 0.21, track: 0.14 });
         B.pop();
         chimney(B, x0 + 1.5, Hh + 0.8, z0 + 2, 0.8, 0.8, 2.2, 2, NS('paint'));
         for (let k = 0; k < 5; k++) cask(B, -15 + k * 0.75, 0, -36.9, { c: K.oak, s: 0.9 });
@@ -1011,7 +1011,7 @@ export function register(D, H) {
         B.push(x0, 0, (z0 + z1) / 2, -HP);
         for (const y of [5.2, 8.4, 11.2]) for (let x = -12.8; x <= 12.9; x += 3.2) archWin(B, x, y, 1.2, 1.7, { ns: true, lit: hash(x + y) > 0.8 ? 0.8 : 0 });
         B.box(NS('paint'), K.green, 18, 1.2, 0.03, 0, 6.9, 0.015, { r: 0.01 });
-        letters(B, 'ANCHOR WAREHOUSE', { h: 0.72, x: 0, y: 6.54, z: 0.034, c: K.cream, flat: true, wt: 0.21, track: 0.14 });
+        letters(B, '铁锚货栈', { h: 0.72, x: 0, y: 6.54, z: 0.034, c: K.cream, flat: true, wt: 0.21, track: 0.14 });
         B.pop();
         B.push(x0 + (x1 - x0) / 2, 0, z1, 0);
         for (const y of [5.2, 8.4, 11.2]) for (let x = -6.4; x <= 6.5; x += 3.2) archWin(B, x, y, 1.2, 1.7, { ns: true, lit: hash(x * 3 + y) > 0.8 ? 0.8 : 0 });
@@ -1087,7 +1087,7 @@ export function register(D, H) {
         for (const sx of [-1, 1]) { B.box('wood', K.sash, 0.12, 2.3, 0.12, sx * 0.72, 1.15, 0.95, { r: 0.02 }); seg(B, NS('wood'), K.sash, [sx * 0.72, 1.9, 0.9], [sx * 0.72, 2.3, 0.2], 0.06, 0.06); }
         B.push(0, 2.32, 0.55, HP); slateRoof(B, -0.62, 0.62, -0.95, 0.95, 0, 0.6, { wall: K.sash, ov: 0.12, noGutter: true, course: 0.2 }); B.pop();
         B.push(0.0, 2.55, 0.02); lantern(B, 1.05, -0.3, 0.2, 0.7); B.pop();
-        B.push(-1.1, 2.3, 0); boardSign(B, 'LOCK HOUSE', 0, 0, { h: 0.1, board: K.cream, c: K.green, bd: 0.02, pad: 0.06 }); B.pop();
+        B.push(-1.1, 2.3, 0); boardSign(B, '闸房', 0, 0, { h: 0.1, board: K.cream, c: K.green, bd: 0.02, pad: 0.06 }); B.pop();
       });
       B.col(-0.85, 0, Dd / 2, 0.85, 0.2, Dd / 2 + 1.1);
       B.col(-0.85, 2.2, Dd / 2, 0.85, 3.1, Dd / 2 + 1.15, ROOF);
@@ -1134,7 +1134,7 @@ export function register(D, H) {
       });
       // name board on the canal-side parapet (level parapet face at z = Dd/2 + 0.3 → board just proud of it)
       B.push(0, 2.83, Dd / 2 + 0.01);
-      boardSign(B, 'LOCKGATE CANAL CO', 0, 0, { h: 0.2, board: K.green, c: K.cream, border: K.cream, bd: 0.03, w: 5.6 });
+      boardSign(B, '闸门运河公司', 0, 0, { h: 0.2, board: K.green, c: K.cream, border: K.cream, bd: 0.03, w: 5.6 });
       B.pop();
       onFace(B, W, Dd, 1, () => {
         plankDoor(B, -1.2, 0.32, 0.95, 2.0, K.green, { frame: K.sash, fan: true });
@@ -1528,9 +1528,9 @@ export function register(D, H) {
       B.box('paint', K.white, 0.32, 0.9, 0.22, 0, 0.45, 0, { r: 0.03 });
       B.push(0, 0.86, 0, 0, 0, 0); B.box('paint', K.white, 0.4, 0.24, 0.32, 0, 0.1, 0.04, { rx: -0.5, r: 0.03 }); B.pop();
       B.push(0, 0.62, 0.115);
-      letters(B, 'BASIN', { h: 0.05, x: 0, y: 0.08, z: 0.002, c: K.black, flat: true, wt: 0.22, track: 0.1 });
+      letters(B, '闸室', { h: 0.05, x: 0, y: 0.08, z: 0.002, c: K.black, flat: true, wt: 0.22, track: 0.1 });
       letters(B, '1/2', { h: 0.1, x: 0, y: -0.07, z: 0.002, c: K.black, flat: true, wt: 0.22 });
-      letters(B, 'MILE', { h: 0.045, x: 0, y: -0.18, z: 0.002, c: K.black, flat: true, wt: 0.22, track: 0.1 });
+      letters(B, '英里', { h: 0.045, x: 0, y: -0.18, z: 0.002, c: K.black, flat: true, wt: 0.22, track: 0.1 });
       B.pop();
       colC(B, 0, 0, 0, 0.36, 1.0, 0.3);
       B.blob(0.6, 0.5);
@@ -1557,7 +1557,7 @@ export function register(D, H) {
       B.lathe('paint', K.black, [[0.12, 0], [0.09, 0.3], [0.06, 0.34], [0.06, 2.4], [0.08, 2.46], [0, 2.52]], 0, 0, 0, { seg: 8 });
       B.lathe(NS('paint'), K.white, [[0.061, 0.4], [0.061, 1.8]], 0, 0, 0, { seg: 8 });
       B.sph('paint', K.white, 0.08, 0, 2.58, 0, { ws: 8, hs: 6 });
-      for (const [ry, txt, y] of [[0.3, 'HARBOUR', 2.2], [PI + 0.2, 'LOCKS', 2.0], [HP + 0.4, 'TOWPATH', 1.8]]) {
+      for (const [ry, txt, y] of [[0.3, '港口', 2.2], [PI + 0.2, '船闸', 2.0], [HP + 0.4, '纤道', 1.8]]) {
         B.push(0, y, 0, ry);
         B.box('paint', K.white, 1.0, 0.16, 0.04, 0.55, 0, 0, { r: 0.01 });
         B.add('paint', tpl('fpTip', () => extrudeGeo([[-0.08, 0], [0.08, 0], [0, 0.1]], 0.04, 0.002)), K.white, 1.05, 0, 0, { rz: -HP });
@@ -1594,8 +1594,8 @@ export function register(D, H) {
       for (const sx of [-1, 1]) { seg(B, 'wood', K.white, [sx * 0.5, 0, -0.15], [sx * 0.5, 0.9, 0], 0.05, 0.05); seg(B, 'wood', K.white, [sx * 0.5, 0, 0.15], [sx * 0.5, 0.9, 0], 0.05, 0.05); }
       B.box('wood', K.white, 1.1, 0.08, 0.06, 0, 0.9, 0, { r: 0.01 });
       B.box('paint', K.red, 1.0, 0.45, 0.03, 0, 1.18, 0.02, { r: 0.01 });
-      letters(B, 'LOCK CLOSED', { h: 0.1, x: 0, y: 1.22, z: 0.04, c: K.white, flat: true, wt: 0.22, track: 0.08 });
-      letters(B, 'FOR REPAIR', { h: 0.08, x: 0, y: 1.06, z: 0.04, c: K.white, flat: true, wt: 0.22, track: 0.08 });
+      letters(B, '闸门关闭', { h: 0.1, x: 0, y: 1.22, z: 0.04, c: K.white, flat: true, wt: 0.22, track: 0.08 });
+      letters(B, '待修', { h: 0.08, x: 0, y: 1.06, z: 0.04, c: K.white, flat: true, wt: 0.22, track: 0.08 });
       B.pop();
       B.col(1.25, 0, -1.3, 2.55, 1.42, -0.5, ROOF);
       // pump on a skid, hose snaking to the chamber edge and down the wall
@@ -1807,7 +1807,7 @@ export function register(D, H) {
       B.push(-5.6, top + 0.02, -6.97);
       B.box('wood', K.green, 1.3, 1.0, 0.06, 0, 1.2, 0.03, { r: 0.01 });
       B.box('paint', K.cream, 1.16, 0.86, 0.01, 0, 1.2, 0.065, { r: 0.005 });
-      letters(B, 'NOTICE TO BOATMEN', { h: 0.07, x: 0, y: 1.5, z: 0.071, c: K.black, flat: true, wt: 0.22, track: 0.06 });
+      letters(B, '船户须知', { h: 0.07, x: 0, y: 1.5, z: 0.071, c: K.black, flat: true, wt: 0.22, track: 0.06 });
       for (let k = 0; k < 6; k++) pbox(B, NS('paint'), '#8a8578', 0.9 - (k % 3) * 0.2, 0.03, 0.004, -0.05, 1.36 - k * 0.1, 0.071);
       B.pop();
     },
@@ -1853,8 +1853,8 @@ export function register(D, H) {
   };
   // enamel / cast signs for walls and posts (wall at z = 0, faces +Z): variant = which sign
   const ENAMEL = [
-    ['NO MOORING', K.white, K.red], ['BEWARE OF THE LOCK', K.white, K.blue], ['DEAD SLOW', K.black, '#e8c84a'],
-    ['TOWPATH', K.white, K.green], ['LOCK 2', K.black, K.white], ['NO SWIMMING', K.white, K.red], ['KEEP CLEAR', K.black, '#e8c84a'], ['BASIN', K.white, K.blue],
+    ['禁止泊船', K.white, K.red], ['当心船闸', K.white, K.blue], ['慢速行驶', K.black, '#e8c84a'],
+    ['纤道', K.white, K.green], ['2 号闸', K.black, K.white], ['禁止游泳', K.white, K.red], ['勿要堵塞', K.black, '#e8c84a'], ['闸室', K.white, K.blue],
   ];
   D.lockgate_enamel = {
     desc: 'Enamel sign on a wall (wall at z = 0, pos.y = sign centre): variant 0 NO MOORING, 1 BEWARE OF THE LOCK, 2 DEAD SLOW, 3 TOWPATH, 4 LOCK 2, 5 NO SWIMMING, 6 KEEP CLEAR, 7 BASIN. post: true stands it on its own post (pos = ground).',
@@ -1904,7 +1904,7 @@ export function register(D, H) {
     },
   };
   // paper bills pasted on a wall (wall at z = 0): coloured bills with printed-looking bars + a headline
-  const BILLS = [['REGATTA', '#e9dcb8', '#8e2f2a'], ['TURF WAR', '#f0e6c8', '#2f4a3c'], ['LOCK CLOSED', '#e6e0cf', '#3a4a6a'], ['DANCE', '#efd9b0', '#6a2a5a'], ['BOATS FOR HIRE', '#e8e2d0', '#2c3a58']];
+  const BILLS = [['赛舟会', '#e9dcb8', '#8e2f2a'], ['涂地争霸', '#f0e6c8', '#2f4a3c'], ['闸门关闭', '#e6e0cf', '#3a4a6a'], ['舞厅', '#efd9b0', '#6a2a5a'], ['租船处', '#e8e2d0', '#2c3a58']];
   D.lockgate_bills = {
     desc: 'Paper bills pasted on a wall (wall at z = 0, pos.y = bottom): 2–3 overlapping posters with headlines and print bars, a torn one (non-colliding).',
     params: { count: '2|3' }, variants: 5, mount: 'wall',

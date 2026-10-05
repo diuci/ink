@@ -14,7 +14,7 @@ export function registerLanding(D, H, KIT) {
   // ------------------------------------------------------------------------------------------ market stock
   const TIMBER = ['#c9a06a', '#bf9460', '#d3ad78', '#b88a58'];
   const PAINTED = ['#6f8794', '#5f7f68', '#a3584a', '#8a7a52'];
-  const STENCIL = ['MARKET', 'LOT 3', 'APPLES', 'PEARS', 'ORANGES', 'CEYLON', 'FRAGILE', 'CROSSROADS', 'LEMONS', 'SPICE'];
+  const STENCIL = ['市集', '3 号地', '苹果', '梨', '橙', '锡兰', '易碎', '十字街', '柠檬', '香料'];
   const INK = '#2c2b29';
   // one closed crate, base at (x, y, z) in the current frame, w (x) × h × d (z); kind 0 slatted, 1 tea chest,
   // 2 painted box. `face` = +1 / -1: the ±X face carries a stencil. Lids are closed and flat: people stand on them.
@@ -130,7 +130,7 @@ export function registerLanding(D, H, KIT) {
         letters(B, 'NO 2', { h: 0.28, x: 0, y: 0.02, z: 0, c: CREAM, flat: true, wt: 0.2, track: 0.1 });
         B.pop();
         B.push(-0.8, -0.95, s * (hw + 0.004), s > 0 ? 0 : PI);
-        letters(B, 'CROSSROADS MARKET', { h: 0.13, x: 0, y: 0.08, z: 0, c: CREAM, flat: true, wt: 0.2, track: 0.12 });
+        letters(B, '十字集市', { h: 0.13, x: 0, y: 0.08, z: 0, c: CREAM, flat: true, wt: 0.2, track: 0.12 });
         B.pop();
       }
       // stem + sternpost heads, a long sweep laid along the gunwale
@@ -260,7 +260,7 @@ export function registerLanding(D, H, KIT) {
       B.box('paint', '#23304a', 1.9, 0.36, 0.04, 0, 0, 0, { r: 0.02 });
       B.box('paint', K.gold, 1.82, 0.02, 0.006, 0, 0.14, 0.022, { r: 0.003 });
       B.box('paint', K.gold, 1.82, 0.02, 0.006, 0, -0.14, 0.022, { r: 0.003 });
-      letters(B, 'MARKET HOIST', { h: 0.15, x: 0, y: -0.075, z: 0.022, c: '#efe6d2', flat: true, wt: 0.2, track: 0.12 });
+      letters(B, '市场吊机', { h: 0.15, x: 0, y: -0.075, z: 0.022, c: '#efe6d2', flat: true, wt: 0.2, track: 0.12 });
       B.pop();
       // the crane on the outer +X corner, jib swung out over the lighter
       B.push(hx - 0.55, top, hz - 0.62, o.craneYaw ?? 0.64);

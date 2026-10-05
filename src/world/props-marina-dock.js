@@ -543,7 +543,7 @@ export function registerMarinaDock(D, H) {
         for (let i = 0; i < 3; i++) pbox(B, 'gloss', ['#4f9a57', K.fuelYel, K.white][i], 0.045, 0.022, 0.012, -0.09 + i * 0.06, 0.9, 0.004);
         pbox(B, 'paint', 'ink', 0.07, 0.012, 0.01, 0.17, 0.9, 0.004);
         // grade label on the band
-        letters(B, sz > 0 ? 'DIESEL' : 'UNLEADED', { h: 0.036, x: 0, y: 0.782, z: -0.018, c: sz > 0 ? '#a07a1e' : '#3f7a4a', flat: true, wt: 0.22 });
+        letters(B, sz > 0 ? '柴油' : '无铅汽油', { h: 0.036, x: 0, y: 0.782, z: -0.018, c: sz > 0 ? '#a07a1e' : '#3f7a4a', flat: true, wt: 0.22 });
         B.pop();
       }
       // boots + nozzles + hoses on ±X
@@ -894,7 +894,7 @@ export function registerMarinaDock(D, H) {
         B.box('gloss', K.fuelBlueDk, 1.3, 1.02, 0.05, 0, 1.52, 0.025, { round: true, r: 0.03 });
         B.box('gloss', K.white, 1.2, 0.2, 0.012, 0, 1.9, 0.052, { r: 0.01 });
         letters(B, '油价', { h: 0.085, x: 0, y: 1.857, z: 0.059, c: K.fuelBlueDk, cjkColor: '#1e3a5f', flat: true, wt: 0.22, track: 0.1 });
-        for (const [row, name, price, cc] of [[0, 'DIESEL', o.diesel ?? '1.89', K.fuelYel], [1, 'UNLEADED', o.unleaded ?? '2.14', '#4f9a57']]) {
+        for (const [row, name, price, cc] of [[0, '柴油', o.diesel ?? '1.89', K.fuelYel], [1, '无铅汽油', o.unleaded ?? '2.14', '#4f9a57']]) {
           const yy = 1.58 - row * 0.3;
           B.box('paint', cc, 0.05, 0.2, 0.01, -0.56, yy, 0.052, { r: 0.006 });
           letters(B, name, { h: 0.06, x: -0.5, y: yy - 0.03, z: 0.052, c: K.white, flat: true, wt: 0.22, align: 'left' });
@@ -1009,7 +1009,7 @@ export function registerMarinaDock(D, H) {
       doorUnit(B, -12.95, 1.7, 2.45, { double: true, frame: navy, leaf: navy, pushbar: true, glassH: 0.7 });
       for (const [x, w] of [[-16.0, 2.1], [-12.95, 2.0], [-9.9, 1.9]]) awningRolled(B, x, 2.98, w, navy, trim);
       for (const [x, y, n] of [[-16.55, 1.7, 'menu'], [-9.45, 1.55, 'pst11'], [-15.4, 1.5, 'chalk2']]) B.decal(n, n === 'pst11' ? 0.36 : 0.44, n === 'pst11' ? 0.54 : 0.32, x, y, 0.024);
-      boardSign(B, 'THE GALLEY', -12.95, 3.72, { h: 0.3, board: navy, c: '#6e5530', bd: 0.05, pad: 0.22, wt: 0.18, track: 0.14, lit: 1.3, litC: gold });
+      boardSign(B, '船尾楼', -12.95, 3.72, { h: 0.3, board: navy, c: '#6e5530', bd: 0.05, pad: 0.22, wt: 0.18, track: 0.14, lit: 1.3, litC: gold });
       for (const x of [-17.55, -14.35, -11.45, -8.75]) lantern(B, x, 2.3);
       // back door + meter cabinet behind the kiosk, downpipes
       doorUnit(B, -20.2, 0.95, 2.1, { frame: shade(render, 0.8), leaf: '#8a939c', glassH: 0.25 });
@@ -1021,7 +1021,7 @@ export function registerMarinaDock(D, H) {
       doorUnit(B, 13.35, 1.0, 2.35, { frame: navy, leaf: navy, glassH: 0.7 });
       awningRolled(B, 10.6, 2.98, 2.9, navy, trim); awningRolled(B, 13.35, 2.98, 1.2, navy, trim);
       for (const [x, y, n] of [[9.8, 1.6, 'pst4'], [11.55, 1.5, 'pst8'], [10.7, 0.95, 'lb11']]) B.decal(n, n === 'lb11' ? 0.6 : 0.36, n === 'lb11' ? 0.15 : 0.54, x, y, 0.024);
-      boardSign(B, 'CHANDLERY', 11.5, 3.72, { h: 0.28, board: navy, c: '#6e5530', bd: 0.05, pad: 0.2, wt: 0.18, track: 0.14, lit: 1.3, litC: gold });
+      boardSign(B, '船具铺', 11.5, 3.72, { h: 0.28, board: navy, c: '#6e5530', bd: 0.05, pad: 0.2, wt: 0.18, track: 0.14, lit: 1.3, litC: gold });
       for (const x of [9.05, 12.25, 14.2]) lantern(B, x, 2.3);
       // strip above the boathouse roof (y 3.2 … 4.6) + east end
       for (const x of [16.2, 20.8]) windowUnit(B, x, 3.52, 1.0, 0.72, { frame: trim, mull: 1, sill: false });

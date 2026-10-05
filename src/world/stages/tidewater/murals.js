@@ -133,7 +133,7 @@ export function drawMurals(g, R, kit) {
     g.save();
     g.fillStyle = NAVY; g.beginPath(); g.arc(cx, cy, 3.95 * s, 0, Math.PI * 2); g.arc(cx, cy, 2.55 * s, 0, Math.PI * 2, true); g.fill();
     g.strokeStyle = GOLD; g.lineWidth = 0.07 * s; for (const rr of [3.85, 2.65]) { g.beginPath(); g.arc(cx, cy, rr * s, 0, Math.PI * 2); g.stroke(); }
-    arcText(g, '禧年台 · MDCCCLXXXVII · ', cx, cy, 3.25 * s, -Math.PI / 2 - 0.9, Math.PI * 2 - 0.05, `800 ${Math.round(0.46 * s)}px ${ZH}`, CREAM);
+    arcText(g, '禧年台 · 一八八七 · ', cx, cy, 3.25 * s, -Math.PI / 2 - 0.9, Math.PI * 2 - 0.05, `800 ${Math.round(0.46 * s)}px ${ZH}`, CREAM);
     // four rosettes on the diagonals
     for (let k = 0; k < 4; k++) { const a = Math.PI / 4 + (k * Math.PI) / 2, x = cx + Math.cos(a) * 3.25 * s, y = cy + Math.sin(a) * 3.25 * s; g.fillStyle = CORAL; for (let p = 0; p < 6; p++) { const b = (p / 6) * Math.PI * 2; g.beginPath(); g.ellipse(x + Math.cos(b) * 0.14 * s, y + Math.sin(b) * 0.14 * s, 0.12 * s, 0.07 * s, b, 0, Math.PI * 2); g.fill(); } g.fillStyle = MUST; g.beginPath(); g.arc(x, y, 0.08 * s, 0, Math.PI * 2); g.fill(); }
     tesserae(g, r.x, r.y, r.w, r.h, 5, 51);

@@ -830,7 +830,7 @@ export function register(D, H) {
       rodT(B, NS('metal'), stlDk, P3(0, hy + 0.6, -0.2), P3(0, hy + 0.35, -2.2), 0.012, 3);
       rodT(B, NS('metal'), stlDk, P3(0, hy - 0.2, -0.2), P3(0, hy + 0.25, -2.2), 0.012, 3);
       B.add('paint', tpl('vane', () => extrudeGeo([[-0.9, -0.55], [0.35, -0.3], [0.35, 0.55], [-0.9, 0.7]], 0.04, 0.008)), K.oxide, 0, hy + 0.35, -2.55, {});
-      for (const f of [1, -1]) { B.push(f * 0.023, hy + 0.3, -2.75, f > 0 ? HP : -HP); letters(B, 'SALTPAN', { h: 0.2, x: 0, y: -0.05, z: 0, c: K.cream, flat: true, wt: 0.2, track: 0.1 }); B.pop(); }
+      for (const f of [1, -1]) { B.push(f * 0.023, hy + 0.3, -2.75, f > 0 ? HP : -HP); letters(B, '盐田', { h: 0.2, x: 0, y: -0.05, z: 0, c: K.cream, flat: true, wt: 0.2, track: 0.1 }); B.pop(); }
       // pump rod + guides down the middle, pump head at the base
       B.cyl('metal', K.galv, 0.022, Ht - 0.6, 0, 0.6 + (Ht - 0.6) / 2, 0, { seg: 5 });
       for (const y of [2.5, 4.4, 6.1, 7.6]) { const s = half(y); pbeam(B, NS('metal'), stlDk, [-s, y + 0.05, 0], [s, y + 0.05, 0], 0.04, 0.04); }
@@ -992,7 +992,7 @@ export function register(D, H) {
       for (let k = -6; k <= 6; k++) pbox(B, NS('paint'), '#7c8589', 0.03, 1.9, 1.82, dh.x + k * 0.11, 4.55, dh.z);
       B.box('paint', K.roof, 1.8, 0.08, 2.1, dh.x, 5.55, dh.z, { r: 0.01, rz: 0.12 });
       ledgedDoorOn(B, dh.x - 0.76, 3.6, dh.z, -HP, 0.8, 1.7, '#6f8583');
-      B.push(dh.x, 3.6, dh.z + 0.91, 0); letters(B, 'DANGER', { h: 0.1, x: 0, y: 1.45, z: 0.005, c: K.red, flat: true, wt: 0.22 }); B.pop();
+      B.push(dh.x, 3.6, dh.z + 0.91, 0); letters(B, '危险', { h: 0.1, x: 0, y: 1.45, z: 0.005, c: K.red, flat: true, wt: 0.22 }); B.pop();
       B.col(dh.x - 0.75, 3.6, dh.z - 0.9, dh.x + 0.75, 5.5, dh.z + 0.9, { roof: true });
       B.blink('#ff3b2a', dh.x, 5.7, dh.z, { size: 0.055, rate: 0.5, phase: 1.3, lo: 0.3, hi: 4 });
       B.push(dh.x - 0.76, 5.05, dh.z + 0.45, -HP); D.saltpan_lamp.build(B, { variant: 1 }); B.pop(); B.aoBase = 0;
@@ -1115,7 +1115,7 @@ export function register(D, H) {
       B.pop();
       // gables
       B.push(x1, 0, (zb + zf) / 2, HP);
-      boardSign(B, 'PACKING SHED', 0, 2.62, 0, { h: 0.3, board: K.cream, c: K.oxideDk, border: K.oxideDk });
+      boardSign(B, '包装棚', 0, 2.62, 0, { h: 0.3, board: K.cream, c: K.oxideDk, border: K.oxideDk });
       window4(B, -2.2, 1.0, 0.8, 0.9, {});
       ledgedDoor(B, 1.9, 0, 1.0, 2.05, '#6f8583', {});
       for (let k = 0; k < 5; k++) pbox(B, NS('paint'), '#5d615d', 1.0, 0.05, 0.05, 0, 3.4 + k * 0.1, 0.05, { rx: 0.5 });
@@ -1239,8 +1239,8 @@ export function register(D, H) {
       for (let y = Hw + 0.18; y < apex - 0.1; y += 0.18) { const hw = gw * (1 - (y - Hw) / (apex - Hw)) - 0.05; pbox(B, NS('paint'), wallDk, hw * 2, 0.018, 0.01, cxg, y, zf + 0.004); }
       for (const s of [-1, 1]) pbeam(B, 'paint', trim, [cxg + s * (gw + 0.35), Hw - 0.15, zf + 0.08], [cxg, apex + 0.12, zf + 0.08], 0.08, 0.3);
       B.push(0, 0, zf, 0);
-      letters(B, 'SALTPAN BASIN', { h: 0.62, x: cxg, y: 5.85, z: 0.01, c: K.cream, dep: 0.07, wt: 0.19, track: 0.1, mat: 'paint' });
-      letters(B, 'SALT CO. · 1889', { h: 0.26, x: cxg, y: 6.75, z: 0.01, c: K.cream, flat: true, wt: 0.2, track: 0.14 });
+      letters(B, '盐田盆地', { h: 0.62, x: cxg, y: 5.85, z: 0.01, c: K.cream, dep: 0.07, wt: 0.19, track: 0.1, mat: 'paint' });
+      letters(B, '盐业公司 · 1889', { h: 0.26, x: cxg, y: 6.75, z: 0.01, c: K.cream, flat: true, wt: 0.2, track: 0.14 });
       ledgedDoor(B, cxg, 7.2, 1.1, 1.3, '#7c8f8f', {});
       pbox(B, 'paint', trim, 1.3, 0.08, 0.1, cxg, 8.54, 0.05);
       B.pop();
@@ -1323,7 +1323,7 @@ export function register(D, H) {
       B.sph(NS('metal'), K.clubGold, 0.03, cx + 0.53, 1.12, 0.07, { ws: 6, hs: 4 });
       window4(B, x0 + 1.25, 1.0, 0.9, 1.1, { lit: 0.7, shutter: '#5f7b78' });
       window4(B, x1 - 1.25, 1.0, 0.9, 1.1, { lit: 0.7, shutter: '#5f7b78' });
-      boardSign(B, 'WORKS OFFICE', cx + 0.2, 2.55, 0.06, { h: 0.17, board: '#33405a', c: K.cream, hb: 0.3 });
+      boardSign(B, '盐场办公室', cx + 0.2, 2.55, 0.06, { h: 0.17, board: '#33405a', c: K.cream, hb: 0.3 });
       B.pop();
       B.push(x1, 0, cz, HP);
       window4(B, -0.9, 1.0, 0.9, 1.1, { shutter: '#5f7b78' });
@@ -1399,7 +1399,7 @@ export function register(D, H) {
     desc: 'Salt-works sign: variant 0 a painted pan board on two tarred posts (text, e.g. PAN 4), 1 a wall board (wall at z = 0), 2 a small enamel warning plate on a post (text). Board faces +Z. Posts collide (variant 0).',
     params: { text: 'string', board: 'colour', color: 'letter colour', h: 'letter height' }, variants: 3, mount: 'ground|wall',
     build(B, o) {
-      const v = (o.variant ?? 0) % 3, text = o.text ?? 'PAN 4';
+      const v = (o.variant ?? 0) % 3, text = o.text ?? '4 号池';
       if (v === 1) { B.aoBase = null; boardSign(B, text, 0, 0, 0, { h: o.h ?? 0.22, board: o.board ?? K.cream, c: o.color ?? K.navy, border: o.color ?? K.navy }); return; }
       if (v === 2) {
         B.box('wood', K.tar, 0.08, 1.5, 0.08, 0, 0.75, 0, { r: 0.012 });
@@ -1765,14 +1765,14 @@ export const PLACEMENTS = [
   { type: 'saltpan_lamp', pos: [25.2, 0, -7.0], rotY: -H2 },
 
   // ---- signs (pan boards are per side)
-  { type: 'saltpan_sign', pos: [10.2, 0, -30.35], rotY: P, text: 'PAN 2', mirror: false },
-  { type: 'saltpan_sign', pos: [-10.2, 0, 30.35], rotY: 0, text: 'PAN 7', mirror: false },
-  { type: 'saltpan_sign', pos: [-11.2, 0, -17.35], rotY: P, text: 'PAN 3', h: 0.26, mirror: false },
-  { type: 'saltpan_sign', pos: [11.2, 0, 17.35], rotY: 0, text: 'PAN 6', h: 0.26, mirror: false },
-  { type: 'saltpan_sign', pos: [-12.4, 0, -8.8], rotY: P + 0.4, text: 'GREAT PAN', h: 0.24, mirror: false },
-  { type: 'saltpan_sign', pos: [12.4, 0, 8.8], rotY: 0.4, text: 'GREAT PAN', h: 0.24, mirror: false },
-  { type: 'saltpan_sign', pos: [-12.3, 0, -19.9], rotY: P, variant: 2, text: 'SOFT BRINE' },
-  { type: 'saltpan_sign', pos: [12.4, 0, -29.6], rotY: P, variant: 2, text: 'NO BARROWS', board: '#ffffff', color: '#b8493d' },
+  { type: 'saltpan_sign', pos: [10.2, 0, -30.35], rotY: P, text: '2 号池', mirror: false },
+  { type: 'saltpan_sign', pos: [-10.2, 0, 30.35], rotY: 0, text: '7 号池', mirror: false },
+  { type: 'saltpan_sign', pos: [-11.2, 0, -17.35], rotY: P, text: '3 号池', h: 0.26, mirror: false },
+  { type: 'saltpan_sign', pos: [11.2, 0, 17.35], rotY: 0, text: '6 号池', h: 0.26, mirror: false },
+  { type: 'saltpan_sign', pos: [-12.4, 0, -8.8], rotY: P + 0.4, text: '大盐池', h: 0.24, mirror: false },
+  { type: 'saltpan_sign', pos: [12.4, 0, 8.8], rotY: 0.4, text: '大盐池', h: 0.24, mirror: false },
+  { type: 'saltpan_sign', pos: [-12.3, 0, -19.9], rotY: P, variant: 2, text: '淡卤水' },
+  { type: 'saltpan_sign', pos: [12.4, 0, -29.6], rotY: P, variant: 2, text: '禁止堆肥', board: '#ffffff', color: '#b8493d' },
 
   // ---- the diagonal causeway over the creek (railed both sides) + the timber quay edges along the whole outline
   { type: 'saltpan_bwposts', pos: [-20.2, 0.08, -38.4], rotY: -2.071, length: 14.6, width: 1.8, drop: 2.7, rail: 2 },
@@ -1845,8 +1845,8 @@ export const PLACEMENTS = [
   { type: 'saltpan_gull', pos: [0.3, 9.15, -0.3], rotY: 0.9, mirror: false },
   { type: 'saltpan_gull', pos: [21.75, 5.62, -11.9], rotY: -2.2, variant: 1 },
   { type: 'saltpan_gull', pos: [11.3, 1.02, -12.8], rotY: 1.9 },
-  { type: 'saltpan_sign', pos: [11.2, 0, -25.4], rotY: -H2 + 0.3, variant: 2, text: 'KEEP OFF THE HEAP', board: '#ffffff', color: '#b8493d' },
-  { type: 'saltpan_sign', pos: [-14.4, 0, -25.6], rotY: P, variant: 2, text: 'LOFT', board: '#f1c95c' },
+  { type: 'saltpan_sign', pos: [11.2, 0, -25.4], rotY: -H2 + 0.3, variant: 2, text: '勿上盐堆', board: '#ffffff', color: '#b8493d' },
+  { type: 'saltpan_sign', pos: [-14.4, 0, -25.6], rotY: P, variant: 2, text: '盐仓阁', board: '#f1c95c' },
 
   // ---- out on the tidal flat: evaporation ponds, a distant wind pump and camelle
   { type: 'saltpan_ponds', pos: [38, 0, 0], rotY: H2, w: 82, d: 60, seed: 11, pump: [38, 24] },

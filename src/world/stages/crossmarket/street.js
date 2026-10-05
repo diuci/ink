@@ -79,13 +79,13 @@ export function registerStreet(D, H, KIT) {
     });
   }
   const STALLS = {
-    veg: { name: 'FRUIT & VEG', goods: ['apples', 'oranges', 'greens', 'cabbage', 'tomatoes', 'lemons', 'carrots', 'pears'], c: ['#3f7a5a', '#efe6d2'] },
-    fish: { name: 'FRESH FISH', goods: ['fish', 'fish', 'fish', 'fish'], c: ['#3f5f86', '#efe6d2'] },
-    flowers: { name: 'FLOWERS', goods: ['flowers', 'flowers', 'flowers', 'flowers'], c: ['#b8566e', '#efe6d2'] },
-    bread: { name: 'BREAD', goods: ['bread', 'bread', 'bread', 'bread'], c: ['#cf9a3c', '#efe6d2'] },
-    cheese: { name: 'CHEESE', goods: ['cheese', 'cheese', 'cheese', 'cheese'], c: ['#d9ae3c', '#f4ecd8'] },
-    spice: { name: 'SPICES', goods: ['spice', 'spice', 'spice', 'spice'], c: ['#b8483e', '#efe6d2'] },
-    fruit: { name: 'FRUIT', goods: ['plums', 'apples', 'pears', 'oranges', 'lemons', 'apples'], c: ['#7a3a4c', '#efe6d2'] },
+    veg: { name: '果蔬', goods: ['apples', 'oranges', 'greens', 'cabbage', 'tomatoes', 'lemons', 'carrots', 'pears'], c: ['#3f7a5a', '#efe6d2'] },
+    fish: { name: '鲜鱼', goods: ['fish', 'fish', 'fish', 'fish'], c: ['#3f5f86', '#efe6d2'] },
+    flowers: { name: '鲜花', goods: ['flowers', 'flowers', 'flowers', 'flowers'], c: ['#b8566e', '#efe6d2'] },
+    bread: { name: '面包', goods: ['bread', 'bread', 'bread', 'bread'], c: ['#cf9a3c', '#efe6d2'] },
+    cheese: { name: '奶酪', goods: ['cheese', 'cheese', 'cheese', 'cheese'], c: ['#d9ae3c', '#f4ecd8'] },
+    spice: { name: '香料', goods: ['spice', 'spice', 'spice', 'spice'], c: ['#b8483e', '#efe6d2'] },
+    fruit: { name: '水果', goods: ['plums', 'apples', 'pears', 'oranges', 'lemons', 'apples'], c: ['#7a3a4c', '#efe6d2'] },
   };
   D.crossmarket_stall = {
     desc: 'Market stall (front +Z; `double`: goods on both long sides, an island stall): timber counter w × d (collider, 1.0 m), sloped display of slatted crates filled with produce / fish on ice / flowers / bread / cheese / spices, four posts, a pitched striped canopy with a scalloped valance, a lettered header board, a hanging scale and a lamp.',
@@ -351,7 +351,7 @@ export function registerStreet(D, H, KIT) {
         B.pop();
       }
       // frieze letters + dome
-      for (const a of [0, PI]) { B.push(Math.sin(a) * (R + 0.19), 0, Math.cos(a) * (R + 0.19), a); letters(B, 'NEWS', { h: 0.15, x: 0, y: Hh + 0.09, z: 0.002, c: K.gold, flat: true, wt: 0.22, track: 0.2 }); B.pop(); }
+      for (const a of [0, PI]) { B.push(Math.sin(a) * (R + 0.19), 0, Math.cos(a) * (R + 0.19), a); letters(B, '报刊亭', { h: 0.15, x: 0, y: Hh + 0.09, z: 0.002, c: K.gold, flat: true, wt: 0.22, track: 0.2 }); B.pop(); }
       B.lathe('paint', K.zinc, [[R + 0.2, Hh + 0.28], [R * 0.9, Hh + 0.55], [R * 0.55, Hh + 0.85], [0.18, Hh + 1.02], [0.08, Hh + 1.1], [0, Hh + 1.12]], 0, 0, 0, { seg: 8, ry: PI / 8 });
       for (let i = 0; i < 8; i++) { const a = (i / 8) * TAU; B.tube(NS('metal'), c, [P3(Math.cos(a) * (R + 0.2), Hh + 0.3, Math.sin(a) * (R + 0.2)), P3(Math.cos(a) * R * 0.56, Hh + 0.86, Math.sin(a) * R * 0.56), P3(0, Hh + 1.1, 0)], 0.02, { radial: 3 }); }
       B.lathe('metal', K.gold, [[0, 0], [0.07, 0.05], [0.05, 0.2], [0.09, 0.3], [0, 0.42]], 0, Hh + 1.1, 0, { seg: 8 });
@@ -360,7 +360,7 @@ export function registerStreet(D, H, KIT) {
         B.push(sx * 0.95, 0, 0.9, sx * -0.4);
         B.box('wood', K.woodDk, 0.5, 0.72, 0.03, 0, 0.5, 0, { rx: -0.12, r: 0.01 });
         pbox(B, NS('paint'), '#f4efe2', 0.42, 0.6, 0.004, 0, 0.52, 0.02, { rx: -0.12 });
-        letters(B, sx > 0 ? 'TRAMS' : 'MARKET', { h: 0.06, x: 0, y: 0.7, z: 0.03, c: '#1d1f22', flat: true, wt: 0.24 });
+        letters(B, sx > 0 ? '电车' : '市集', { h: 0.06, x: 0, y: 0.7, z: 0.03, c: '#1d1f22', flat: true, wt: 0.24 });
         for (let k = 0; k < 3; k++) pbox(B, NS('paint'), '#4a4f58', 0.32, 0.03, 0.004, 0, 0.56 - k * 0.1, 0.03);
         B.pop();
       }
@@ -383,7 +383,7 @@ export function registerStreet(D, H, KIT) {
         KIT.bill(B, 0, 1.95 - (i % 2) * 0.1, 0.0, 0.46, 0.66, Object.keys(KIT.BILLS)[(i * 5 + 1) % 8]);
         B.pop();
       }
-      for (const a of [0, PI]) { B.push(Math.sin(a) * (R + 0.09), 0, Math.cos(a) * (R + 0.09), a); letters(B, a ? 'CIRCUS' : 'THEATRE', { h: 0.14, x: 0, y: Hh + 0.13, z: 0.002, c: K.gold, flat: true, wt: 0.22, track: 0.12 }); B.pop(); }
+      for (const a of [0, PI]) { B.push(Math.sin(a) * (R + 0.09), 0, Math.cos(a) * (R + 0.09), a); letters(B, a ? '马戏团' : '剧院', { h: 0.14, x: 0, y: Hh + 0.13, z: 0.002, c: K.gold, flat: true, wt: 0.22, track: 0.12 }); B.pop(); }
       B.lathe('paint', K.zinc, [[R + 0.18, Hh + 0.42], [R * 0.9, Hh + 0.62], [R * 0.4, Hh + 0.82], [0.08, Hh + 0.92], [0, Hh + 0.94]], 0, 0, 0, { seg: 12 });
       B.lathe('metal', K.gold, [[0, 0], [0.06, 0.04], [0.04, 0.16], [0.07, 0.22], [0, 0.34]], 0, Hh + 0.92, 0, { seg: 8 });
       B.blob(1.6, 1.6);
@@ -431,7 +431,7 @@ export function registerStreet(D, H, KIT) {
     desc: 'Fingerpost signpost: fluted iron post, finial, 2–4 pointing arms (local angles `arms`: [[deg, text], …]) lettered on both faces. Collider: the post.',
     params: { arms: '[[deg, text]]' }, variants: 1, mount: 'ground',
     build(B, o) {
-      const arms = o.arms ?? [[0, 'MARKET HALL'], [180, 'HARBOUR']], c = K.iron;
+      const arms = o.arms ?? [[0, '市场大厅'], [180, '港口']], c = K.iron;
       B.lathe('metal', c, [[0, 0], [0.16, 0], [0.16, 0.08], [0.1, 0.16], [0.06, 0.3], [0.05, 3.0], [0.07, 3.05], [0, 3.1]], 0, 0, 0, { seg: 8 });
       B.sph('metal', K.gold, 0.07, 0, 3.15, 0, { ws: 8, hs: 5 });
       arms.forEach(([deg, text], i) => {
@@ -533,7 +533,7 @@ export function registerStreet(D, H, KIT) {
         B.push(0, 0, 0, 0, -0.18);
         B.box('wood', K.woodDk, 0.62, 0.9, 0.03, 0, 0.47, 0, { r: 0.01 });
         pbox(B, NS('paint'), '#2a2d2b', 0.52, 0.78, 0.01, 0, 0.47, 0.016);
-        letters(B, o.text ?? 'MENU', { h: 0.07, x: 0, y: 0.74, z: 0.023, c: '#f2eee6', flat: true, wt: 0.22 });
+        letters(B, o.text ?? '菜单', { h: 0.07, x: 0, y: 0.74, z: 0.023, c: '#f2eee6', flat: true, wt: 0.22 });
         for (let k = 0; k < 5; k++) pbox(B, NS('paint'), k % 2 ? '#f2d15a' : '#f2eee6', 0.34 - (k % 3) * 0.06, 0.018, 0.004, -0.02, 0.62 - k * 0.09, 0.023);
         B.pop(); B.pop();
       }

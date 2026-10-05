@@ -565,7 +565,7 @@ export function register(D, H) {
           // bronze jubilee plaque in a moulded frame
           pbox(B, 'paint', trim, 1.3, 0.8, 0.05, 0, 1.35, 0.025);
           pbox(B, 'metal', K.bronze, 1.1, 0.6, 0.03, 0, 1.35, 0.06);
-          letters(B, 'JUBILEE', { h: 0.14, x: 0, y: 1.44, z: 0.082, c: '#f0d9a0', flat: true, wt: 0.22, track: 0.16, mat: 'metal' });
+          letters(B, '禧年', { h: 0.14, x: 0, y: 1.44, z: 0.082, c: '#f0d9a0', flat: true, wt: 0.22, track: 0.16, mat: 'metal' });
           letters(B, '1887', { h: 0.18, x: 0, y: 1.15, z: 0.082, c: '#f0d9a0', flat: true, wt: 0.22, track: 0.2, mat: 'metal' });
         } else {
           // drinking fountain: shell niche, lion-mask spout, granite trough (low cover)
@@ -688,7 +688,7 @@ export function register(D, H) {
       B.push(0, 0, 0.28);
       // bronze name on the frieze
       pbox(B, 'paint', trim, PW * 2 + 0.3, 0.7, 0.12, 0, U1 + 0.55, 0.06);
-      letters(B, v ? 'CUSTOM HOUSE' : 'TOWN HALL', { h: 0.46, x: 0, y: U1 + 0.33, z: 0.12, c: K.bronze, mat: 'metal', dep: 0.04, bev: 0, wt: 0.17, track: v ? 0.16 : 0.24 });
+      letters(B, v ? '海关' : '市政厅', { h: 0.46, x: 0, y: U1 + 0.33, z: 0.12, c: K.bronze, mat: 'metal', dep: 0.04, bev: 0, wt: 0.17, track: v ? 0.16 : 0.24 });
       B.add('paint', ext('cornTH2', PROF.cornice, PW * 2 + 0.5), trim, 0, U1 + 0.9, 0, {});
       // pediment with the crest (ship on waves in a gilt roundel)
       const PY = U1 + 1.26, PHh = 1.9;
@@ -895,15 +895,15 @@ export function register(D, H) {
     if (o.lit) pbox(B, NS('glow'), K.lamp, w - sw * 1.4, h * 0.25, 0.004, x, y + h * 0.84, d - 0.005, { glow: o.lit });
   }
   const SHOPS = [
-    ['PENNY ARCADE', '#7a3b67', K.yellow, { glowLetters: 1.4, glowC: '#ffd27a', lit: 1.2 }],
-    ['ROCK SHOP', '#e8a7b8', '#8a2f52', {}],
-    ['FISH & CHIPS', '#2f5d8a', K.white, {}],
-    ['POST OFFICE', '#b8342c', K.gold, {}],
-    ['ICES & TEAS', '#5f9f8c', K.white, { doorLeft: true }],
-    ['BUCKETS & SPADES', K.yellow, K.navy, { lh: 0.17 }],
-    ['SEASIDE GIFTS', '#6b7fb3', K.white, { doorLeft: true }],
-    ['SWEETS', '#c97a9a', K.white, {}],
-    ['THE ANCHOR', '#2f4a3a', K.gold, { lit: 0.9 }],
+    ['便士游戏厅', '#7a3b67', K.yellow, { glowLetters: 1.4, glowC: '#ffd27a', lit: 1.2 }],
+    ['奇石店', '#e8a7b8', '#8a2f52', {}],
+    ['炸鱼薯条', '#2f5d8a', K.white, {}],
+    ['邮局', '#b8342c', K.gold, {}],
+    ['冰饮茶座', '#5f9f8c', K.white, { doorLeft: true }],
+    ['桶铲玩具', K.yellow, K.navy, { lh: 0.17 }],
+    ['海滨礼品', '#6b7fb3', K.white, { doorLeft: true }],
+    ['糖果铺', '#c97a9a', K.white, {}],
+    ['铁锚号', '#2f4a3a', K.gold, { lit: 0.9 }],
   ];
   D.tidewater_arcadefront = {
     desc: 'The Crescent’s frontage (site piece, pos = world origin, Alpha half): nine shopfronts on the covered walk (PENNY ARCADE … THE ANCHOR) with wares out front (small cover, collides) and blade signs, then above the terrace walk the three buildings of the bent terrace: seaside houses with bay windows, the GRAND HOTEL (glazed canopy, parapet, roof letters), a turreted corner house at the mid end; slate roofs, chimneys, dormers, the sea-side backs.',
@@ -920,7 +920,7 @@ export function register(D, H) {
           fpush(B, DK, 0, zc, -HP); shopfront(B, Wf / ns - 0.12, name, { c: cc, lc, ...extra }); fpop(B);
           if (!(si === 1 && k === 0) && !(si === 2 && k === 2)) wares(B, DK - 0.65, zc + (extra.doorLeft ? 0.7 : -0.7), (shopIdx + si) % 4);
           if (k < ns - 1 && (k + si) % 2 === 0) {
-            const z = f0 + (Wf * (k + 1)) / ns, [t, bc, lc2] = [['ROCK', '#e8a7b8', K.navy], ['POST', '#b8342c', K.gold], ['GIFTS', '#6b7fb3', K.white], ['ALES', '#2f4a3a', K.gold]][(si + k) % 4];
+            const z = f0 + (Wf * (k + 1)) / ns, [t, bc, lc2] = [['奇石', '#e8a7b8', K.navy], ['邮局', '#b8342c', K.gold], ['礼品店', '#6b7fb3', K.white], ['麦酒馆', '#2f4a3a', K.gold]][(si + k) % 4];
             B.box('paint', bc, 0.05, 0.42, 0.8, DK - 0.75, 2.55, z, { r: 0.02 });
             pbox(B, 'metal', K.ironDk, 0.75, 0.03, 0.03, DK - 0.4, 2.8, z);
             B.tube(NS('metal'), K.ironDk, [P3(DK - 0.05, 2.55, z), P3(DK - 0.3, 2.78, z)], 0.012, { radial: 3 });
@@ -943,7 +943,7 @@ export function register(D, H) {
           pbox(B, NS('gloss'), K.glassLt, Wf - 0.8, 0.03, 1.4, xc, 5.53, 0.75);
           for (let x = 0.5; x <= Wf - 0.49; x += (Wf - 1) / 7) B.tube('gloss', K.ironDk, [P3(x, 4.45, 0.02), P3(x, 4.9, 0.4), P3(x, 5.4, 1.4)], 0.025, { radial: 4 });
           for (let x = 0.4; x <= Wf - 0.39; x += 0.3) pbox(B, NS('gloss'), K.ironDk, 0.02, 0.18, 0.02, x, 5.33, 1.5);
-          letters(B, 'GRAND HOTEL', { h: 0.34, x: xc, y: 5.62, z: 1.46, c: K.gold, mat: 'gloss', dep: 0.05, bev: 0, wt: 0.18, track: 0.14, lit: 1.1, litC: '#ffdca0' });
+          letters(B, '大饭店', { h: 0.34, x: xc, y: 5.62, z: 1.46, c: K.gold, mat: 'gloss', dep: 0.05, bev: 0, wt: 0.18, track: 0.14, lit: 1.1, litC: '#ffdca0' });
           for (const x of [xc - 3.6, xc - 1.2, xc + 1.2, xc + 3.6]) archOpening(B, x, 3.2, 1.1, 1.75, { door: '#5a3a2a', lit: 0.9 });
           for (const x of [xc - 4.2, xc - 2.5, xc - 0.85, xc + 0.85, xc + 2.5, xc + 4.2]) { sash(B, x, 6.0, 0.85, 1.2, { frame: K.trim, hood: 'segment', lit: 0.6, balconette: true }); sash(B, x, 7.55, 0.85, 0.9, { frame: K.trim, lit: 0.5, key: false }); }
           B.add('paint', ext('cornB' + Wf.toFixed(2), PROF.cornice, Wf + 0.2), K.trim, xc, top - 0.36, 0, {});
@@ -951,7 +951,7 @@ export function register(D, H) {
           B.push(xc, top + 1.0, -1.2);
           for (const x of [-3.9, -1.3, 1.3, 3.9]) { pbox(B, 'metal', K.ironDk, 0.08, 1.6, 0.08, x, 0.4, -0.1); B.tube(NS('metal'), K.ironDk, [P3(x, -0.4, -0.9), P3(x, 1.0, -0.1)], 0.02, { radial: 3 }); }
           pbox(B, 'metal', K.ironDk, 8.8, 0.06, 0.06, 0, 0.1, -0.1);
-          letters(B, 'GRAND HOTEL', { h: 0.85, x: 0, y: 0.15, z: -0.05, c: '#b23a48', mat: 'gloss', dep: 0.1, bev: 0, wt: 0.17, track: 0.08, lit: 1.3, litC: '#ff8f7a' });
+          letters(B, '大饭店', { h: 0.85, x: 0, y: 0.15, z: -0.05, c: '#b23a48', mat: 'gloss', dep: 0.1, bev: 0, wt: 0.17, track: 0.08, lit: 1.3, litC: '#ff8f7a' });
           B.pop();
           B.push(xc, top, -1.5); B.add('paint', tpl('roofB' + Wf.toFixed(2), () => extrudeGeo([[-1.6, 0], [1.6, 0], [0.5, 1.4], [-0.5, 1.4]], 1, 0.001)), K.slate, 0, 0, 0, { sx: Wf + 0.2 }); B.pop();
           for (const x of [0.6, Wf - 0.6]) { B.cyl('paint', K.white, 0.05, 3.2, x, top + 1.6, 0.1, { seg: 6 }); B.flag(x, top + 3.0, 0.1, { color: x < xc ? K.navy : K.coral, s: 1.5, ry: -HP }); }
@@ -1185,7 +1185,7 @@ export function register(D, H) {
           B.box('wood', K.woodLt, 1.7, 0.06, 0.32, 0, 0.97, 0.16, { r: 0.015 });
           for (let i = 0; i < 9; i++) { const x = -0.8 + i * 0.2; B.push(x, 2.12, 0.02, 0, 0.62); pbox(B, 'paint', i % 2 ? K.white : '#e98aa6', 0.2, 0.03, 0.6, 0, 0, 0.3); B.pop(); }
           for (const sx of [-1, 1]) B.tube(NS('metal'), K.ironDk, [P3(sx * 0.82, 1.8, 0.02), P3(sx * 0.82, 1.9, 0.35), P3(sx * 0.82, 1.83, 0.5)], 0.012, { radial: 3 });
-          letters(B, 'ICES', { h: 0.14, x: 0, y: 2.25, z: 0.09, c: '#b83a5e', flat: true, wt: 0.22, track: 0.15 });
+          letters(B, '冰淇淋', { h: 0.14, x: 0, y: 2.25, z: 0.09, c: '#b83a5e', flat: true, wt: 0.22, track: 0.15 });
           for (const [x, n] of [[-1.05, 'ice'], [1.05, 'menu']]) B.decal(n, 0.34, 0.44, x, 1.45, 0.02);
         }
       });
@@ -1239,7 +1239,7 @@ export function register(D, H) {
       for (const x of [-2.0, 2.0]) { B.cyl('gloss', K.iron, 0.05, 2.6, x, 1.3, 1.22, { seg: 8 }); COL(B, x - 0.08, 0, 1.14, x + 0.08, 2.6, 1.3, { roof: true }); }
       COL(B, -2.2, 2.58, 0, 2.2, 2.7, 1.3, { roof: true });
       B.box('paint', K.navy, 2.4, 0.4, 0.06, 0, 3.05, 1.2, { r: 0.02 });
-      letters(B, 'TEA ROOMS', { h: 0.22, x: 0, y: 2.94, z: 1.235, c: K.gold, flat: true, wt: 0.2, track: 0.14 });
+      letters(B, '茶室', { h: 0.22, x: 0, y: 2.94, z: 1.235, c: K.gold, flat: true, wt: 0.2, track: 0.14 });
       fpop(B);
       // café tables with parasols (cover)
       for (const [x, z, st] of [[-3.3, -1.1, 0], [-3.1, 1.6, 1], [0.4, -3.1, 1], [0.6, 3.0, 0]]) cafeTable(B, x, 0, z, st);
@@ -1278,7 +1278,7 @@ export function register(D, H) {
       COL(B, -1.9, Y, -1.9, 1.9, Y + rise * 0.6, 1.9);
       // bronze plaque on the kerb facing the square (+X side in world → local +X)
       B.box('metal', K.bronze, 0.05, 0.3, 0.8, hw + 0.03, 0.4, 0, { r: 0.01 });
-      B.push(hw + 0.06, 0.35, 0, HP); letters(B, 'FLORAL CLOCK', { h: 0.05, x: 0, y: 0, z: 0, c: K.gold, flat: true, wt: 0.24, track: 0.1, mat: 'metal' }); B.pop();
+      B.push(hw + 0.06, 0.35, 0, HP); letters(B, '花钟', { h: 0.05, x: 0, y: 0, z: 0, c: K.gold, flat: true, wt: 0.24, track: 0.1, mat: 'metal' }); B.pop();
     },
   };
   D.tidewater_border = {
@@ -1297,7 +1297,7 @@ export function register(D, H) {
       B.push(w / 2 + 0.02, 0, 0, HP);
       B.cyl('gloss', K.iron, 0.025, 0.7, -0.6, 0.35, 0.25, { seg: 5 }); B.cyl('gloss', K.iron, 0.025, 0.7, 0.6, 0.35, 0.25, { seg: 5 });
       B.box('paint', '#2f5d55', 1.5, 0.36, 0.04, 0, 0.62, 0.25, { r: 0.01 });
-      letters(B, 'TIDEWATER IN BLOOM', { h: 0.075, x: 0, y: 0.58, z: 0.275, c: K.white, flat: true, wt: 0.22, track: 0.08 });
+      letters(B, '潮水花朝节', { h: 0.075, x: 0, y: 0.58, z: 0.275, c: K.white, flat: true, wt: 0.22, track: 0.08 });
       B.pop();
     },
   };
@@ -1311,7 +1311,7 @@ export function register(D, H) {
       B.add('paint', ext('plinthAn', PROF.plinth, 2.3), K.graniteDk, 0, 0, 1.1, {});
       B.box('paint', K.trim, 2.3, 0.1, 2.3, 0, Y + 0.05, 0, { r: 0.02 });
       B.box('paint', K.granite, 1.2, 0.3, 1.2, 0, Y + 0.25, 0, { r: 0.03 });
-      for (let s = 0; s < 4; s++) { B.push(0, 0, 0, s * HP); pbox(B, 'metal', K.bronze, 1.0, 0.5, 0.03, 0, 0.5, 1.115); letters(B, s % 2 ? 'LOST AT SEA' : 'IN MEMORIAM', { h: 0.07, x: 0, y: 0.55, z: 1.135, c: K.gold, flat: true, wt: 0.24, track: 0.1, mat: 'metal' }); B.pop(); }
+      for (let s = 0; s < 4; s++) { B.push(0, 0, 0, s * HP); pbox(B, 'metal', K.bronze, 1.0, 0.5, 0.03, 0, 0.5, 1.115); letters(B, s % 2 ? '海上罹难' : '永志不忘', { h: 0.07, x: 0, y: 0.55, z: 1.135, c: K.gold, flat: true, wt: 0.24, track: 0.1, mat: 'metal' }); B.pop(); }
       const c = '#2b2d33', AY = Y + 0.4;
       B.push(0, AY, 0, 0.35);
       pbox(B, 'metal', c, 0.14, 2.3, 0.14, 0, 1.15, 0);
@@ -1383,8 +1383,8 @@ export function register(D, H) {
       for (const x of [-1.35, 1.35]) { pbox(B, 'gloss', K.ironDk, 0.06, 0.4, 0.2, x, 1.75, 0.1); lantern(B, x, 1.4, 0.3, 0.75); }
       const vv = (o.variant ?? 0) % 2;
       pbox(B, 'metal', K.bronze, 0.8, 0.34, 0.03, -3.8, 1.25, 0.02);
-      letters(B, vv ? 'CUSTOM HOUSE' : 'TOWN HALL', { h: 0.07, x: -3.8, y: 1.3, z: 0.04, c: K.gold, flat: true, wt: 0.24, track: 0.1, mat: 'metal' });
-      letters(B, 'OPEN 9 - 5', { h: 0.05, x: -3.8, y: 1.17, z: 0.04, c: K.gold, flat: true, wt: 0.24, track: 0.1, mat: 'metal' });
+      letters(B, vv ? '海关' : '市政厅', { h: 0.07, x: -3.8, y: 1.3, z: 0.04, c: K.gold, flat: true, wt: 0.24, track: 0.1, mat: 'metal' });
+      letters(B, '早九晚五', { h: 0.05, x: -3.8, y: 1.17, z: 0.04, c: K.gold, flat: true, wt: 0.24, track: 0.1, mat: 'metal' });
       fpop(B);
       // the loggia's seaward side (x = -9.5, facing the bay) — a rusticated sea wall with arched windows
       fpush(B, -9.5, 0, -41.9, -HP);
@@ -1436,14 +1436,14 @@ export function register(D, H) {
       for (const x of [-6.2, -3.2, 0.2, 3.2, 6.2]) sash(B, x, 4.1, 0.9, 1.3, { frame: K.trim, lit: 0.6, key: true });
       // name band + letters, crest roundel
       pbox(B, 'paint', navy, 9.0, 0.6, 0.08, -1.2, 3.1, 0.04);
-      letters(B, 'LIFEBOAT STATION', { h: 0.34, x: -1.2, y: 2.93, z: 0.085, c: K.white, flat: true, wt: 0.2, track: 0.14 });
+      letters(B, '救生站', { h: 0.34, x: -1.2, y: 2.93, z: 0.085, c: K.white, flat: true, wt: 0.2, track: 0.14 });
       B.cyl('gloss', red, 0.4, 0.05, 6.4, 3.1, 0.03, { rx: HP, seg: 18 });
       B.cyl('gloss', K.white, 0.3, 0.02, 6.4, 3.1, 0.06, { rx: HP, seg: 18 });
       B.tor(NS('gloss'), navy, 0.19, 0.04, 6.4, 3.1, 0.075, { rs: 4, ts: 16 });
       // service boards: launches, the tide table, a crew call bell on a bracket, a collection box (cover)
       pbox(B, 'wood', K.woodLt, 1.2, 1.5, 0.06, 5.2, 1.5, 0.03);
       pbox(B, NS('paint'), '#1f3150', 1.1, 1.4, 0.02, 5.2, 1.5, 0.065);
-      letters(B, 'SERVICES', { h: 0.08, x: 5.2, y: 2.05, z: 0.08, c: K.gold, flat: true, wt: 0.24, track: 0.12 });
+      letters(B, '服务台', { h: 0.08, x: 5.2, y: 2.05, z: 0.08, c: K.gold, flat: true, wt: 0.24, track: 0.12 });
       for (let i = 0; i < 8; i++) pbox(B, NS('paint'), K.gold, 0.8 - (i % 3) * 0.15, 0.025, 0.004, 5.1, 1.85 - i * 0.12, 0.078);
       pbox(B, 'gloss', K.ironDk, 0.06, 0.06, 0.5, -1.5, 2.3, 0.25);
       B.lathe('metal', K.bronze, [[0, 0.3], [0.08, 0.28], [0.14, 0.12], [0.2, 0], [0.17, 0.01], [0, 0.04]], -1.5, 1.95, 0.45, { seg: 12 });
@@ -1469,7 +1469,7 @@ export function register(D, H) {
       B.add('paint', archPanelGeo(4.2, 2.9, 14), '#1b2430', 0, 0.0, 0.01, {});
       B.tube('paint', K.trim, arcPts(0, 2.9, 0.06, 2.2, 0, PI, 14), 0.1, { radial: 5 });
       for (const sx of [-1, 1]) { pbox(B, 'paint', K.trim, 0.26, 2.9, 0.14, sx * 2.23, 1.45, 0.07); B.push(sx * 2.1, 0, 0.02, sx * -1.2); pbox(B, 'wood', navy, 2.1, 2.8, 0.09, sx * -1.05, 1.4, 0.05); for (let i = 0; i < 7; i++) pbox(B, NS('wood'), shade(navy, 1.15), 0.04, 2.75, 0.02, sx * (-0.15 - i * 0.3), 1.4, 0.1); B.pop(); }
-      letters(B, 'LIFEBOAT', { h: 0.42, x: 0, y: 5.3 - 0.1, z: 0.04, c: red, flat: true, wt: 0.2, track: 0.16 });
+      letters(B, '救生艇', { h: 0.42, x: 0, y: 5.3 - 0.1, z: 0.04, c: red, flat: true, wt: 0.2, track: 0.16 });
       fpop(B);
       // slipway: timber-decked ramp on piers from the door down into the sea
       B.push(X0 - 7.5, -1.55, -42.2, 0, 0, 0.2);
@@ -1509,7 +1509,7 @@ export function register(D, H) {
       for (let i = 0; i < 4; i++) pbox(B, NS('metal'), K.white, 0.5, 0.025, 0.025, 0, 3.55 + i * 0.3, -1.3);
       B.lathe(NS('glow'), '#6ab0ff', [[0, 0], [0.09, 0], [0.09, 0.15], [0, 0.15]], 0, 4.85, -1.3, { seg: 8, glow: 1.4 });
       for (let i = 0; i < 5; i++) B.lathe(NS('gloss'), '#2a2c31', [[0, -0.2], [0.09, -0.18], [0.1, 0.18], [0, 0.2]], 1.47, 1.3, -3 + i * 1.3, { seg: 6, rz: HP * 0.1 });
-      B.push(1.47, 1.1, 0.4, HP); letters(B, 'TIDEWATER', { h: 0.2, x: 0, y: 0, z: 0.02, c: K.white, flat: true, wt: 0.22, track: 0.12 }); B.pop();
+      B.push(1.47, 1.1, 0.4, HP); letters(B, '潮水广场', { h: 0.2, x: 0, y: 0, z: 0.02, c: K.white, flat: true, wt: 0.22, track: 0.12 }); B.pop();
       B.pop();
       // cradle + keel rollers on the slip
       B.push(X0 - 5.4, -1.25, -42.2, -HP, 0.2, 0);
@@ -1526,7 +1526,7 @@ export function register(D, H) {
     desc: 'Pier gate + pier (pos = gate centre on the promenade edge, pier out along local -X): booth dressing (turnstile windows, clocks, pay boards, domed cupolas), a lit wrought-iron arch with the pier’s name, closed ornamental gates (collide), then the pier over the sea: cast-iron legs + bracing, a planked deck with railings and lamps, twin kiosks halfway, and the domed pavilion at the end with flags. variant 0 PALACE PIER, 1 VICTORIA PIER.',
     params: {}, variants: 2, mount: 'ground',
     build(B, o) {
-      const v = (o.variant ?? 0) % 2, name = v ? 'VICTORIA PIER' : 'PALACE PIER', accent = v ? '#5e7fb0' : K.coral, c = K.iron;
+      const v = (o.variant ?? 0) % 2, name = v ? '维多利亚码头' : '皇宫码头', accent = v ? '#5e7fb0' : K.coral, c = K.iron;
       // booths: dress the gate-facing + promenade-facing sides of the two 3 × 3 blocks (local x 0 … 3, z ±(2.5 … 5.5))
       for (const s of [-1, 1]) {
         const bz = s * 4.0, bx = 1.5;
@@ -1665,7 +1665,7 @@ export function register(D, H) {
       pbox(B, NS('paint'), '#1d2a44', W - 0.2, 0.66, 0.02, 0, 1.6, Dd / 2 - 0.08);
       B.box('wood', K.wood, W, 0.06, 0.24, 0, 1.3, Dd / 2 + 0.1, { r: 0.01 });
       B.box('paint', K.navy, W + 0.3, 0.42, 0.06, 0, Hh + 0.3, Dd / 2 + 0.02, { r: 0.03 });
-      letters(B, 'PUNCH & JUDY', { h: 0.17, x: 0, y: Hh + 0.22, z: Dd / 2 + 0.055, c: K.yellow, flat: true, wt: 0.22, track: 0.08 });
+      letters(B, '木偶戏', { h: 0.17, x: 0, y: Hh + 0.22, z: Dd / 2 + 0.055, c: K.yellow, flat: true, wt: 0.22, track: 0.08 });
       B.lathe('paint', K.red, [[0, 0], [0.12, 0.02], [0.14, 0.18], [0, 0.34]], 0, Hh + 0.45, 0, { seg: 8 });
       // Mr Punch (hooked nose, red coat, hat) + crocodile on the playboard
       B.push(-0.3, 1.33, Dd / 2 + 0.05);
@@ -1707,8 +1707,8 @@ export function register(D, H) {
       for (let i = 0; i < 16; i++) pbox(B, NS('paint'), i % 2 ? K.ink : K.red, i % 5 === 0 ? 0.16 : 0.1, 0.03, 0.01, 0.04, 0.3 + i * 0.2, 0.075);
       B.box('paint', K.navy, 0.9, 1.05, 0.06, 0, 2.0, 0.1, { r: 0.03 });
       B.add('paint', ext('tgHood', [[0, 0], [0.25, 0], [0, 0.18]], 1.0), K.slate, 0, 2.55, 0.08, {});
-      letters(B, 'TIDE TABLE', { h: 0.07, x: 0, y: 2.36, z: 0.135, c: K.gold, flat: true, wt: 0.24, track: 0.1 });
-      for (let i = 0; i < 4; i++) { letters(B, ['HW 06:12', 'LW 12:31', 'HW 18:40', 'LW 00:55'][i], { h: 0.055, x: -0.05, y: 2.18 - i * 0.12, z: 0.135, c: K.white, flat: true, wt: 0.24, track: 0.06 }); }
+      letters(B, '潮汐表', { h: 0.07, x: 0, y: 2.36, z: 0.135, c: K.gold, flat: true, wt: 0.24, track: 0.1 });
+      for (let i = 0; i < 4; i++) { letters(B, ['高潮 06:12', '低潮 12:31', '高潮 18:40', '低潮 00:55'][i], { h: 0.055, x: -0.05, y: 2.18 - i * 0.12, z: 0.135, c: K.white, flat: true, wt: 0.24, track: 0.06 }); }
       B.cyl('metal', K.bronze, 0.16, 0.05, 0, 1.65, 0.12, { rx: HP, seg: 14 });
       B.cyl(NS('paint'), '#f4ecd8', 0.13, 0.01, 0, 1.65, 0.15, { rx: HP, seg: 14 });
       B.push(0, 1.65, 0.16, 0, 0, -0.7); pbox(B, NS('paint'), K.ink, 0.015, 0.11, 0.005, 0, 0.05, 0); B.pop();
@@ -1774,7 +1774,7 @@ export function register(D, H) {
       B.flag(0, Hh + 1.72, 0, { color: '#3f7fa0', s: 1.2 });
       B.push(0, Hh + 0.25, R + 0.2, 0, -0.35);
       B.box('paint', K.navy, 1.4, 0.3, 0.05, 0, 0, 0, { r: 0.02 });
-      letters(B, 'BOAT TRIPS', { h: 0.14, x: 0, y: -0.07, z: 0.03, c: K.yellow, flat: true, wt: 0.22, track: 0.1 });
+      letters(B, '游船', { h: 0.14, x: 0, y: -0.07, z: 0.03, c: K.yellow, flat: true, wt: 0.22, track: 0.1 });
       B.pop();
       COL(B, -0.9, 0, -0.9, 0.9, Hh + 0.6, 0.9, { roof: true });
       B.blob(2.6, 2.6);
@@ -1807,7 +1807,7 @@ export function register(D, H) {
     desc: 'Cast-iron fingerpost with a crown finial and three or four pointing arms (PIER, TOWN HALL, BANDSTAND, LIFEBOAT, TEA ROOMS, PROMENADE); arm angles via `arms` [[label, deg], …]. Post collides.',
     params: { arms: '[[label, yaw deg], …]' }, variants: 1, mount: 'ground',
     build(B, o) {
-      const c = K.iron, arms = o.arms ?? [['PIER', 90], ['TOWN HALL', 180], ['BANDSTAND', 0]];
+      const c = K.iron, arms = o.arms ?? [['码头', 90], ['市政厅', 180], ['音乐亭', 0]];
       B.lathe('gloss', c, [[0, 0], [0.16, 0], [0.16, 0.1], [0.1, 0.18], [0.07, 0.3], [0.06, 2.9], [0.08, 2.95], [0.08, 3.02], [0, 3.02]], 0, 0, 0, { seg: 8 });
       B.tor(NS('gloss'), K.gold, 0.065, 0.014, 0, 0.5, 0, { rx: HP, rs: 3, ts: 10 });
       B.lathe('gloss', c, [[0, 0], [0.1, 0], [0.12, 0.08], [0.06, 0.16], [0.08, 0.24], [0, 0.3]], 0, 3.02, 0, { seg: 8 });
@@ -1882,9 +1882,9 @@ export function register(D, H) {
 
   D.tidewater_streetname = {
     desc: 'Cast-iron street name plate on a wall (z = 0, pos = plate centre): white enamel, black letters, a coral key line, fixing bolts; text param.',
-    params: { text: 'TIDEWATER PLAZA', sub: 'second line (optional)' }, variants: 1, mount: 'wall',
+    params: { text: '潮水广场', sub: 'second line (optional)' }, variants: 1, mount: 'wall',
     build(B, o) {
-      const t = o.text ?? 'TIDEWATER PLAZA', w = Math.max(1.0, t.length * 0.11 + 0.3), h = o.sub ? 0.44 : 0.32, bronze = !!o.bronze;
+      const t = o.text ?? '潮水广场', w = Math.max(1.0, t.length * 0.11 + 0.3), h = o.sub ? 0.44 : 0.32, bronze = !!o.bronze;
       B.box(bronze ? 'metal' : 'paint', bronze ? K.bronze : K.ink, w + 0.06, h + 0.06, 0.03, 0, 0, 0.015, { r: 0.02 });
       B.box(bronze ? 'metal' : 'paint', bronze ? shade(K.bronze, 0.8) : K.white, w, h, 0.02, 0, 0, 0.035, { r: 0.02 });
       if (bronze) { letters(B, t, { h: 0.12, x: 0, y: o.sub ? 0.0 : -0.06, z: 0.046, c: '#f0d9a0', flat: true, wt: 0.2, track: 0.1, mat: 'metal' }); if (o.sub) letters(B, o.sub, { h: 0.06, x: 0, y: -0.14, z: 0.046, c: '#f0d9a0', flat: true, wt: 0.24, track: 0.1, mat: 'metal' }); return; }
@@ -1925,7 +1925,7 @@ export function register(D, H) {
       B.add('gloss', tpl('cbhull', () => extrudeGeo([[-0.34, 0], [0.34, 0], [0.4, 0.2], [-0.4, 0.2]], 0.9, 0.02)), K.navy, 0, 0.95, 0, {});
       pbox(B, 'paint', K.white, 0.9, 0.04, 0.72, 0, 1.17, 0);
       B.box('gloss', '#e8793a', 0.4, 0.18, 0.4, 0.1, 1.28, 0, { r: 0.03 });
-      letters(B, 'LIFEBOATS', { h: 0.06, x: 0, y: 0.6, z: 0.252, c: K.white, flat: true, wt: 0.24, track: 0.08 });
+      letters(B, '救生艇', { h: 0.06, x: 0, y: 0.6, z: 0.252, c: K.white, flat: true, wt: 0.24, track: 0.08 });
       COL(B, -0.45, 0, -0.35, 0.45, 1.3, 0.35, { roof: true });
       B.blob(0.9, 0.9);
     },
@@ -2028,8 +2028,8 @@ export const PLACEMENTS = [
   { type: 'tidewater_rampbal', pos: [13.96, 0, -41.5], rotY: -P / 2, length: 3.2, ya: 2.4, yb: 3.8, skirtZ: 0.13 },
   { type: 'tidewater_rampbal', pos: [20.01, 0, STAIR.foot], rotY: P / 2, length: STAIR.foot - STAIR.top, ya: 0, yb: COLO.deckTop, rail: false, skirtZ: 0 },
   // bronze name plaques on the terrace's outer face beside its south + west flights
-  { type: 'tidewater_streetname', pos: [-2.914, 0.42, -8.006], rotY: -2.793, text: 'JUBILEE', sub: '1887', bronze: true },
-  { type: 'tidewater_streetname', pos: [-8.006, 0.42, -2.914], rotY: -1.920, text: 'JUBILEE', sub: '1887', bronze: true },
+  { type: 'tidewater_streetname', pos: [-2.914, 0.42, -8.006], rotY: -2.793, text: '禧年', sub: '1887', bronze: true },
+  { type: 'tidewater_streetname', pos: [-8.006, 0.42, -2.914], rotY: -1.920, text: '禧年', sub: '1887', bronze: true },
   // ---- the terrace: candelabra lamps on the dais corners, a back-to-back bench pair (Turf War only: Zone Control's
   //      centre zone is the terrace, and the benches are cleared off it so the dais is open to fight over)
   { type: 'tidewater_lamp', pos: [-5.1, TERR.daisTop, -5.1], variant: 2 },
@@ -2066,15 +2066,15 @@ export const PLACEMENTS = [
   { type: 'tidewater_urn', ...SQL(-15.2, -17.4), color: '#9a6ac2' },
   { type: 'tidewater_tree', ...SQL(8.0, -33.6), variant: 1, s: 0.95 },
   { type: 'tidewater_tree', ...SQL(-10.0, -18.8), variant: 0 },
-  { type: 'tidewater_fingerpost', ...SQL(-6.6, -33.8), arms: [['PROMENADE', 150], ['TOWN HALL', -90], ['BANDSTAND', 90], ['LIFEBOAT', -150]] },
-  { type: 'tidewater_fingerpost', ...SQL(14.6, -12.8), arms: [['CRESCENT', -20], ['TOWN HALL', -95], ['PIER', 180]] },
+  { type: 'tidewater_fingerpost', ...SQL(-6.6, -33.8), arms: [['海滨长廊', 150], ['市政厅', -90], ['音乐亭', 90], ['救生艇', -150]] },
+  { type: 'tidewater_fingerpost', ...SQL(14.6, -12.8), arms: [['新月', -20], ['市政厅', -95], ['码头', 180]] },
   { type: 'tidewater_bollard', ...SQL(16.4, -8.6), rotY: -P / 2, count: 3, step: 1.3 },
   { type: 'tidewater_drain', ...SQL(-2.4, -27.8) }, { type: 'tidewater_drain', ...SQL(8.6, -19.6) }, { type: 'tidewater_drain', ...SQL(-9.3, -6.2) },
   { type: 'tidewater_drain', ...SQL(3.2, -36.2), r: 0.25 }, { type: 'tidewater_drain', ...SQL(-14.2, -4.3), r: 0.25 },
   { type: 'tidewater_gull', ...SQL(0.44, -31.25), pos: [0.44, SQ + 2.33, -31.25], rotY: -0.8, variant: 2 },
-  { type: 'tidewater_streetname', pos: [13.9, 2.1, -37.35], rotY: -P / 2, text: 'TIDEWATER PLAZA', sub: 'BOROUGH OF TIDEWATER' },
-  { type: 'tidewater_streetname', pos: [9.5, 1.7, -39.2], rotY: P / 2, text: 'HALL LANE' },
-  { type: 'tidewater_streetname', pos: [17.5, 2.6, -17.0], rotY: -P / 2, text: 'THE CRESCENT' },
+  { type: 'tidewater_streetname', pos: [13.9, 2.1, -37.35], rotY: -P / 2, text: '潮水广场', sub: '潮水自治镇' },
+  { type: 'tidewater_streetname', pos: [9.5, 1.7, -39.2], rotY: P / 2, text: '会堂巷' },
+  { type: 'tidewater_streetname', pos: [17.5, 2.6, -17.0], rotY: -P / 2, text: '新月饭店' },
   // ---- the Promenade: shelter, ice-cream kiosk + cart, Punch & Judy, the lifeboat collection box
   { type: 'tidewater_shelter', pos: [-20.5, 0, -19] },
   { type: 'tidewater_icecream', pos: [-23.6, 0, -9] },
@@ -2083,7 +2083,7 @@ export const PLACEMENTS = [
   { type: 'deckchair', pos: [-13.4, 0, -32.9], rotY: 0.15, variant: 1 },
   { type: 'deckchair', pos: [-15.8, 0, -32.6], rotY: -0.3 },
   { type: 'tidewater_rnlibox', pos: [-11.9, 0, -35.4], rotY: -0.5 },
-  { type: 'tidewater_streetname', pos: [-24, 2.1, -4.0], rotY: P / 2, text: 'MARINE PARADE' },
+  { type: 'tidewater_streetname', pos: [-24, 2.1, -4.0], rotY: P / 2, text: '海滨长街' },
   { type: 'tidewater_gull', pos: [-24.45, 3.15, -4.0], rotY: 2.2, variant: 2 },
   // ---- the pier forecourt: its sea railing past the booths, a lamp, a bench
   { type: 'tidewater_searail', pos: [-26.87, 0, 5.5], rotY: -P / 2, length: 3.5, col: false },

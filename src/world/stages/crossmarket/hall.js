@@ -153,7 +153,7 @@ export function registerHall(D, H, KIT) {
         B.box('gloss', IRDK, 6.0, 0.72, 0.1, 0, EN - 1.05, 0.1, { round: true, r: 0.04 });
         B.box('paint', GOLD, 5.84, 0.03, 0.006, 0, EN - 0.74, 0.153, { r: 0.004 });
         B.box('paint', GOLD, 5.84, 0.03, 0.006, 0, EN - 1.36, 0.153, { r: 0.004 });
-        letters(B, 'MARKET HALL', { h: 0.4, x: 0, y: EN - 1.25, z: 0.152, c: GOLD, dep: 0.03, wt: 0.17, track: 0.14, lit: 1.3, litC: '#ffe2a8' });
+        letters(B, '市场大厅', { h: 0.4, x: 0, y: EN - 1.25, z: 0.152, c: GOLD, dep: 0.03, wt: 0.17, track: 0.14, lit: 1.3, litC: '#ffe2a8' });
         for (const sx of [-1, 1]) { B.cyl('metal', GOLD, 0.16, 0.04, sx * 2.72, EN - 1.05, 0.16, { rx: HP, seg: 14 }); B.cyl(NS('metal'), IRDK, 0.1, 0.02, sx * 2.72, EN - 1.05, 0.19, { rx: HP, seg: 12 }); }
         // date cartouche in the tympanum + the town crest
         B.box('paint', K.stoneLt, 1.5, 0.5, 0.08, 0, EC + 0.4, 0.06, { round: true, r: 0.05 });

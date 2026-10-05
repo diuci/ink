@@ -751,7 +751,7 @@ export function register(D, H) {
       B.box('paint', shade(sc, 0.92), W - 0.1, 0.12, 0.3, 0, 0.06, 0.15, { r: 0.02 });
       B.add(NS('gloss'), cylGeo(bR - 0.08, bR - 0.08, 0.02, 20, false, -HP, PI), '#5f8e98', 0, 0.68, 0.16, {});
       B.tor(NS('paint'), shade(sc, 1.02), bR, 0.05, 0, 0.74, 0.16, { rx: HP, arc: PI, ts: 16, rs: 5, rz: 0 });
-      plaqueU(B, 0, 2.07, 'ACQUA', { h: 0.08, w: 0.56 });
+      plaqueU(B, 0, 2.07, '水铺', { h: 0.08, w: 0.56 });
       pbox(B, NS('paint'), '#8a9a74', 0.18, 0.5, 0.01, 0.35, 0.9, 0.165);
       B.col(-bR, 0, 0, bR, 0.8, bR + 0.16);
       B.col(-W / 2, 0, 0, W / 2, 2.5, 0.3, ROOF);
@@ -911,7 +911,7 @@ export function register(D, H) {
         B.sph(NS('paint'), sc, 0.08, 0, ry, 0.05, { ws: 8, hs: 5 });
         for (let k = 0; k < 16; k++) { const a = (k / 16) * TAU; B.box(NS('gloss'), k % 2 ? K.majYel : K.majBlue, 0.12, 0.12, 0.02, Math.cos(a) * 0.72, ry + Math.sin(a) * 0.72, 0.02, { rz: a, r: 0.01 }); }
         // SAN VITO on the frieze
-        letters(B, 'SAN VITO', { h: 0.22, x: 0, y: y1 - 0.66, z: 0.035, c: K.stoneDk, wt: 0.2, track: 0.2, dep: 0.04 });
+        letters(B, '圣维托', { h: 0.22, x: 0, y: y1 - 0.66, z: 0.035, c: K.stoneDk, wt: 0.2, track: 0.2, dep: 0.04 });
         // curved baroque gable above the cornice (both sides of the bell gable)
         for (const s2 of [-1, 1]) {
           const pts = []; for (let i = 0; i <= 10; i++) { const t = i / 10; pts.push(P3(s2 * (2.95 - t * 1.3), y1 + 0.05 + Math.sin(t * HP) * 0.7, 0.02)); }
@@ -1103,7 +1103,7 @@ export function register(D, H) {
       // roof destination board (both sides) on the middle compartment
       const yr = 0.5 + 2.25;
       B.box('paint', '#2f3a4a', 0.08, 0.34, 2.6, 0, yr + 0.22, 0, { r: 0.02 });
-      for (const sx of [-1, 1]) { B.push(sx * 0.045, yr + 0.1, 0, sx * HP); letters(B, o.name ?? 'FUNICOLARE', { h: 0.17, x: 0, y: 0, z: 0, c: '#f0d78a', flat: true, wt: 0.2, track: 0.14, mat: 'glow', glow: 1.0 }); B.pop(); }
+      for (const sx of [-1, 1]) { B.push(sx * 0.045, yr + 0.1, 0, sx * HP); letters(B, o.name ?? '缆车', { h: 0.17, x: 0, y: 0, z: 0, c: '#f0d78a', flat: true, wt: 0.2, track: 0.14, mat: 'glow', glow: 1.0 }); B.pop(); }
       for (const dz of [-0.9, 0.9]) B.box('metal', K.iron, 0.05, 0.12, 0.05, 0, yr + 0.02, dz, { r: 0.01 });
       // colliders: one per compartment (world-axis boxes; the car sits along local Z)
       for (let i = 0; i < ncomp; i++) {
@@ -1141,7 +1141,7 @@ export function register(D, H) {
       B.box('paint', '#2f4a66', 2.6, 0.42, 0.06, 0, sy, Dd / 2 + ov + 0.05, { r: 0.03 });
       B.box(NS('paint'), K.gold, 2.52, 0.34, 0.01, 0, sy, Dd / 2 + ov + 0.082, { r: 0.02 });
       B.box(NS('paint'), '#2f4a66', 2.46, 0.28, 0.01, 0, sy, Dd / 2 + ov + 0.086, { r: 0.02 });
-      B.push(0, sy - 0.08, Dd / 2 + ov + 0.092); letters(B, o.sign ?? 'FUNICOLARE', { h: 0.16, x: 0, y: 0, z: 0, c: '#f3e2b0', flat: true, wt: 0.2, track: 0.16, mat: 'glow', glow: 1.1 }); B.pop();
+      B.push(0, sy - 0.08, Dd / 2 + ov + 0.092); letters(B, o.sign ?? '缆车', { h: 0.16, x: 0, y: 0, z: 0, c: '#f3e2b0', flat: true, wt: 0.2, track: 0.16, mat: 'glow', glow: 1.1 }); B.pop();
       if (o.clock !== false) {
         const cx = W / 2 - 0.15, cz = Dd / 2 - 0.15;
         B.cyl('metal', ic, 0.24, 0.12, cx, Hh - 0.45, cz + 0.2, { rx: HP, seg: 16 });
@@ -1156,7 +1156,7 @@ export function register(D, H) {
         pbox(B, NS('gloss'), K.glassLt, 1.26, 0.6, 0.9, bx, 1.6, bz);
         B.box('paint', K.coppi, 1.5, 0.12, 1.6, bx, 2.08, bz, { r: 0.04 });
         B.box('wood', K.woodLt, 0.5, 0.05, 0.3, bx + 0.7, 1.08, bz, { r: 0.01 });
-        B.push(bx + 0.63, 2.2, bz, HP); letters(B, 'BIGLIETTI', { h: 0.1, x: 0, y: 0, z: 0, c: '#2f4a66', flat: false, dep: 0.03, wt: 0.2 }); B.pop();
+        B.push(bx + 0.63, 2.2, bz, HP); letters(B, '大利铁铺', { h: 0.1, x: 0, y: 0, z: 0, c: '#2f4a66', flat: false, dep: 0.03, wt: 0.2 }); B.pop();
         colBox(B, bx, 0, bz, 1.3, 2.1, 1.4, true);
       }
     },
@@ -1338,7 +1338,7 @@ export function register(D, H) {
       for (const x of [-4.1, 4.1, -8.4, 8.4]) lanternU(B, x * k, F + 2.6);
       B.box('paint', tc, W + 0.3, 0.26, 0.34, 0, T - 0.13, 0.12, { r: 0.04 });
       B.box(NS('paint'), shade(wc, 0.94), W + 0.1, 0.5, 0.05, 0, T - 0.55, 0.025, { r: 0.01 });
-      letters(B, 'VILLA LIMONI', { h: 0.36, x: 0, y: T - 0.72, z: 0.05, c: '#a0845a', wt: 0.19, track: 0.22, dep: 0.07, lit: 0.9, litC: '#ffe3a6' });
+      letters(B, '柠檬别墅', { h: 0.36, x: 0, y: T - 0.72, z: 0.05, c: '#a0845a', wt: 0.19, track: 0.22, dep: 0.07, lit: 0.9, litC: '#ffe3a6' });
       // big terracotta pots with lemon trees against the facade
       for (const x of [-6.2, 6.2]) sub(B, 'terraces_potplant', x * k, F, 0.6, 0, { variant: 0 });
       for (const x of [-9.2, 9.2]) bougainU(B, x * k, F, T + 0.4, 1.6);
@@ -1400,7 +1400,7 @@ export function register(D, H) {
       const px = W < 10 ? 0 : 2.0, pw = Math.min(7.6, W - 0.2);
       B.box('paint', wc, pw, 0.62, 0.3, px, T + 0.31, -0.02, { r: 0.04 });
       B.box('paint', tc, pw + 0.2, 0.1, 0.36, px, T + 0.66, -0.02, { r: 0.03 });
-      letters(B, 'FUNICOLARE', { h: W < 10 ? 0.32 : 0.36, x: px, y: T + 0.14, z: 0.13, c: '#2f4a66', wt: 0.2, track: 0.2, dep: 0.06, lit: 0.9, litC: '#ffe3a6' });
+      letters(B, '缆车', { h: W < 10 ? 0.32 : 0.36, x: px, y: T + 0.14, z: 0.13, c: '#2f4a66', wt: 0.2, track: 0.2, dep: 0.06, lit: 0.9, litC: '#ffe3a6' });
       const cy = T + (W < 10 ? 1.9 : 0.9);
       B.box('paint', wc, 2.2, 1.9, 0.5, tx, cy, -0.1, { r: 0.04 });
       B.add('paint', tpl('ped', () => extrudeGeo([[-0.5, 0], [0.5, 0], [0, 1]], 1, 0.004)), tc, tx, cy + 0.95, -0.1, { ry: HP, sz: 2.5, sy: 0.6, sx: 0.56 });
@@ -1436,7 +1436,7 @@ export function register(D, H) {
         B.lathe('paint', tc, [[0, 0], [0.18, 0], [0.18, 0.06], [0.08, 0.12], [0.16, 0.26], [0.03, 0.42], [0, 0.43]], gx + s2 * 1.2, T + 0.45, 0.1, { seg: 10 });
         colBox(B, gx + s2 * 1.2, F, 0.1, 0.5, T - F, 0.5, true);
       }
-      plaqueU(B, gx - 2.2, F + 2.2, 'GIARDINO', { h: 0.09 });
+      plaqueU(B, gx - 2.2, F + 2.2, '花房', { h: 0.09 });
       // behind the wall: lemon trees, a cypress, a pine, the bougainvillea over the top
       for (const [x, z, s] of [[-5.5, -2, 1], [-1.5, -3, 2], [4.5, -2.5, 3], [-3.5, -5.5, 4], [2.5, -6, 5]]) {
         B.tube(NS('wood'), K.bark, [P3(x, T - 1.5, z), P3(x + 0.1, T + 0.6, z)], 0.08, { radial: 5 });
@@ -1579,7 +1579,7 @@ export function register(D, H) {
       B.lathe('metal', '#8f9aa0', [[0, 0], [R + 0.35, -0.02], [R + 0.36, 0.06], [R * 0.7, 0.35], [R * 0.35, 0.62], [0.12, 0.72], [0, 0.74]], 0, H1, 0, { seg: 16 });
       for (let k = 0; k < 16; k++) { const a = (k / 16) * TAU; B.sph(NS('metal'), '#8f9aa0', 0.07, Math.cos(a) * (R + 0.32), H1 - 0.03, Math.sin(a) * (R + 0.32), { ws: 6, hs: 3, half: true, rx: PI }); }
       B.lathe('metal', K.gold, [[0, 0], [0.05, 0], [0.07, 0.08], [0.02, 0.2], [0.04, 0.26], [0, 0.3]], 0, H1 + 0.72, 0, { seg: 8 });
-      for (const f of [0, PI]) { B.push(0, 0, 0, f); B.box('paint', gcd, 1.25, 0.24, 0.05, 0, H1 - 0.2, R + 0.02, { r: 0.02 }); letters(B, 'GIORNALI', { h: 0.14, x: 0, y: H1 - 0.27, z: R + 0.05, c: K.cream, flat: true, wt: 0.2, track: 0.14 }); B.pop(); }
+      for (const f of [0, PI]) { B.push(0, 0, 0, f); B.box('paint', gcd, 1.25, 0.24, 0.05, 0, H1 - 0.2, R + 0.02, { r: 0.02 }); letters(B, '报刊', { h: 0.14, x: 0, y: H1 - 0.27, z: R + 0.05, c: K.cream, flat: true, wt: 0.2, track: 0.14 }); B.pop(); }
       B.cyl(NS('glow'), K.lamp, 0.06, 0.08, 0, H1 - 0.05, R + 0.18, { seg: 10, glow: 1.5 });
       B.col(-R, 0, -R, R, H1, R, ROOF);
       B.blob(2.4, 2.4);
@@ -1811,33 +1811,33 @@ export const PLACEMENTS = [
   // ================= the funicular: track, car stopped halfway, lower + upper station canopies
   { type: 'terraces_track', pos: [trackFoot[0], 0, trackFoot[1]], rotY: up, run: iD[2], rise: 4.8 },
   (() => { const p = incAt(0.5, -0.9); return { type: 'terraces_funicar', pos: [p[0], 2.4, p[1]], rotY: up }; })(),
-  (() => { const p = incAt(1.03, -0.9); return { type: 'terraces_station', pos: [p[0], 0, p[1]], rotY: down, w: 1.9, d: 2.0, h: 2.8, sign: 'FUNICOLARE' }; })(),
-  { type: 'terraces_station', pos: [-24.6, 4.8, -43.2], rotY: 0, w: 3.4, d: 3.6, h: 2.8, sign: 'STAZIONE', clock: false },
+  (() => { const p = incAt(1.03, -0.9); return { type: 'terraces_station', pos: [p[0], 0, p[1]], rotY: down, w: 1.9, d: 2.0, h: 2.8, sign: '缆车' }; })(),
+  { type: 'terraces_station', pos: [-24.6, 4.8, -43.2], rotY: 0, w: 3.4, d: 3.6, h: 2.8, sign: '小车站', clock: false },
 
   // ================= the crescent round the piazza
   dress(H.caffe, {
     0: [{ t: 'shop', x: -1.3, y: 0, w: 2.3, h: 2.1, frame: '#3f5f7f', lit: 1.0 }, { t: 'door', x: 1.5, y: 0, w: 1.0, h: 2.2, arch: false, leaf: '#3f5f7f', frame: '#e9e2d3' },
       { t: 'awning', x: -1.3, y: 2.5, w: 2.5, cA: BLUE }, { t: 'lamp', x: 2.45, y: 2.4 }, { t: 'win', x: 1.5, y: 2.55, w: 0.7, h: 0.8, shut: BLUE }],
-    1: [{ t: 'win', x: 0.6, y: 2.0, w: 0.7, h: 0.95, shut: BLUE, box: true }, { t: 'plaque', x: -1.2, y: 2.4, text: 'VICOLO DEL SOLE', h: 0.065 }, { t: 'lamp', x: -0.3, y: 3.0 }],
+    1: [{ t: 'win', x: 0.6, y: 2.0, w: 0.7, h: 0.95, shut: BLUE, box: true }, { t: 'plaque', x: -1.2, y: 2.4, text: '阳光巷', h: 0.065 }, { t: 'lamp', x: -0.3, y: 3.0 }],
     3: [{ t: 'door', x: 0.9, y: 0, w: 0.9, h: 2.05, leaf: BLUE }, { t: 'win', x: -1.0, y: 1.2, w: 0.7, h: 1.0, shut: BLUE }, { t: 'bougain', x: 1.9, y: 0, y1: 3.4, w: 1.1 }, { t: 'pipe', x: -2.05, y0: 0, y1: 3.6 }],
     2: [{ t: 'plaque', x: 1.4, y: 3.05, text: '12', h: 0.1, w: 0.26 }],
   }, { roof: 'flat', cope: [0, 1, 3] }),
   { type: 'terraces_house', pos: [U.caffe.cx, 0, U.caffe.cz], rotY: rad(U.caffe.rot), w: U.caffe.w, d: U.caffe.d, top: U.caffe.top, color: U.caffe.color, roof: 'gable', rise: 1.0, alongX: true,
-    faces: { 0: [{ t: 'sign', x: 0, y: 4.9, text: 'CAFFÈ', h: 0.4, c: '#35506e', lit: 0.9, litC: '#ffe3a6' }, { t: 'win', x: 1.3, y: 3.95, w: 0.7, h: 0.85, shut: BLUE, lit: 0.9 }, { t: 'door', x: -1.2, y: 3.6, w: 0.85, h: 2.0, leaf: BLUE }],
+    faces: { 0: [{ t: 'sign', x: 0, y: 4.9, text: '咖啡馆', h: 0.4, c: '#35506e', lit: 0.9, litC: '#ffe3a6' }, { t: 'win', x: 1.3, y: 3.95, w: 0.7, h: 0.85, shut: BLUE, lit: 0.9 }, { t: 'door', x: -1.2, y: 3.6, w: 0.85, h: 2.0, leaf: BLUE }],
       3: [{ t: 'gnomon', x: 0, y: 5.75 }], 1: [{ t: 'win', x: 0, y: 4.3, w: 0.7, h: 1.1, shut: BLUE, lit: 0.9 }] } },
   onP('terraces_pergola', H.caffe.psi + 6, 15.0, { y: 3.6, rotY: rad(H.caffe.rot), w: 2.6, d: 2.2, h: 2.2, variant: 0, pillars: [[-1.1, 0.9], [1.1, 0.9]] }),
   onP('terraces_cafe', H.caffe.psi + 5, 14.9, { y: 3.6, variant: 0, seed: 0.9 }),
   dress(H.ceramiche, {
     0: [{ t: 'shop', x: -1.2, y: 0, w: 2.1, h: 2.0, frame: '#2f5f8a', goods: 'ceramics', lit: 0.8 }, { t: 'door', x: 1.25, y: 0, w: 1.0, h: 2.05, arch: false, leaf: '#2f5f8a', frame: '#e9e2d3' },
-      { t: 'sign', x: 0, y: 2.55, text: 'CERAMICHE', h: 0.2, c: '#2f5f8a', flat: true }, { t: 'plates', x: 0, y: 3.05, n: 5 }, { t: 'lamp', x: 2.1, y: 2.35 }],
+      { t: 'sign', x: 0, y: 2.55, text: '瓷砖行', h: 0.2, c: '#2f5f8a', flat: true }, { t: 'plates', x: 0, y: 3.05, n: 5 }, { t: 'lamp', x: 2.1, y: 2.35 }],
     3: [{ t: 'plates', x: 0.2, y: 1.8, n: 4 }, { t: 'niche', x: -1.3, y: 1.9 }],
-    1: [{ t: 'win', x: -0.2, y: 1.9, w: 0.7, h: 0.95, shut: '#2f5f8a', grille: true }, { t: 'plaque', x: 1.2, y: 2.9, text: 'PASSO', h: 0.07 }],
+    1: [{ t: 'win', x: -0.2, y: 1.9, w: 0.7, h: 0.95, shut: '#2f5f8a', grille: true }, { t: 'plaque', x: 1.2, y: 2.9, text: '山道', h: 0.07 }],
   }, { roof: 'flat', cope: [0, 1, 3] }),
   { type: 'terraces_house', pos: [U.ceramiche.cx, 0, U.ceramiche.cz], rotY: rad(U.ceramiche.rot), w: U.ceramiche.w, d: U.ceramiche.d, top: U.ceramiche.top, color: U.ceramiche.color, roof: 'gable', rise: 0.9,
     faces: { 0: [{ t: 'balc', x: 0, y: 3.9, w: 1.5, shut: '#2f5f8a', lit: 0.9, trail: 0.4 }], 1: [{ t: 'win', x: 0, y: 4.2, w: 0.7, h: 1.0, shut: '#2f5f8a' }] }, chimneys: [[-1.0, -0.4]] },
   onP('terraces_potplant', H.ceramiche.psi - 7, 14.2, { y: 3.6, variant: 0 }),
   dress(H.mare, {
-    0: [{ t: 'shop', x: -0.8, y: 0, w: 1.9, h: 1.95, frame: GREEN, goods: 'lemons', lit: 0.8 }, { t: 'door', x: 1.3, y: 0, w: 0.9, h: 2.0, leaf: GREEN }, { t: 'sign', x: -0.8, y: 2.05, text: 'LIMONCELLO', h: 0.13, c: '#c69a1e', flat: true }],
+    0: [{ t: 'shop', x: -0.8, y: 0, w: 1.9, h: 1.95, frame: GREEN, goods: 'lemons', lit: 0.8 }, { t: 'door', x: 1.3, y: 0, w: 0.9, h: 2.0, leaf: GREEN }, { t: 'sign', x: -0.8, y: 2.05, text: '柠檬酒', h: 0.13, c: '#c69a1e', flat: true }],
     3: [{ t: 'win', x: 0.3, y: 1.35, w: 0.6, h: 0.8, shut: GREEN, box: true, flowers: '#f7f3ea' }],
     1: [{ t: 'win', x: 0, y: 1.0, w: 0.7, h: 1.0, shut: GREEN }, { t: 'lamp', x: 1.2, y: 2.0 }],
   }, { roof: 'flat', cope: [0, 3] }),
