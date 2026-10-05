@@ -560,9 +560,17 @@ class Game {
       this.voice = new VoiceAnswer((text, isFinal) => {
         const q = this.match?.quiz;
         if (!q?.active) return;
-        const won = q.answerByText(text, this.match.local);
+        // isFinal 必须传下去：识别引擎持续吐中途结果，只念了开头两三个字时
+        // 不该急着结算（那几个字常常正好是某个干扰项的前缀）
+        const won = q.answerByText(text, this.match.local, isFinal);
         if (won !== null) { this._voiceOn = false; this.voice?.stop?.(); }
         else if (isFinal) this.hud?.banner?.('custom', `没听清「${text}」`);
+      }, (code, msg) => {
+        // 致命错误：必须停下来并告诉玩家。
+        // 否则表现是「红点一直闪、永远匹配不上」，看起来像自己念错了。
+        // _voiceOn 归零，HUD 上那三个呼吸点也会随之熄灭。
+        this._voiceOn = false;
+        this.hud?.banner?.('custom', msg);
       });
     }
     if (!this.voice.supported) {

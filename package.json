@@ -21,7 +21,7 @@
     "smoke": "./tools/smoke.sh",
     "smoke-win": "node tools/smoke-win.mjs",
     "smoke-zones": "node tools/smoke-zones.mjs",
-    "test-poems": "node tools/test-link.mjs && node tools/test-zones-flow.mjs && node tools/check-weapon-poems.mjs && node tools/check-quiz-claim.mjs",
+    "test-poems": "node tools/test-link.mjs && node tools/test-zones-flow.mjs && node tools/check-weapon-poems.mjs && node tools/check-quiz-claim.mjs && node tools/check-voice-quiz.mjs",
     "poems-selfcheck": "node -e \"import('./src/game/poems/poems.js').then(m=>{const p=m.verifyContent();console.log(p.length?'✗ '+p.length+' 项':'✓ 内容自检通过')})\"",
     "sync-poems": "python tools/sync-poems.py",
     "net-test": "node tools/net-test.mjs",

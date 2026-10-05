@@ -37,6 +37,11 @@ export const QUIZ = {
 
 const rnd = (a, b) => a + Math.random() * (b - a);
 
+// 语音匹配的最短可信长度：对上不到这么多字就当作「还没说完」。
+// 3 个字是权衡出来的——2 个字太容易和别的选项撞，4 个字又会把
+// 「鹅鹅鹅」这类三字短句挡在外面（干扰项本来就都 ≥3 字，见 _makeQuestion）。
+const VOICE_MIN = 3;
+
 export class PoemQuiz {
   constructor(match) {
     this.match = match;
@@ -140,23 +145,49 @@ export class PoemQuiz {
     return ok;
   }
 
-  // 语音识别到文本后调用：匹配是否命中某个选项
-  answerByText(text, actor = null) {
+  // 语音识别到文本后调用：把「听到的」匹配到某个选项上。
+  //
+  // 这里踩过两个坑，都是语音识别特有的：
+  //
+  // 1. **不能第一个命中就break**。识别引擎经常把整句一起吐出来
+  //    （continuous + interimResults，下句连着上句一起出），
+  //    那时三个选项都在句子里，排在最前的干扰项会先命中 → 直接判错。
+  //    所以改成收集**全部**命中项再排序：先看是不是完整念出（exact），
+  //    再看对上了几个字。念全句比只对上三个字更可信。
+  //
+  // 2. **中途结果不能急着结算**。interim 只吐出开头两三个字很常见，
+  //    而这几个字又常常正好是某个干扰项的前缀（春眠 / 低头…）。
+  //    命中不足 3 个字一律不结算，等他把话说完。
+  //
+  // isFinal 是识别引擎给的「这句话说完了」标志：中途结果要求更严格。
+  answerByText(text, actor = null, isFinal = true) {
     const a = this.active;
     if (!a || a.answeredBy || !text) return null;
     const norm = (s) => String(s).replace(/[^\u4e00-\u9fff]/g, '');
     const said = norm(text);
     if (!said) return null;
-    // 命中判定：说出的内容包含某个选项全文，或选项包含说出内容（至少 3 字）
-    let hit = -1;
+
+    const hits = [];
     for (let i = 0; i < a.options.length; i++) {
       const o = norm(a.options[i].text);
       if (!o) continue;
-      if (said.includes(o) || (said.length >= 3 && o.includes(said))) { hit = i; break; }
+      // 念出了整句：说的大声里含着它
+      if (said.includes(o)) { hits.push({ i, n: o.length, exact: true }); continue; }
+      // 只念了一半：它含着说的，且说得够长才算数（否则「春」这种单字会乱命中）
+      if (said.length >= VOICE_MIN && o.includes(said)) hits.push({ i, n: said.length, exact: false });
     }
-    if (hit < 0) return null;
-    const ok = hit === a.correct;
-    this._resolve({ actor: actor || this.match.local, idx: hit, ok, byVoice: true });
+    if (!hits.length) return null;
+    hits.sort((x, y) => (y.exact - x.exact) || (y.n - x.n));
+
+    const best = hits[0];
+    if (best.n < VOICE_MIN) return null;                      // 对得太少，继续听
+    if (!isFinal && !(best.exact && best.n >= VOICE_MIN)) return null;   // 中途结果，多等一下
+    // 多个选项对得上、且难分高下（比如把整首诗念了一遍）→ 宁可等，也别乱判。
+    // 屏幕上三个选项都摆着，他大可以按 1/2/3。
+    if (hits.length > 1 && hits[0].exact === hits[1].exact && hits[0].n === hits[1].n) return null;
+
+    const ok = best.i === a.correct;
+    this._resolve({ actor: actor || this.match.local, idx: best.i, ok, byVoice: true });
     return ok;
   }
 
@@ -190,9 +221,23 @@ export class PoemQuiz {
 
 // ---------------------------------------------------------------- 语音答题（可选）
 // Web Speech API：Chrome/Edge/Safari 支持，Firefox 需要 160+。音频会上传到浏览器厂商的服务器。
+//
+// 识别错误的处置。**必须区分「致命」与「正常」**：
+//   no-speech / aborted 在 continuous 模式下会经常出现，那是正常的，不该弹提示；
+//   其余的（权限、网络、麦克风）如果不告诉玩家，他只看到红点在闪、
+//   永远等不到匹配，还以为是自己念错了——那才是真正劝退的地方。
+const VOICE_FATAL = {
+  'not-allowed': '麦克风权限被拒绝：点地址栏的权限图标，把它改成「允许」',
+  'service-not-allowed': '系统没给这个网页麦克风权限：检查浏览器的站点设置',
+  'audio-capture': '找不到麦克风：确认设备已连接、没有被别的程序占用',
+  'network': '连不上语音识别服务：识别是在浏览器厂商的服务器上做的，网络不通就识别不了。改用 1/2/3 按键答题即可',
+  'language-not-supported': '这个浏览器不支持中文语音识别，换 Chrome/Edge 或用按键答题',
+};
+
 export class VoiceAnswer {
-  constructor(onText) {
+  constructor(onText, onError) {
     this.onText = onText;
+    this.onError = onError || null;
     this.rec = null;
     this.on = false;
     this.supported = typeof window !== 'undefined' &&
@@ -215,7 +260,16 @@ export class VoiceAnswer {
           if (txt) this.onText(txt.trim(), e.results[i].isFinal);
         }
       };
-      rec.onerror = (e) => { this.lastError = e.error || 'error'; };
+      rec.onerror = (e) => {
+        const code = e.error || 'error';
+        this.lastError = code;
+        // 只对致命错误喊停；no-speech / aborted 是 continuous 模式的日常噪声
+        if (this.onError && VOICE_FATAL[code]) {
+          this.on = false;
+          try { rec.stop(); } catch { /* already stopped */ }
+          this.onError(code, VOICE_FATAL[code]);
+        }
+      };
       rec.onend = () => { if (this.on) { try { rec.start(); } catch { /* restart guard */ } } };
       rec.start();
       this.rec = rec; this.on = true;

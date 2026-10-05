@@ -199,7 +199,7 @@ const SETTINGS_TABS = [
     { key: 'difficulty', label: '默认电脑强度', type: 'seg', options: null, help: '新对局的初始难度。' },
     { key: 'matchLength', label: '默认对局时长', type: 'seg', options: null, help: '每场涂地战打多久。' },
     { key: 'quiz', label: '接诗答题', type: 'toggle', help: '对局中弹出诗句上句，按 1/2/3 接出下句。答对全队大招+。' },
-    { key: 'voiceQuiz', label: '语音答题', type: 'toggle', help: '直接把下句念出来。需要麦克风，识别在浏览器厂商的服务器上完成。' },
+    { key: 'voiceQuiz', label: '语音答题', type: 'toggle', help: '直接把下句念出来。需要麦克风权限；识别由浏览器厂商的服务器完成，所以要能联网，识别不了时按 1/2/3 照常答题。' },
   ] },
 ];
 const TAB_BLURB = {
