@@ -64,11 +64,15 @@ def main():
     built = src / 'data' / 'poems.json'
     if not built.exists() or src == DEFAULT_SRC:
         print('[sync] 在内容仓执行 build.py …')
+        # encoding 必须显式给，且 errors='replace'：Windows 下子进程的 stdout
+        # 是 GBK，按 utf-8 严格解会抛 UnicodeDecodeError，
+        # 连带 r.stdout 变成 None，下一行再炸一次。
         r = subprocess.run([sys.executable, 'tools/build.py'], cwd=src,
-                           capture_output=True, text=True, encoding='utf-8')
+                           capture_output=True, text=True,
+                           encoding='utf-8', errors='replace')
         if r.returncode != 0:
             die('内容仓构建失败：\n' + (r.stderr or r.stdout))
-        print('       ' + r.stdout.strip().splitlines()[0])
+        print('       ' + (r.stdout or '').strip().splitlines()[0])
 
     if not built.exists():
         die('内容仓没有 data/poems.json')
