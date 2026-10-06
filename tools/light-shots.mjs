@@ -7,6 +7,7 @@
 // outputs: <outDir>/<stage>-<time>-<cam>.png, <outDir>/perf.json (with --perf)
 // One headless Chrome for the whole run; always closed (also on error / SIGINT).
 import puppeteer from 'puppeteer-core';
+import { findBrowser } from './browser.mjs';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { MAPS, TIMES } from '../src/config.js';
@@ -139,7 +140,7 @@ async function inPage(P) {
 }
 
 const browser = await puppeteer.launch({
-  executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+  executablePath: findBrowser(),
   headless: 'new',
   args: ['--use-angle=metal', '--enable-gpu', '--ignore-gpu-blocklist', '--autoplay-policy=no-user-gesture-required', `--window-size=${W},${H}`],
   defaultViewport: { width: W, height: H, deviceScaleFactor: 1 },

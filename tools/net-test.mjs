@@ -16,6 +16,7 @@
 //   error   distance from the owner's path at that delay (RMS / p99)
 //   tele    frames that move > 1.2 m outside a respawn / super jump
 import puppeteer from 'puppeteer-core';
+import { findBrowser } from './browser.mjs';
 import { mkdirSync } from 'node:fs';
 
 const args = process.argv.slice(2);
@@ -43,7 +44,7 @@ watchdog.unref?.();
 const browsers = [], pages = [], logs = [];
 async function open(i) {
   const b = await puppeteer.launch({
-    executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+    executablePath: findBrowser(),
     headless: 'new',
     args: ['--use-angle=metal', '--enable-gpu', '--ignore-gpu-blocklist', '--autoplay-policy=no-user-gesture-required', `--window-size=${W},${H}`,
       '--disable-background-timer-throttling', '--disable-renderer-backgrounding', '--disable-backgrounding-occluded-windows'],

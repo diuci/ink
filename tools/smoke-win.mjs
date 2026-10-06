@@ -2,6 +2,7 @@
 // 用法： node tools/smoke-win.mjs [url]
 // 启动游戏 → 自动驾驶 8 秒 → 检查 console 错误 → 打印状态。有错误则退出码 1。
 import puppeteer from 'puppeteer-core';
+import { findBrowser } from './browser.mjs';
 import { existsSync } from 'node:fs';
 
 const URL_ = process.argv[2] || 'http://127.0.0.1:8490/?autostart=60&autopilot&shadercheck';
@@ -13,7 +14,7 @@ const CANDIDATES = [
   process.env.LOCALAPPDATA + '\\Google\\Chrome\\Application\\chrome.exe',
   'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe',
   'C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe',
-  '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+  findBrowser(),
   '/usr/bin/google-chrome',
   '/usr/bin/chromium',
 ];
