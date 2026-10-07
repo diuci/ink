@@ -1,6 +1,7 @@
 MIT License
 
 Copyright (c) 2026 Jayden Davis
+Copyright (c) 2026 丢词大作战 (Diuci Games) and contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,3 +20,17 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+---
+
+本仓是 Inkwave 的 Fork，MIT 许可，上游版权归 Jayden Davis。
+
+上面的 MIT 覆盖本仓的代码。以下第三方内容不在 MIT 范围内，各自带自己的许可：
+
+- `vendor/three/` —— three.js（MIT，见 vendor/three/LICENSE）
+- `assets/fonts/` —— Rubik、Titan One（SIL Open Font License 1.1，见 assets/fonts/LICENSE）
+- 游戏内出现的古诗文原文 —— 公有领域（判定规则：作者卒年 ≤ 当前年 − 50，
+  逐篇证据见 diuci/k12-chinese-poetry 的 authorDied 字段）；注释与选篇编排 CC BY 4.0。
+- `songs/` —— 只放我们有权放的音乐，逐首的授权记录见 songs/README.md。
+
+完整版权与免责说明见 <https://k12.diuci.com/legal/>。侵权通知：hi@diuci.com。
+

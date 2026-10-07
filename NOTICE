@@ -1,0 +1,7 @@
+# NOTICE
+
+本仓是 [inkwave](https://github.com/jaydendavisnc/inkwave) 的 Fork，MIT，上游版权归 Jayden Davis。
+第三方代码与素材逐目录带自己的许可：vendor/three（MIT）、assets/fonts（SIL OFL 1.1）。
+游戏里的古诗文原文属公有领域（作者卒年 ≤ 当前年 − 50，逐篇可核验）；
+注释、选篇与编排按 CC BY 4.0 授权，署名「来源：k12-chinese-poetry / 丢词大作战」。
+完整版权与免责说明见 <https://k12.diuci.com/legal/>；侵权通知：hi@diuci.com。
