@@ -2308,7 +2308,8 @@ export class Menus {
       sec('渲染', 'three.js', h('p', { class: 'dim' }, '由 three.js 的作者和贡献者们开发')),
       sec('字体', 'Titan One — Font Diner', 'Rubik — Hubert & Fischer', h('p', { class: 'dim' }, 'SIL 开放字体许可')),
       sec('古诗文内容', '游戏里出现的诗句原文属公有领域 —— 判定只有一条：作者卒年 ≤ 当前年 − 50，逐篇可核验。',
-        h('p', { class: 'dim' }, '来源 k12-chinese-poetry · 注释与选篇 CC BY 4.0 · 版权与免责 k12.diuci.com/legal · 侵权通知 hi@diuci.com')),
+        h('p', { class: 'dim' }, '来源 k12-chinese-poetry · 注释与选篇 CC BY 4.0 · 版权与免责 k12.diuci.com/legal · 侵权通知 hi@diuci.com'),
+        h('p', { class: 'dim' }, '同一批课文还能这样玩：连词成句 lian.diuci.com（把课文连出来再排回顺序）· 古诗文库 k12.diuci.com')),
       sec('主演：这群小乌贼', cast),
       sec('特别感谢', '每一个往墙上涂过墨的人', '每一只在测试里被淘汰的电脑', '还有你，谢谢你愿意来玩'),
       h('div', { class: 'iw-cred__end' }, h('div', { class: 'iw-cred__endsplat', html: splatSVG({ seed: 77, cls: 'iw-fa' }) }), h('span', { class: 'iw-display' }, '保持新鲜！')));
